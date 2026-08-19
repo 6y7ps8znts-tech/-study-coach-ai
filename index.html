@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Study Coach AI</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", sans-serif;
+    color: #f8fafc;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(56,189,248,.18), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(139,92,246,.2), transparent 30%),
+        #050816;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 38px 38px;
+    pointer-events: none;
+}
+
+.app {
+    position: relative;
+    max-width: 560px;
+    margin: auto;
+    padding: 20px 16px 60px;
+}
+
+/* TOP */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    background: linear-gradient(135deg,#22d3ee,#6366f1,#a855f7);
+    box-shadow: 0 0 30px rgba(56,189,248,.3);
+}
+
+.brand-name {
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.brand-sub {
+    font-size: 8px;
+    color: #64748b;
+    letter-spacing: 1.5px;
+}
+
+.online {
+    font-size: 9px;
+    color: #86efac;
+    border: 1px solid rgba(74,222,128,.2);
+    background: rgba(74,222,128,.06);
+    padding: 7px 10px;
+    border-radius: 99px;
+}
+
+.online span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    margin-right: 5px;
+    box-shadow: 0 0 10px #4ade80;
+}
+
+/* HERO */
+
+.hero h1 {
+    margin: 0;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -3px;
+}
+
+.gradient {
+    background: linear-gradient(90deg,#67e8f9,#818cf8,#c084fc);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    color: #94a3b8;
+    line-height: 1.8;
+    font-size: 13px;
+}
+
+/* =========================
+   AI CHARACTER
+========================= */
+
+.ai-section {
+    margin-top: 25px;
+    position: relative;
+}
+
+.ai-card {
+    position: relative;
+    min-height: 280px;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid rgba(148,163,184,.12);
+    background:
+        radial-gradient(circle at 50% 70%, rgba(56,189,248,.12), transparent 35%),
+        rgba(15,23,42,.65);
+    backdrop-filter: blur(20px);
+}
+
+/* floating particles */
+
+.particle {
+    position: absolute;
+    color: #67e8f9;
+    opacity: .5;
+    animation: particleFloat 4s ease-in-out infinite;
+}
+
+.p1 { top: 25px; left: 25px; }
+.p2 { top: 50px; right: 35px; animation-delay: 1s; }
+.p3 { bottom: 45px; left: 55px; animation-delay: 2s; }
+.p4 { bottom: 30px; right: 55px; animation-delay: .5s; }
+
+@keyframes particleFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* speech bubble */
+
+.speech {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    padding: 14px 17px;
+    border-radius: 18px;
+    background: rgba(30,41,59,.9);
+    border: 1px solid rgba(125,211,252,.15);
+    color: #e0f2fe;
+    font-size: 12px;
+    line-height: 1.7;
+    box-shadow: 0 15px 40px rgba(0,0,0,.25);
+}
+
+.speech strong {
+    color: #67e8f9;
+}
+
+/* CHARACTER */
+
+.character {
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 145px;
+    height: 170px;
+    animation: characterFloat 3s ease-in-out infinite;
+}
+
+@keyframes characterFloat {
+    0%,100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(-7px);
+    }
+}
+
+/* hair */
+
+.hair {
+    position: absolute;
+    width: 108px;
+    height: 110px;
+    left: 18px;
+    top: 3px;
+    border-radius: 48% 52% 42% 45%;
+    background: linear-gradient(135deg,#172554,#312e81);
+    box-shadow: 0 0 30px rgba(99,102,241,.3);
+}
+
+/* face */
+
+.face {
+    position: absolute;
+    width: 86px;
+    height: 92px;
+    left: 30px;
+    top: 28px;
+    border-radius: 46% 46% 48% 48%;
+    background: linear-gradient(145deg,#ffe4d6,#ffd1c1);
+    box-shadow: inset 0 -5px 10px rgba(255,150,130,.1);
+}
+
+/* ears */
+
+.ear-left,
+.ear-right {
+    position: absolute;
+    width: 15px;
+    height: 22px;
+    top: 63px;
+    background: #ffd1c1;
+    border-radius: 50%;
+}
+
+.ear-left { left: 24px; }
+.ear-right { right: 24px; }
+
+/* eyes */
+
+.eye {
+    position: absolute;
+    top: 63px;
+    width: 9px;
+    height: 13px;
+    border-radius: 50%;
+    background: #172554;
+}
+
+.eye-left { left: 51px; }
+.eye-right { right: 51px; }
+
+.eye::after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+}
+
+/* mouth */
+
+.mouth {
+    position: absolute;
+    left: 68px;
+    top: 82px;
+    width: 10px;
+    height: 6px;
+    border-bottom: 2px solid #be6670;
+    border-radius: 50%;
+}
+
+/* body */
+
+.body {
+    position: absolute;
+    width: 100px;
+    height: 58px;
+    left: 23px;
+    bottom: 0;
+    border-radius: 35px 35px 18px 18px;
+    background: linear-gradient(135deg,#0ea5e9,#6366f1);
+    box-shadow: 0 15px 30px rgba(37,99,235,.25);
+}
+
+.body::after {
+    content: "SC";
+    position: absolute;
+    left: 39px;
+    top: 18px;
+    font-weight: 900;
+    font-size: 12px;
+    color: rgba(255,255,255,.8);
+}
+
+/* little antenna */
+
+.antenna {
+    position: absolute;
+    width: 3px;
+    height: 23px;
+    background: #67e8f9;
+    left: 70px;
+    top: -16px;
+}
+
+.antenna::before {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    left: -3px;
+    top: -5px;
+    border-radius: 50%;
+    background: #67e8f9;
+    box-shadow: 0 0 15px #67e8f9;
+}
+
+/* character label */
+
+.character-name {
+    position: absolute;
+    bottom: 13px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: #64748b;
+    letter-spacing: 2px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.main-button {
+    width: 100%;
+    margin-top: 12px;
+    padding: 15px;
+    border: none;
+    border-radius: 17px;
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    background: linear-gradient(90deg,#0891b2,#6366f1,#8b5cf6);
+    box-shadow: 0 15px 35px rgba(99,102,241,.25);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.main-button:hover {
+    transform: translateY(-2px);
+}
+
+.quick-chat {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.quick-chat button {
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(148,163,184,.1);
+    background: rgba(15,23,42,.65);
+    color: #cbd5e1;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-top: 14px;
+}
+
+.stat {
+    padding: 15px;
+    border-radius: 19px;
+    background: rgba(15,23,42,.62);
+    border: 1px solid rgba(148,163,184,.08);
+}
+
+.stat-label {
+    color: #64748b;
+    font-size: 8px;
+}
+
+.stat-number {
+    margin-top: 5px;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.stat-number small {
+    font-size: 9px;
+    color: #94a3b8;
+}
+
+/* =========================
+   UPLOAD
+========================= */
+
+.upload-card {
+    margin-top: 15px;
+    padding: 20px;
+    border-radius: 25px;
+    background: rgba(15,23,42,.7);
+    border: 1px solid rgba(148,163,184,.1);
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 850;
+    margin-bottom: 6px;
+}
+
+.section-sub {
+    color: #64748b;
+    font-size: 10px;
+    margin-bottom: 15px;
+}
+
+.upload-label {
+    min-height: 145px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    border: 1px dashed rgba(56,189,248,.25);
+    border-radius: 20px;
+    cursor: pointer;
+    background: rgba(2,6,23,.35);
+}
+
+.upload-icon {
+    font-size: 28px;
+}
+
+.upload-title {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.upload-sub {
+    color: #475569;
+    font-size: 8px;
+}
+
+#image-upload {
+    display: none;
+}
+
+#preview {
+    display: none;
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    margin-top: 14px;
+    border-radius: 18px;
+    background: #020617;
+}
+
+/* AI ANSWER */
+
+#loading {
+    display: none;
+    text-align: center;
+    padding: 25px;
+    color: #67e8f9;
+    font-size: 11px;
+}
+
+#answer {
+    display: none;
+    margin-top: 14px;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(2,6,23,.55);
+    border: 1px solid rgba(56,189,248,.12);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+#question-area {
+    display: none;
+    margin-top: 12px;
+}
+
+#question {
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+    border-radius: 15px;
+    padding: 12px;
+    background: rgba(2,6,23,.6);
+    border: 1px solid rgba(148,163,184,.1);
+    color: white;
+    outline: none;
+    font-family: inherit;
+}
+
+#question-button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 13px;
+    border: none;
+    border-radius: 14px;
+    background: #1e293b;
+    color: #cbd5e1;
+    font-weight: 800;
+}
+
+/* FOOTER */
+
+.footer {
+    text-align: center;
+    color: #334155;
+    font-size: 8px;
+    margin-top: 35px;
+    letter-spacing: 1.5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <div class="topbar">
+
+        <div class="brand">
+
+            <div class="logo">
+                SC
+            </div>
+
+            <div>
+                <div class="brand-name">
+                    Study Coach AI
+                </div>
+
+                <div class="brand-sub">
+                    NEXT GENERATION LEARNING
+                </div>
+            </div>
+
+        </div>
+
+        <div class="online">
+            <span></span>
+            AI ONLINE
+        </div>
+
+    </div>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>
+            勉強を、<br>
+            <span class="gradient">
+                AIと楽しもう。
+            </span>
+        </h1>
+
+        <p>
+            分からない問題を送るだけ。<br>
+            AIコーチが、あなたの理解に合わせて一緒に考えます。
+        </p>
+
+    </section>
+
+
+    <!-- AI CHARACTER -->
+
+    <section class="ai-section">
+
+        <div class="ai-card">
+
+            <div class="particle p1">✦</div>
+            <div class="particle p2">✧</div>
+            <div class="particle p3">·</div>
+            <div class="particle p4">✦</div>
+
+
+            <div class="speech">
+
+                <strong>コーチ：</strong>
+
+                やっほー！👋<br>
+
+                今日も一緒に勉強しよ！
+                分からない問題があったら、
+                写真を送ってね ✨
+
+            </div>
+
+
+            <div class="character">
+
+                <div class="hair"></div>
+
+                <div class="ear-left"></div>
+                <div class="ear-right"></div>
+
+                <div class="face"></div>
+
+                <div class="eye eye-left"></div>
+                <div class="eye eye-right"></div>
+
+                <div class="mouth"></div>
+
+                <div class="antenna"></div>
+
+                <div class="body"></div>
+
+            </div>
+
+
+            <div class="character-name">
+                AI COACH
+            </div>
+
+        </div>
+
+
+        <button
+            class="main-button"
+            id="talkButton"
+        >
+            💬 コーチと話す
+        </button>
+
+
+        <div class="quick-chat">
+
+            <button data-message="今日何を勉強したらいい？">
+                📚 今日何勉強する？
+            </button>
+
+            <button data-message="勉強のやる気が出ない！">
+                🔥 やる気が出ない
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                STUDY TIME
+            </div>
+
+            <div class="stat-number">
+                42
+                <small>min</small>
+            </div>
+
+        </div>
+
+        <div class="stat">
+
+            <div class="stat-label">
+                STREAK
+            </div>
+
+            <div class="stat-number">
+                7
+                <small>days 🔥</small>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- UPLOAD -->
+
+    <section class="upload-card">
+
+        <div class="section-title">
+            📸 問題をAIに見せる
+        </div>
+
+        <div class="section-sub">
+            数学・英語・理科など、写真から問題を読み取ります。
+        </div>
+
+
+        <label
+            class="upload-label"
+            for="image-upload"
+        >
+
+            <div class="upload-icon">
+                ✨
+            </div>
+
+            <div class="upload-title">
+                問題の写真を選ぶ
+            </div>
+
+            <div class="upload-sub">
+                TAP TO SCAN
+            </div>
+
+        </label>
+
+
+        <input
+            type="file"
+            id="image-upload"
+            accept="image/*"
+        >
+
+
+        <img
+            id="preview"
+            alt="問題画像"
+        >
+
+
+        <button
+            id="explain-button"
+            class="main-button"
+            style="display:none;"
+        >
+            🤖 AIに解説してもらう
+        </button>
+
+
+        <div id="loading">
+            ✦ AIが問題を解析中...
+        </div>
+
+
+        <div id="answer">
+
+            <strong style="color:#67e8f9;">
+                ✦ AI COACH
+            </strong>
+
+            <p>
+                これはテスト用の解説です！
+            </p>
+
+            <p>
+                ① 問題文から条件を整理する
+                <br>
+                ② 必要な公式を確認する
+                <br>
+                ③ 順番に計算して答えを出す
+            </p>
+
+            <p>
+                分からないところがあったら、
+                下から質問してね！
+            </p>
+
+        </div>
+
+
+        <div id="question-area">
+
+            <textarea
+                id="question"
+                placeholder="コーチに質問してみよう..."
+            ></textarea>
+
+            <button id="question-button">
+                💬 質問する
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <div class="footer">
+        STUDY COACH AI · FUTURE OF LEARNING
+    </div>
+
+</div>
+
+
+<script>
+
+const imageUpload =
+    document.getElementById("image-upload");
+
+const preview =
+    document.getElementById("preview");
+
+const explainButton =
+    document.getElementById("explain-button");
+
+const loading =
+    document.getElementById("loading");
+
+const answer =
+    document.getElementById("answer");
+
+const questionArea =
+    document.getElementById("question-area");
+
+const question =
+    document.getElementById("question");
+
+const questionButton =
+    document.getElementById("question-button");
+
+const talkButton =
+    document.getElementById("talkButton");
+
+
+/* =========================
+   CHARACTER TALK
+========================= */
+
+const speech =
+    document.querySelector(".speech");
+
+talkButton.addEventListener("click", function() {
+
+    speech.innerHTML =
+        "<strong>コーチ：</strong><br>" +
+        "もちろん！😊<br>" +
+        "今日は何を勉強する？";
+
+});
+
+
+/* QUICK QUESTIONS */
+
+document
+    .querySelectorAll(".quick-chat button")
+    .forEach(button => {
+
+        button.addEventListener("click", function() {
+
+            const message =
+                this.dataset.message;
+
+            speech.innerHTML =
+                "<strong>コーチ：</strong><br>" +
+                "「" +
+                message +
+                "」だね！✨<br>" +
+                "一緒に考えてみよ！";
+
+        });
+
+    });
+
+
+/* =========================
+   IMAGE
+========================= */
+
+imageUpload.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    preview.src =
+        URL.createObjectURL(file);
+
+    preview.style.display =
+        "block";
+
+    explainButton.style.display =
+        "block";
+
+    loading.style.display =
+        "none";
+
+    answer.style.display =
+        "none";
+
+    questionArea.style.display =
+        "none";
+
+    speech.innerHTML =
+        "<strong>コーチ：</strong><br>" +
+        "写真を受け取ったよ！📸<br>" +
+        "この問題、一緒に見てみよう！";
+
+});
+
+
+/* =========================
+   EXPLAIN
+========================= */
+
+explainButton.addEventListener("click", function() {
+
+    explainButton.style.display =
+        "none";
+
+    loading.style.display =
+        "block";
+
+    answer.style.display =
+        "none";
+
+    questionArea.style.display =
+        "none";
+
+
+    speech.innerHTML =
+        "<strong>コーチ：</strong><br>" +
+        "今、問題を解析してるよ… 🤖✨";
+
+
+    setTimeout(function() {
+
+        loading.style.display =
+            "none";
+
+        answer.style.display =
+            "block";
+
+        questionArea.style.display =
+            "block";
+
+
+        speech.innerHTML =
+            "<strong>コーチ：</strong><br>" +
+            "解析できたよ！🎉<br>" +
+            "まずは考え方から説明するね！";
+
+    }, 1200);
+
+});
+
+
+/* =========================
+   QUESTION
+========================= */
+
+questionButton.addEventListener("click", function() {
+
+    const text =
+        question.value.trim();
+
+    if (!text) {
+
+        speech.innerHTML =
+            "<strong>コーチ：</strong><br>" +
+            "質問を入力してみて！👀";
+
+        return;
+    }
+
+
+    speech.innerHTML =
+        "<strong>コーチ：</strong><br>" +
+        "なるほど！「" +
+        text +
+        "」が分からないんだね。<br>" +
+        "ここをもう少し詳しく説明するよ！💡";
+
+    question.value = "";
+
+});
+
+</script>
+
+</body>
+</html>
