@@ -1,5 +1,3 @@
-# Study Coach AI 完成版
-
 ```html
 <!DOCTYPE html>
 <html lang="ja">
@@ -9,14 +7,12 @@
 <title>Study Coach AI</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
   min-height:100vh;
-  color:white;
+  color:#fff;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   background:
     radial-gradient(circle at 15% 10%,#243b80 0%,transparent 30%),
@@ -24,9 +20,11 @@ body{
     linear-gradient(135deg,#050713,#111936);
 }
 
-button,input{
-  font-family:inherit;
-}
+button,input,select{font-family:inherit}
+
+button{cursor:pointer}
+
+.hidden{display:none!important}
 
 .app{
   width:min(1150px,94%);
@@ -34,7 +32,170 @@ button,input{
   padding:22px 0 50px;
 }
 
-/* HEADER */
+/* =========================
+   WELCOME / CONSENT
+========================= */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  overflow-y:auto;
+  background:#03050de8;
+  backdrop-filter:blur(15px);
+}
+
+.modal{
+  width:min(560px,100%);
+  max-height:90vh;
+  overflow-y:auto;
+  padding:28px;
+  border:1px solid #ffffff20;
+  border-radius:28px;
+  background:
+    linear-gradient(145deg,#151d3df2,#0b1025f2);
+  box-shadow:0 25px 80px #00000080;
+}
+
+.modalLogo{
+  text-align:center;
+  font-size:25px;
+  font-weight:900;
+}
+
+.modalLogo span{
+  color:#8ba5ff;
+}
+
+.modal h1{
+  margin:22px 0 8px;
+  text-align:center;
+  font-size:25px;
+}
+
+.modalIntro{
+  color:#aab5d0;
+  text-align:center;
+  line-height:1.7;
+  font-size:13px;
+}
+
+.notice{
+  margin:20px 0;
+  padding:15px;
+  border-radius:15px;
+  background:#ffffff08;
+  border:1px solid #ffffff12;
+  color:#aeb8d1;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.consentList{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin:18px 0;
+}
+
+.check{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:13px;
+  border-radius:14px;
+  background:#ffffff08;
+  border:1px solid #ffffff12;
+  color:#dbe2f5;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.check input{
+  width:18px;
+  height:18px;
+  flex:none;
+  accent-color:#7694ff;
+}
+
+.modalButton{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:14px;
+  color:#fff;
+  font-weight:900;
+  background:linear-gradient(135deg,#6389ff,#9864ef);
+}
+
+.modalButton:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+}
+
+.linkButton{
+  margin-top:10px;
+  padding:10px;
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#91a8ff;
+}
+
+/* =========================
+   ACCOUNT
+========================= */
+
+.form{
+  margin-top:20px;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+.field label{
+  display:block;
+  margin-bottom:7px;
+  color:#b6c0d8;
+  font-size:12px;
+  font-weight:700;
+}
+
+.field input,
+.field select{
+  width:100%;
+  padding:13px;
+  outline:none;
+  border:1px solid #ffffff18;
+  border-radius:13px;
+  color:#fff;
+  background:#00000030;
+}
+
+.field select option{
+  color:#111;
+}
+
+.optional{
+  color:#77829e;
+  font-weight:400;
+}
+
+.formError{
+  min-height:18px;
+  margin:7px 0;
+  color:#ff8796;
+  font-size:12px;
+}
+
+/* =========================
+   HEADER
+========================= */
 
 header{
   display:flex;
@@ -71,7 +232,9 @@ header{
   box-shadow:0 0 12px #64ffae;
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero{
   position:relative;
@@ -121,12 +284,8 @@ header{
 }
 
 @keyframes float{
-  0%,100%{
-    transform:translateY(0);
-  }
-  50%{
-    transform:translateY(-10px);
-  }
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
 }
 
 .coachName{
@@ -165,9 +324,8 @@ header{
 .secondary{
   padding:13px 19px;
   border-radius:14px;
-  color:white;
+  color:#fff;
   font-weight:800;
-  cursor:pointer;
   transition:.2s;
 }
 
@@ -191,7 +349,9 @@ header{
   box-shadow:0 0 60px #ffd66b25;
 }
 
-/* DASHBOARD */
+/* =========================
+   DASHBOARD
+========================= */
 
 .dashboard{
   display:grid;
@@ -233,7 +393,9 @@ header{
   background:linear-gradient(90deg,#648cff,#a86aff);
 }
 
-/* MAIN */
+/* =========================
+   MAIN
+========================= */
 
 .mainGrid{
   display:grid;
@@ -267,7 +429,9 @@ header{
   font-size:12px;
 }
 
-/* CHAT */
+/* =========================
+   CHAT
+========================= */
 
 .chat{
   min-height:390px;
@@ -312,7 +476,7 @@ header{
   min-width:0;
   padding:13px;
   outline:none;
-  color:white;
+  color:#fff;
   background:#00000030;
   border:1px solid #ffffff18;
   border-radius:14px;
@@ -322,12 +486,13 @@ header{
   width:48px;
   border:0;
   border-radius:14px;
-  color:white;
+  color:#fff;
   background:linear-gradient(135deg,#6389ff,#9b63ef);
-  cursor:pointer;
 }
 
-/* MENU */
+/* =========================
+   MENU
+========================= */
 
 .menu{
   display:grid;
@@ -340,7 +505,6 @@ header{
   border-radius:17px;
   background:#ffffff09;
   border:1px solid #ffffff12;
-  cursor:pointer;
   transition:.2s;
 }
 
@@ -364,7 +528,9 @@ header{
   font-size:11px;
 }
 
-/* SUBJECT */
+/* =========================
+   SUBJECT
+========================= */
 
 .subjects{
   display:flex;
@@ -378,15 +544,16 @@ header{
   background:#ffffff09;
   border:1px solid #ffffff15;
   border-radius:12px;
-  cursor:pointer;
 }
 
 .subject.active{
-  color:white;
+  color:#fff;
   background:linear-gradient(135deg,#6383ff,#9563ed);
 }
 
-/* IMAGE */
+/* =========================
+   IMAGE
+========================= */
 
 .uploadBox{
   margin-top:20px;
@@ -418,7 +585,20 @@ header{
   border-radius:15px;
 }
 
-/* RARE */
+.imageSend{
+  display:none;
+  margin:12px auto 0;
+  padding:11px 18px;
+  border:0;
+  border-radius:12px;
+  color:#fff;
+  font-weight:800;
+  background:linear-gradient(135deg,#6389ff,#9864ef);
+}
+
+/* =========================
+   RARE
+========================= */
 
 .rareBox{
   margin-top:18px;
@@ -446,58 +626,292 @@ footer{
   font-size:11px;
 }
 
-/* MOBILE */
+.accountBar{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logout{
+  padding:7px 10px;
+  border:1px solid #ffffff18;
+  border-radius:10px;
+  color:#aeb9d4;
+  background:#ffffff08;
+  font-size:11px;
+}
 
 @media(max-width:850px){
-
-  .dashboard{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .mainGrid{
-    grid-template-columns:1fr;
-  }
+  .dashboard{grid-template-columns:1fr 1fr}
+  .mainGrid{grid-template-columns:1fr}
 }
 
 @media(max-width:600px){
-
-  .app{
-    width:94%;
-  }
-
-  .hero{
-    min-height:400px;
-    padding:28px 15px;
-  }
-
-  .animal{
-    font-size:95px;
-  }
-
-  .coachName{
-    font-size:25px;
-  }
-
-  .dashboard{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .stat{
-    padding:14px;
-  }
-
-  .statValue{
-    font-size:20px;
-  }
+  .app{width:94%}
+  .hero{min-height:400px;padding:28px 15px}
+  .animal{font-size:95px}
+  .coachName{font-size:25px}
+  .dashboard{grid-template-columns:1fr 1fr}
+  .stat{padding:14px}
+  .statValue{font-size:20px}
+  .accountBar{flex-direction:column;align-items:flex-end}
 }
-
 </style>
 </head>
 
-
 <body>
 
-<div class="app">
+<!-- =========================
+     CONSENT SCREEN
+========================= -->
+
+<div id="consentScreen" class="overlay">
+
+  <div class="modal">
+
+    <div class="modalLogo">
+      Study <span>Coach AI</span>
+    </div>
+
+    <h1>Study Coach AIへようこそ 📚</h1>
+
+    <div class="modalIntro">
+      はじめに、サービスの利用とデータの取り扱いについて確認してください。
+    </div>
+
+    <div class="notice">
+      この画面はサービス利用に必要な確認事項をまとめたものです。
+      実際の公開サービスでは、正式な利用規約・プライバシーポリシーを
+      用意し、内容をサービスの実態に合わせて変更してください。
+    </div>
+
+    <div class="consentList">
+
+      <label class="check">
+        <input type="checkbox" id="termsCheck">
+        <span>
+          利用規約を確認し、サービスの利用条件に同意します。
+        </span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" id="privacyCheck">
+        <span>
+          個人情報の利用目的・取り扱いについて確認しました。
+        </span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" id="aiDataCheck">
+        <span>
+          質問内容やアップロードした画像などのデータが、
+          AI機能を提供するために利用されることを確認しました。
+        </span>
+      </label>
+
+    </div>
+
+    <div id="consentError" class="formError"></div>
+
+    <button
+      id="consentButton"
+      class="modalButton"
+      disabled
+      onclick="acceptConsent()"
+    >
+      同意してアカウント作成へ
+    </button>
+
+    <button
+      class="linkButton"
+      onclick="showPrivacyInfo()"
+    >
+      データの取り扱いについて
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     ACCOUNT CREATE
+========================= -->
+
+<div id="accountScreen" class="overlay hidden">
+
+  <div class="modal">
+
+    <div class="modalLogo">
+      Study <span>Coach AI</span>
+    </div>
+
+    <h1>アカウントを作成 👤</h1>
+
+    <div class="modalIntro">
+      学習記録などを管理するためのアカウントです。
+    </div>
+
+    <div class="form">
+
+      <div class="field">
+        <label>ニックネーム</label>
+        <input
+          id="nickname"
+          type="text"
+          maxlength="30"
+          placeholder="例：ゆうせい"
+        >
+      </div>
+
+      <div class="field">
+        <label>年齢</label>
+        <input
+          id="age"
+          type="number"
+          min="1"
+          max="120"
+          placeholder="例：16"
+        >
+      </div>
+
+      <div class="field">
+        <label>
+          性別 <span class="optional">（任意）</span>
+        </label>
+
+        <select id="gender">
+          <option value="">回答しない</option>
+          <option value="male">男性</option>
+          <option value="female">女性</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>メールアドレス</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="example@email.com"
+        >
+      </div>
+
+      <div class="field">
+        <label>ログインID</label>
+        <input
+          id="loginId"
+          type="text"
+          maxlength="30"
+          placeholder="好きなID"
+        >
+      </div>
+
+      <div class="field">
+        <label>パスワード</label>
+        <input
+          id="password"
+          type="password"
+          minlength="8"
+          placeholder="8文字以上"
+        >
+      </div>
+
+      <div class="field">
+        <label>パスワード（確認）</label>
+        <input
+          id="passwordConfirm"
+          type="password"
+          minlength="8"
+          placeholder="もう一度入力"
+        >
+      </div>
+
+      <div id="accountError" class="formError"></div>
+
+      <button
+        class="modalButton"
+        onclick="createAccount()"
+      >
+        アカウントを作成
+      </button>
+
+      <button
+        class="linkButton"
+        onclick="showLogin()"
+      >
+        すでにアカウントを持っています
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div id="loginScreen" class="overlay hidden">
+
+  <div class="modal">
+
+    <div class="modalLogo">
+      Study <span>Coach AI</span>
+    </div>
+
+    <h1>ログイン 🔐</h1>
+
+    <div class="form">
+
+      <div class="field">
+        <label>ログインID</label>
+        <input
+          id="loginIdInput"
+          type="text"
+          placeholder="ログインID"
+        >
+      </div>
+
+      <div class="field">
+        <label>パスワード</label>
+        <input
+          id="loginPasswordInput"
+          type="password"
+          placeholder="パスワード"
+        >
+      </div>
+
+      <div id="loginError" class="formError"></div>
+
+      <button
+        class="modalButton"
+        onclick="login()"
+      >
+        ログイン
+      </button>
+
+      <button
+        class="linkButton"
+        onclick="showCreateAccount()"
+      >
+        アカウントを作成する
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     MAIN APP
+========================= -->
+
+<div id="mainApp" class="app hidden">
 
 <header>
 
@@ -505,15 +919,24 @@ footer{
     Study <span>Coach AI</span>
   </div>
 
-  <div class="online">
-    <span class="dot"></span>
-    AI ONLINE
+  <div class="accountBar">
+
+    <div class="online">
+      <span class="dot"></span>
+      AI ONLINE
+    </div>
+
+    <button
+      class="logout"
+      onclick="logout()"
+    >
+      ログアウト
+    </button>
+
   </div>
 
 </header>
 
-
-<!-- AI COACH -->
 
 <section class="hero" id="coachCard">
 
@@ -521,9 +944,7 @@ footer{
 
   <div class="coach" id="coach">
 
-    <div class="animal" id="animal">
-      🐱
-    </div>
+    <div class="animal" id="animal">🐱</div>
 
     <div class="coachName" id="coachName">
       ネココーチ
@@ -560,38 +981,19 @@ footer{
 </section>
 
 
-<!-- DASHBOARD -->
-
 <section class="dashboard">
 
   <div class="stat">
-
-    <div class="statTitle">
-      🔥 連続学習
-    </div>
-
-    <div
-      class="statValue"
-      id="streak"
-    >
-      1日
-    </div>
+    <div class="statTitle">🔥 連続学習</div>
+    <div class="statValue">1日</div>
 
     <div class="progress">
-      <div
-        class="progressBar"
-        style="width:30%"
-      ></div>
+      <div class="progressBar" style="width:30%"></div>
     </div>
-
   </div>
 
-
   <div class="stat">
-
-    <div class="statTitle">
-      ⏱ 今日の勉強
-    </div>
+    <div class="statTitle">⏱ 今日の勉強</div>
 
     <div
       class="statValue"
@@ -607,15 +1009,10 @@ footer{
         style="width:5%"
       ></div>
     </div>
-
   </div>
 
-
   <div class="stat">
-
-    <div class="statTitle">
-      📚 教科
-    </div>
+    <div class="statTitle">📚 教科</div>
 
     <div
       class="statValue"
@@ -623,15 +1020,10 @@ footer{
     >
       数学
     </div>
-
   </div>
 
-
   <div class="stat">
-
-    <div class="statTitle">
-      ⭐ コーチ
-    </div>
+    <div class="statTitle">⭐ コーチ</div>
 
     <div
       class="statValue"
@@ -639,33 +1031,20 @@ footer{
     >
       0
     </div>
-
   </div>
 
 </section>
 
 
-<!-- MAIN -->
-
 <section class="mainGrid">
 
-
-<!-- CHAT -->
 
 <div class="panel chat">
 
   <div class="panelTitle">
-
-    <h2>
-      💬 AIコーチ
-    </h2>
-
-    <span>
-      いつでも質問OK
-    </span>
-
+    <h2>💬 AIコーチ</h2>
+    <span>いつでも質問OK</span>
   </div>
-
 
   <div
     class="chatMessages"
@@ -673,15 +1052,11 @@ footer{
   >
 
     <div class="bubble ai">
-
       🐾 こんにちは！<br>
-      分からない問題があったら
-      何でも聞いてね！
-
+      分からない問題があったら何でも聞いてね！
     </div>
 
   </div>
-
 
   <div class="chatInput">
 
@@ -704,14 +1079,11 @@ footer{
 </div>
 
 
-<!-- MENU -->
-
 <div class="panel">
 
   <div class="panelTitle">
     <h2>🚀 学習メニュー</h2>
   </div>
-
 
   <div class="menu">
 
@@ -719,96 +1091,46 @@ footer{
       class="menuItem"
       onclick="focusUpload()"
     >
-
-      <div class="menuIcon">
-        📸
-      </div>
-
-      <div class="menuName">
-        問題を解説
-      </div>
-
-      <div class="menuDesc">
-        写真を選んで問題を送る
-      </div>
-
+      <div class="menuIcon">📸</div>
+      <div class="menuName">問題を解説</div>
+      <div class="menuDesc">写真を選んで問題を送る</div>
     </div>
-
 
     <div
       class="menuItem"
       onclick="startStudy()"
     >
-
-      <div class="menuIcon">
-        ⏱️
-      </div>
-
-      <div class="menuName">
-        勉強スタート
-      </div>
-
-      <div class="menuDesc">
-        学習時間を記録
-      </div>
-
+      <div class="menuIcon">⏱️</div>
+      <div class="menuName">勉強スタート</div>
+      <div class="menuDesc">学習時間を記録</div>
     </div>
-
 
     <div
       class="menuItem"
       onclick="showStats()"
     >
-
-      <div class="menuIcon">
-        📊
-      </div>
-
-      <div class="menuName">
-        学習記録
-      </div>
-
-      <div class="menuDesc">
-        今日の勉強状況
-      </div>
-
+      <div class="menuIcon">📊</div>
+      <div class="menuName">学習記録</div>
+      <div class="menuDesc">今日の勉強状況</div>
     </div>
-
 
     <div
       class="menuItem"
       onclick="randomCoach()"
     >
-
-      <div class="menuIcon">
-        🎲
-      </div>
-
-      <div class="menuName">
-        コーチ変更
-      </div>
-
-      <div class="menuDesc">
-        新しい動物が登場
-      </div>
-
+      <div class="menuIcon">🎲</div>
+      <div class="menuName">コーチ変更</div>
+      <div class="menuDesc">新しい動物が登場</div>
     </div>
 
   </div>
 
 
-  <!-- SUBJECT -->
-
   <div style="margin-top:22px">
 
     <div class="panelTitle">
-
-      <h2>
-        📚 教科
-      </h2>
-
+      <h2>📚 教科</h2>
     </div>
-
 
     <div class="subjects">
 
@@ -852,8 +1174,6 @@ footer{
   </div>
 
 
-  <!-- IMAGE -->
-
   <div
     class="uploadBox"
     id="uploadBox"
@@ -872,12 +1192,18 @@ footer{
 
     </label>
 
-
     <img
       id="preview"
       class="preview"
     >
 
+    <button
+      id="imageSend"
+      class="imageSend"
+      onclick="sendImage()"
+    >
+      📨 AIに送信
+    </button>
 
     <div
       id="imageStatus"
@@ -897,8 +1223,6 @@ footer{
 </section>
 
 
-<!-- RARE -->
-
 <section class="rareBox">
 
   <div class="rareTitle">
@@ -906,26 +1230,19 @@ footer{
   </div>
 
   <div class="rareText">
-
-    アプリを開くたびに
-    今日のコーチがランダムで登場！
-
+    アプリを開くたびに今日のコーチがランダムで登場！
     <br><br>
-
     ⭐ ノーマル：80%<br>
     💎 レア：18%<br>
     🌟 LEGENDARY：2%
-
   </div>
 
 </section>
 
 
 <footer>
-
   Study Coach AI<br>
   Study Smarter, Not Harder.
-
 </footer>
 
 </div>
@@ -934,10 +1251,368 @@ footer{
 <script>
 
 /* =========================
-   COACH DATA
+   CONSENT
 ========================= */
 
-const coaches = [
+const checks=[
+  "termsCheck",
+  "privacyCheck",
+  "aiDataCheck"
+];
+
+checks.forEach(id=>{
+  document.getElementById(id).addEventListener(
+    "change",
+    updateConsentButton
+  );
+});
+
+function updateConsentButton(){
+
+  const allChecked=
+    checks.every(
+      id=>document.getElementById(id).checked
+    );
+
+  document.getElementById(
+    "consentButton"
+  ).disabled=!allChecked;
+
+}
+
+function acceptConsent(){
+
+  const allChecked=
+    checks.every(
+      id=>document.getElementById(id).checked
+    );
+
+  if(!allChecked){
+
+    document.getElementById(
+      "consentError"
+    ).textContent=
+      "すべての確認項目を確認してください。";
+
+    return;
+
+  }
+
+  localStorage.setItem(
+    "studyCoachConsent",
+    "accepted"
+  );
+
+  showCreateAccount();
+
+}
+
+
+/* =========================
+   PRIVACY INFO
+========================= */
+
+function showPrivacyInfo(){
+
+  alert(
+`データの取り扱いについて
+
+Study Coach AIでは、サービス提供に必要な情報のみを利用する設計を目指します。
+
+・アカウント情報
+・学習記録
+・AIへの質問
+・AI機能に送信する画像
+
+などが対象になります。
+
+実際のサービス公開前には、正式なプライバシーポリシーを作成し、保存期間・利用目的・第三者提供・削除方法などを明確にします。`
+  );
+
+}
+
+
+/* =========================
+   ACCOUNT SCREENS
+========================= */
+
+function hideAllScreens(){
+
+  document
+    .querySelectorAll(".overlay")
+    .forEach(
+      el=>el.classList.add("hidden")
+    );
+
+}
+
+function showCreateAccount(){
+
+  hideAllScreens();
+
+  document
+    .getElementById("accountScreen")
+    .classList.remove("hidden");
+
+}
+
+function showLogin(){
+
+  hideAllScreens();
+
+  document
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
+
+}
+
+
+/* =========================
+   DEMO ACCOUNT CREATION
+========================= */
+
+function createAccount(){
+
+  const nickname=
+    document.getElementById(
+      "nickname"
+    ).value.trim();
+
+  const age=
+    Number(
+      document.getElementById(
+        "age"
+      ).value
+    );
+
+  const email=
+    document.getElementById(
+      "email"
+    ).value.trim();
+
+  const loginId=
+    document.getElementById(
+      "loginId"
+    ).value.trim();
+
+  const password=
+    document.getElementById(
+      "password"
+    ).value;
+
+  const confirm=
+    document.getElementById(
+      "passwordConfirm"
+    ).value;
+
+  const error=
+    document.getElementById(
+      "accountError"
+    );
+
+
+  error.textContent="";
+
+
+  if(!nickname){
+
+    error.textContent=
+      "ニックネームを入力してください。";
+
+    return;
+
+  }
+
+
+  if(!age || age<1 || age>120){
+
+    error.textContent=
+      "年齢を正しく入力してください。";
+
+    return;
+
+  }
+
+
+  if(!email || !email.includes("@")){
+
+    error.textContent=
+      "メールアドレスを確認してください。";
+
+    return;
+
+  }
+
+
+  if(loginId.length<3){
+
+    error.textContent=
+      "ログインIDは3文字以上にしてください。";
+
+    return;
+
+  }
+
+
+  if(password.length<8){
+
+    error.textContent=
+      "パスワードは8文字以上にしてください。";
+
+    return;
+
+  }
+
+
+  if(password!==confirm){
+
+    error.textContent=
+      "パスワードが一致していません。";
+
+    return;
+
+  }
+
+
+  /*
+    重要：
+    このデモ版ではパスワードを保存しません。
+    本番では安全な認証サービスを接続します。
+  */
+
+  localStorage.setItem(
+    "studyCoachNickname",
+    nickname
+  );
+
+
+  localStorage.setItem(
+    "studyCoachLoginId",
+    loginId
+  );
+
+
+  localStorage.setItem(
+    "studyCoachLoggedIn",
+    "true"
+  );
+
+
+  enterApp();
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+  const loginId=
+    document.getElementById(
+      "loginIdInput"
+    ).value.trim();
+
+  const error=
+    document.getElementById(
+      "loginError"
+    );
+
+
+  if(!loginId){
+
+    error.textContent=
+      "ログインIDを入力してください。";
+
+    return;
+
+  }
+
+
+  /*
+    現在はデモ用ログイン。
+    本物の認証は後からバックエンドに接続します。
+  */
+
+  const savedId=
+    localStorage.getItem(
+      "studyCoachLoginId"
+    );
+
+
+  if(savedId && loginId!==savedId){
+
+    error.textContent=
+      "ログインIDを確認してください。";
+
+    return;
+
+  }
+
+
+  if(!savedId){
+
+    error.textContent=
+      "まだアカウントが作成されていません。";
+
+    return;
+
+  }
+
+
+  localStorage.setItem(
+    "studyCoachLoggedIn",
+    "true"
+  );
+
+
+  enterApp();
+
+}
+
+
+/* =========================
+   APP
+========================= */
+
+function enterApp(){
+
+  hideAllScreens();
+
+  document
+    .getElementById("mainApp")
+    .classList.remove("hidden");
+
+
+  setTimeout(
+    randomCoach,
+    300
+  );
+
+}
+
+
+function logout(){
+
+  localStorage.removeItem(
+    "studyCoachLoggedIn"
+  );
+
+  document
+    .getElementById("mainApp")
+    .classList.add("hidden");
+
+  showLogin();
+
+}
+
+
+/* =========================
+   COACH
+========================= */
+
+const coaches=[
 
   {
     animal:"🐱",
@@ -1006,23 +1681,16 @@ const coaches = [
 ];
 
 
-/* =========================
-   VARIABLES
-========================= */
-
 let coachNumber=0;
-
 let studying=false;
 
 let studyMinutes=
 Number(
-  localStorage.getItem("studyMinutes") || 0
+  localStorage.getItem(
+    "studyMinutes"
+  ) || 0
 );
 
-
-/* =========================
-   RANDOM COACH
-========================= */
 
 function randomCoach(){
 
@@ -1031,13 +1699,11 @@ function randomCoach(){
   let coach;
 
 
-  if(roll<0.02){
+  if(roll<.02){
 
     coach=coaches[7];
 
-  }
-
-  else if(roll<0.20){
+  }else if(roll<.20){
 
     const rare=
       coaches.filter(
@@ -1051,9 +1717,7 @@ function randomCoach(){
         )
       ];
 
-  }
-
-  else{
+  }else{
 
     const normal=
       coaches.filter(
@@ -1075,95 +1739,47 @@ function randomCoach(){
 }
 
 
-/* =========================
-   SHOW COACH
-========================= */
-
 function showCoach(coach){
+
+  document.getElementById(
+    "animal"
+  ).textContent=coach.animal;
+
+  document.getElementById(
+    "coachName"
+  ).textContent=coach.name;
+
+  document.getElementById(
+    "rarity"
+  ).textContent=coach.rarity;
+
+  document.getElementById(
+    "message"
+  ).textContent=coach.message;
+
 
   const card=
     document.getElementById(
       "coachCard"
     );
 
-  const element=
-    document.getElementById(
-      "coach"
-    );
-
-
-  document.getElementById(
-    "animal"
-  ).textContent=
-    coach.animal;
-
-
-  document.getElementById(
-    "coachName"
-  ).textContent=
-    coach.name;
-
-
-  document.getElementById(
-    "rarity"
-  ).textContent=
-    coach.rarity;
-
-
-  document.getElementById(
-    "message"
-  ).textContent=
-    coach.message;
-
-
-  card.classList.remove(
-    "legendary"
-  );
-
-
-  element.style.animation="none";
-
-  void element.offsetWidth;
-
-  element.style.animation=
-    "appear .7s ease";
-
-
-  if(
+  card.classList.toggle(
+    "legendary",
     coach.type==="legendary"
-  ){
-
-    card.classList.add(
-      "legendary"
-    );
-
-  }
+  );
 
 
   coachNumber++;
 
-
   document.getElementById(
     "coachCount"
-  ).textContent=
-    coachNumber;
-
-
-  if(
-    coach.type==="legendary"
-  ){
-
-    addAIMessage(
-      "🌟 LEGENDARYコーチが出現した！！"
-    );
-
-  }
+  ).textContent=coachNumber;
 
 }
 
 
 /* =========================
-   GREETING
+   CHAT
 ========================= */
 
 function greeting(){
@@ -1183,22 +1799,16 @@ function greeting(){
   ];
 
 
-  const message=
+  addAIMessage(
     messages[
       Math.floor(
         Math.random()*messages.length
       )
-    ];
-
-
-  addAIMessage(message);
+    ]
+  );
 
 }
 
-
-/* =========================
-   CHAT
-========================= */
 
 function sendMessage(){
 
@@ -1264,10 +1874,6 @@ function sendMessage(){
 }
 
 
-/* =========================
-   MESSAGE
-========================= */
-
 function addUserMessage(text){
 
   const chat=
@@ -1280,15 +1886,11 @@ function addUserMessage(text){
       "div"
     );
 
-  bubble.className=
-    "bubble user";
+  bubble.className="bubble user";
 
-  bubble.textContent=
-    text;
+  bubble.textContent=text;
 
-  chat.appendChild(
-    bubble
-  );
+  chat.appendChild(bubble);
 
   chat.scrollTop=
     chat.scrollHeight;
@@ -1308,15 +1910,11 @@ function addAIMessage(text){
       "div"
     );
 
-  bubble.className=
-    "bubble ai";
+  bubble.className="bubble ai";
 
-  bubble.textContent=
-    text;
+  bubble.textContent=text;
 
-  chat.appendChild(
-    bubble
-  );
+  chat.appendChild(bubble);
 
   chat.scrollTop=
     chat.scrollHeight;
@@ -1336,23 +1934,14 @@ function selectSubject(
   document
     .querySelectorAll(".subject")
     .forEach(
-      b=>
-        b.classList.remove(
-          "active"
-        )
+      b=>b.classList.remove("active")
     );
 
-
-  button.classList.add(
-    "active"
-  );
-
+  button.classList.add("active");
 
   document.getElementById(
     "subjectText"
-  ).textContent=
-    subject;
-
+  ).textContent=subject;
 
   addAIMessage(
     subject+
@@ -1379,47 +1968,49 @@ function previewImage(event){
       "preview"
     );
 
-
   preview.src=
-    URL.createObjectURL(
-      file
-    );
+    URL.createObjectURL(file);
+
+  preview.style.display="block";
 
 
-  preview.style.display=
-    "block";
+  document.getElementById(
+    "imageSend"
+  ).style.display="block";
 
 
   document.getElementById(
     "imageStatus"
   ).textContent=
-    "問題の写真を読み込みました！";
+    "写真を読み込みました。AIに送信できます。";
 
+}
+
+
+function sendImage(){
+
+  const file=
+    document.getElementById(
+      "imageInput"
+    ).files[0];
+
+  if(!file)return;
+
+
+  /*
+    現在は安全なフロントエンド版。
+    本物のAI画像解析はバックエンド接続後に実行します。
+  */
 
   addAIMessage(
-    "📸 問題の写真を受け取ったよ！本物のAIを接続すると、この画像を読み取って解説できるようになるよ。"
+    "📸 写真を受け取ったよ！次の段階で本物のAIに画像を送って、問題を読み取って解説できるようにするよ。"
   );
 
 }
 
 
 /* =========================
-   UPLOAD
-========================= */
-
-function focusUpload(){
-
-  document.getElementById(
-    "uploadBox"
-  ).scrollIntoView({
-    behavior:"smooth"
-  });
-
-}
-
-
-/* =========================
-   STUDY
+   STUDY TIMER
 ========================= */
 
 function startStudy(){
@@ -1433,9 +2024,7 @@ function startStudy(){
       "⏱️ 勉強スタート！集中タイム開始🔥"
     );
 
-  }
-
-  else{
+  }else{
 
     addAIMessage(
       "⏸️ 勉強タイムをストップしたよ！お疲れさま👏"
@@ -1445,10 +2034,6 @@ function startStudy(){
 
 }
 
-
-/* =========================
-   TIMER
-========================= */
 
 document.getElementById(
   "studyTime"
@@ -1460,41 +2045,28 @@ setInterval(()=>{
 
   if(!studying)return;
 
-
   studyMinutes++;
-
 
   localStorage.setItem(
     "studyMinutes",
     studyMinutes
   );
 
-
   document.getElementById(
     "studyTime"
   ).textContent=
     studyMinutes+"分";
 
-
-  const width=
-    Math.min(
-      studyMinutes/60*100,
-      100
-    );
-
-
   document.getElementById(
     "timeBar"
   ).style.width=
-    width+"%";
-
+    Math.min(
+      studyMinutes/60*100,
+      100
+    )+"%";
 
 },60000);
 
-
-/* =========================
-   STATS
-========================= */
 
 function showStats(){
 
@@ -1507,23 +2079,59 @@ function showStats(){
 }
 
 
+function focusUpload(){
+
+  document.getElementById(
+    "uploadBox"
+  ).scrollIntoView({
+    behavior:"smooth"
+  });
+
+}
+
+
 /* =========================
-   START
+   STARTUP
 ========================= */
 
 window.addEventListener(
   "DOMContentLoaded",
   ()=>{
 
-    setTimeout(()=>{
-
-      randomCoach();
-
-      addAIMessage(
-        "🎲 今日のコーチが決まったよ！"
+    const consent=
+      localStorage.getItem(
+        "studyCoachConsent"
       );
 
-    },500);
+    const loggedIn=
+      localStorage.getItem(
+        "studyCoachLoggedIn"
+      );
+
+
+    if(consent!=="accepted"){
+
+      document
+        .getElementById(
+          "consentScreen"
+        )
+        .classList.remove(
+          "hidden"
+        );
+
+    }
+
+    else if(!loggedIn){
+
+      showLogin();
+
+    }
+
+    else{
+
+      enterApp();
+
+    }
 
   }
 );
