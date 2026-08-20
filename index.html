@@ -1,9 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Study Coach AI</title>
 
 <style>
@@ -11,15 +11,25 @@
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
+  color:#eef2ff;
   font-family:
+    Inter,
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background:#f5f7ff;
-  color:#172033;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(109,92,255,.25),transparent 30%),
+    radial-gradient(circle at 90% 20%,rgba(46,211,183,.14),transparent 28%),
+    radial-gradient(circle at 50% 100%,rgba(126,80,255,.18),transparent 35%),
+    #080b18;
+  min-height:100vh;
 }
 
 button,
@@ -33,314 +43,706 @@ button{
 }
 
 .hidden{
-  display:none !important;
+  display:none!important;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* ===== BACKGROUND ===== */
+
+.bg-orb{
+  position:fixed;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  filter:blur(90px);
+  opacity:.18;
+  pointer-events:none;
+  z-index:-1;
+}
+
+.orb1{
+  background:#6c5cff;
+  top:-80px;
+  left:-80px;
+}
+
+.orb2{
+  background:#27d8b5;
+  right:-100px;
+  top:30%;
+}
+
+.orb3{
+  background:#9a5cff;
+  bottom:-100px;
+  left:40%;
+}
+
+/* ===== HEADER ===== */
 
 .header{
-  height:70px;
-  background:white;
-  border-bottom:1px solid #e7eaf2;
+  position:sticky;
+  top:0;
+  z-index:50;
+  height:72px;
+  padding:0 28px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 24px;
-  position:sticky;
-  top:0;
-  z-index:10;
+  background:rgba(8,11,24,.76);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.07);
 }
 
 .logo{
   font-size:22px;
-  font-weight:900;
+  font-weight:950;
+  letter-spacing:-.7px;
 }
 
 .logo span{
-  color:#735cff;
+  color:#8b7cff;
 }
 
-.headerButton{
-  border:0;
-  border-radius:12px;
-  padding:10px 16px;
-  background:#735cff;
-  color:white;
-  font-weight:800;
+.headerRight{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-/* =========================
-   MAIN
-========================= */
+.status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:12px;
+  color:#9ca8c8;
+}
+
+.statusDot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#35d69c;
+  box-shadow:0 0 12px #35d69c;
+}
+
+.logout{
+  border:1px solid rgba(255,255,255,.1);
+  color:#cbd3ed;
+  background:rgba(255,255,255,.05);
+  padding:9px 13px;
+  border-radius:11px;
+}
+
+/* ===== MAIN ===== */
 
 .main{
-  max-width:1100px;
-  margin:0 auto;
-  padding:30px 18px 50px;
+  width:min(1180px,calc(100% - 30px));
+  margin:auto;
+  padding:28px 0 60px;
 }
 
 .hero{
-  background:white;
-  border-radius:24px;
-  padding:30px;
-  box-shadow:0 10px 35px rgba(40,50,90,.07);
-  margin-bottom:20px;
+  position:relative;
+  overflow:hidden;
+  padding:32px;
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.08);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(35,39,76,.88),
+      rgba(17,20,43,.92)
+    );
+  box-shadow:0 25px 80px rgba(0,0,0,.25);
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  width:230px;
+  height:230px;
+  border-radius:50%;
+  background:#735cff;
+  filter:blur(90px);
+  opacity:.18;
+  right:-80px;
+  top:-90px;
+}
+
+.heroTop{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
 }
 
 .hero h1{
-  margin:0 0 8px;
-  font-size:30px;
+  font-size:clamp(26px,4vw,42px);
+  margin:0 0 10px;
+  letter-spacing:-1.5px;
 }
 
 .hero p{
   margin:0;
-  color:#69738a;
+  color:#9fa9c5;
+  line-height:1.7;
 }
 
-/* =========================
-   SUBJECT
-========================= */
-
-.subjects{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:20px;
-}
-
-.subject{
-  border:1px solid #e4e7f0;
-  background:white;
-  border-radius:16px;
-  padding:16px;
+.aiBadge{
+  white-space:nowrap;
+  height:max-content;
+  padding:9px 12px;
+  border-radius:999px;
+  background:rgba(117,100,255,.14);
+  border:1px solid rgba(139,124,255,.25);
+  color:#bdb5ff;
+  font-size:12px;
   font-weight:800;
 }
 
-.subject.active{
-  background:#735cff;
-  color:white;
-  border-color:#735cff;
+/* ===== STATS ===== */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+  margin:18px 0;
 }
 
-/* =========================
-   CHAT
-========================= */
-
-.chatCard{
-  background:white;
-  border-radius:24px;
-  box-shadow:0 10px 35px rgba(40,50,90,.07);
-  overflow:hidden;
+.stat{
+  padding:18px;
+  border-radius:19px;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(20,24,46,.72);
+  backdrop-filter:blur(14px);
 }
 
-.chatHeader{
-  padding:18px 20px;
-  border-bottom:1px solid #edf0f5;
+.statIcon{
+  font-size:22px;
+}
+
+.statValue{
+  margin-top:9px;
+  font-size:22px;
+  font-weight:950;
+}
+
+.statLabel{
+  margin-top:3px;
+  color:#7f89a8;
+  font-size:12px;
+}
+
+/* ===== SUBJECTS ===== */
+
+.sectionTitle{
+  margin:25px 0 12px;
+  font-size:16px;
   font-weight:900;
 }
 
+.subjects{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+}
+
+.subject{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:15px 10px;
+  background:rgba(20,24,46,.78);
+  color:#b9c2dd;
+  font-weight:850;
+  transition:.18s;
+}
+
+.subject:hover{
+  transform:translateY(-2px);
+  border-color:rgba(139,124,255,.45);
+}
+
+.subject.active{
+  color:white;
+  border-color:#806fff;
+  background:
+    linear-gradient(
+      135deg,
+      #6656ef,
+      #8c63e9
+    );
+  box-shadow:0 8px 25px rgba(111,91,255,.2);
+}
+
+/* ===== TWO COLUMN ===== */
+
+.dashboard{
+  display:grid;
+  grid-template-columns:1.5fr .75fr;
+  gap:18px;
+  margin-top:18px;
+}
+
+.card{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(17,21,42,.82);
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.18);
+  overflow:hidden;
+}
+
+/* ===== CHAT ===== */
+
+.chatHeader{
+  padding:18px 20px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.coach{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.alien{
+  width:44px;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  font-size:27px;
+  background:
+    radial-gradient(circle,#403c89,#171a38);
+  box-shadow:0 0 25px rgba(119,104,255,.2);
+}
+
+.coachName{
+  font-weight:900;
+}
+
+.coachSub{
+  color:#7f89a8;
+  font-size:11px;
+  margin-top:3px;
+}
+
 .chatMessages{
-  height:430px;
+  height:470px;
   overflow-y:auto;
   padding:20px;
 }
 
 .bubble{
-  max-width:80%;
-  padding:12px 15px;
+  max-width:82%;
+  padding:13px 15px;
   border-radius:17px;
   margin-bottom:12px;
   white-space:pre-wrap;
-  line-height:1.6;
+  line-height:1.65;
+  font-size:14px;
 }
 
 .bubble.user{
   margin-left:auto;
-  background:#735cff;
   color:white;
+  background:
+    linear-gradient(
+      135deg,
+      #6656ef,
+      #815fe4
+    );
   border-bottom-right-radius:5px;
 }
 
 .bubble.ai{
-  background:#f0f2f8;
-  color:#20283a;
+  color:#dfe5fa;
+  background:#20253e;
   border-bottom-left-radius:5px;
 }
 
 .chatInputArea{
   display:flex;
-  gap:10px;
-  padding:15px;
-  border-top:1px solid #edf0f5;
+  gap:9px;
+  padding:14px;
+  border-top:1px solid rgba(255,255,255,.07);
 }
 
 .chatInput{
   flex:1;
-  border:1px solid #dfe3ec;
+  min-width:0;
+  color:white;
+  background:#0d1124;
+  border:1px solid rgba(255,255,255,.09);
   border-radius:14px;
   padding:13px;
   outline:none;
 }
 
+.chatInput:focus{
+  border-color:#7666ff;
+}
+
 .sendButton{
   border:0;
   border-radius:14px;
-  padding:0 20px;
-  background:#735cff;
+  padding:0 19px;
   color:white;
+  background:#735cff;
   font-weight:900;
 }
 
-/* =========================
-   INFO
-========================= */
+/* ===== SIDE ===== */
 
-.infoGrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
-  margin-top:20px;
-}
-
-.infoCard{
-  background:white;
-  border-radius:20px;
-  padding:20px;
-  box-shadow:0 10px 30px rgba(40,50,90,.05);
-}
-
-.infoCard h3{
-  margin-top:0;
-}
-
-/* =========================
-   OVERLAY
-========================= */
-
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(10,15,30,.55);
+.side{
   display:flex;
-  align-items:center;
-  justify-content:center;
+  flex-direction:column;
+  gap:15px;
+}
+
+.sideCard{
   padding:20px;
-  z-index:100;
 }
 
-.modal{
-  width:min(520px,100%);
-  max-height:90vh;
-  overflow-y:auto;
-  background:white;
-  border-radius:24px;
-  padding:28px;
-  box-shadow:0 30px 80px rgba(0,0,0,.2);
-}
-
-.modalLogo{
-  font-size:22px;
+.sideTitle{
   font-weight:900;
   margin-bottom:15px;
 }
 
+.timer{
+  font-size:38px;
+  font-weight:950;
+  letter-spacing:-1px;
+}
+
+.timerLabel{
+  color:#7f89a8;
+  font-size:12px;
+}
+
+.timerButtons{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.actionButton{
+  flex:1;
+  border:0;
+  padding:11px;
+  border-radius:12px;
+  color:white;
+  background:#735cff;
+  font-weight:850;
+}
+
+.actionButton.secondary{
+  background:#282e4a;
+}
+
+.progress{
+  height:8px;
+  border-radius:999px;
+  background:#292e48;
+  overflow:hidden;
+  margin-top:15px;
+}
+
+.progressBar{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#6d5cff,#36d7b0);
+  transition:.3s;
+}
+
+/* ===== IMAGE ===== */
+
+.imageArea{
+  padding:20px;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+
+.imageTitle{
+  font-weight:900;
+  margin-bottom:6px;
+}
+
+.imageDescription{
+  color:#7f89a8;
+  font-size:12px;
+  line-height:1.6;
+  margin-bottom:14px;
+}
+
+.uploadButton{
+  display:block;
+  text-align:center;
+  padding:13px;
+  border-radius:13px;
+  background:#282e4a;
+  color:#dfe5fa;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.preview{
+  display:none;
+  width:100%;
+  max-height:220px;
+  object-fit:contain;
+  margin-top:13px;
+  border-radius:14px;
+  background:#090c19;
+}
+
+.analyzeButton{
+  display:none;
+  width:100%;
+  margin-top:10px;
+  padding:13px;
+  border:0;
+  border-radius:13px;
+  color:white;
+  background:linear-gradient(135deg,#735cff,#a15ce8);
+  font-weight:900;
+}
+
+/* ===== MUSIC ===== */
+
+.music{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.musicInfo{
+  min-width:0;
+}
+
+.musicName{
+  font-weight:900;
+}
+
+.musicSub{
+  color:#7f89a8;
+  font-size:11px;
+  margin-top:4px;
+}
+
+.musicButton{
+  border:0;
+  border-radius:12px;
+  padding:11px 13px;
+  color:white;
+  background:#282e4a;
+  font-weight:850;
+}
+
+/* ===== QUICK FEATURES ===== */
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+  margin-top:18px;
+}
+
+.feature{
+  padding:19px;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(17,21,42,.72);
+  border-radius:20px;
+}
+
+.featureIcon{
+  font-size:25px;
+}
+
+.feature h3{
+  margin:10px 0 6px;
+  font-size:15px;
+}
+
+.feature p{
+  margin:0;
+  color:#7f89a8;
+  line-height:1.6;
+  font-size:12px;
+}
+
+/* ===== MODAL ===== */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(3,5,15,.78);
+  backdrop-filter:blur(14px);
+}
+
+.modal{
+  width:min(530px,100%);
+  max-height:90vh;
+  overflow-y:auto;
+  padding:28px;
+  border-radius:25px;
+  background:#14182d;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 30px 100px rgba(0,0,0,.45);
+}
+
+.modalLogo{
+  font-size:21px;
+  font-weight:950;
+  margin-bottom:15px;
+}
+
 .modalLogo span{
-  color:#735cff;
+  color:#806fff;
 }
 
 .modal h1{
-  margin:0 0 10px;
+  margin:0 0 8px;
 }
 
 .modalIntro{
-  color:#687287;
-  margin-bottom:20px;
-  line-height:1.6;
+  color:#8c96b4;
+  line-height:1.65;
+  margin-bottom:18px;
 }
 
 .check{
   display:flex;
-  gap:10px;
   align-items:flex-start;
+  gap:10px;
   margin:14px 0;
-  line-height:1.5;
-  font-size:14px;
+  color:#cbd3ea;
+  line-height:1.55;
+  font-size:13px;
 }
 
 .check input{
   width:18px;
   height:18px;
   margin-top:2px;
+  accent-color:#735cff;
 }
 
 .modalButton{
   width:100%;
-  padding:14px;
   border:0;
-  border-radius:14px;
+  padding:14px;
+  border-radius:13px;
   color:white;
+  background:linear-gradient(135deg,#735cff,#9860e8);
   font-weight:900;
-  background:linear-gradient(135deg,#6389ff,#9864ef);
-  margin-top:10px;
+  margin-top:8px;
 }
 
-.linkButton{
-  margin-top:10px;
-  padding:10px;
-  width:100%;
-  border:0;
-  background:transparent;
-  color:#735cff;
+.modalButton:disabled{
+  opacity:.4;
+  cursor:not-allowed;
 }
 
 .form{
   display:grid;
-  gap:15px;
+  gap:14px;
 }
 
 .field label{
   display:block;
   margin-bottom:6px;
+  color:#cbd3ea;
   font-weight:800;
+  font-size:13px;
 }
 
 .field input,
 .field select{
   width:100%;
-  padding:12px;
-  border:1px solid #dfe3ec;
+  border:1px solid rgba(255,255,255,.09);
   border-radius:12px;
+  padding:12px;
+  color:white;
+  background:#0c1021;
   outline:none;
 }
 
-.formError{
-  color:#e5484d;
-  font-size:14px;
-  margin-top:8px;
+.error{
+  color:#ff7c87;
+  font-size:13px;
+  margin-top:7px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* ===== MOBILE ===== */
 
-@media(max-width:700px){
+@media(max-width:850px){
+
+  .dashboard{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .subjects{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+}
+
+@media(max-width:560px){
+
+  .header{
+    padding:0 14px;
+  }
+
+  .status{
+    display:none;
+  }
+
+  .main{
+    width:min(100% - 18px,1180px);
+  }
+
+  .hero{
+    padding:22px;
+  }
+
+  .heroTop{
+    flex-direction:column;
+  }
+
+  .stats{
+    gap:8px;
+  }
+
+  .stat{
+    padding:13px;
+  }
 
   .subjects{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .infoGrid{
-    grid-template-columns:1fr;
-  }
-
-  .hero h1{
-    font-size:24px;
-  }
-
   .chatMessages{
-    height:380px;
+    height:390px;
+  }
+
+  .bubble{
+    max-width:90%;
+  }
+
+  .features{
+    grid-template-columns:1fr;
   }
 }
 </style>
@@ -348,132 +750,470 @@ button{
 
 <body>
 
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
 <header class="header">
 
   <div class="logo">
     Study <span>Coach AI</span>
   </div>
 
-  <button
-    class="headerButton"
-    onclick="logout()"
-  >
-    ログアウト
-  </button>
+  <div class="headerRight">
+
+    <div class="status">
+      <span class="statusDot"></span>
+      AI ONLINE
+    </div>
+
+    <button
+      class="logout"
+      onclick="logout()"
+    >
+      ログアウト
+    </button>
+
+  </div>
 
 </header>
 
+
 <main class="main">
 
-  <section class="hero">
+<section class="hero">
 
-    <h1 id="welcomeText">
-      今日も一緒に勉強しよう📚
-    </h1>
+  <div class="heroTop">
 
-    <p>
-      AI勉強コーチに質問して、分からないところを一緒に解決しよう。
-    </p>
+    <div>
 
-  </section>
+      <h1 id="welcomeText">
+        今日も一緒に勉強しよう📚
+      </h1>
 
-  <section class="subjects">
+      <p>
+        AIコーチに質問して、問題を解いて、
+        勉強時間もまとめて管理しよう。
+      </p>
 
-    <button
-      class="subject active"
-      onclick="selectSubject(this,'数学')"
-    >
-      📐 数学
-    </button>
-
-    <button
-      class="subject"
-      onclick="selectSubject(this,'英語')"
-    >
-      🇺🇸 英語
-    </button>
-
-    <button
-      class="subject"
-      onclick="selectSubject(this,'国語')"
-    >
-      📖 国語
-    </button>
-
-    <button
-      class="subject"
-      onclick="selectSubject(this,'理科')"
-    >
-      🔬 理科
-    </button>
-
-  </section>
-
-  <section class="chatCard">
-
-    <div class="chatHeader">
-      AI勉強コーチ
-      <span id="subjectText">数学</span>
     </div>
 
-    <div
-      id="chatMessages"
-      class="chatMessages"
-    >
+    <div class="aiBadge">
+      👽 Study Coach AI
+    </div>
 
-      <div class="bubble ai">
-        こんにちは！😊
-        分からない問題や勉強について何でも聞いてね！
+  </div>
+
+</section>
+
+
+<section class="stats">
+
+  <div class="stat">
+    <div class="statIcon">⏱️</div>
+    <div
+      class="statValue"
+      id="studyTime"
+    >
+      0分
+    </div>
+    <div class="statLabel">
+      今日の勉強時間
+    </div>
+  </div>
+
+  <div class="stat">
+    <div class="statIcon">💬</div>
+    <div
+      class="statValue"
+      id="questionCount"
+    >
+      0
+    </div>
+    <div class="statLabel">
+      今日の質問
+    </div>
+  </div>
+
+  <div class="stat">
+    <div class="statIcon">📚</div>
+    <div
+      class="statValue"
+      id="subjectCount"
+    >
+      1
+    </div>
+    <div class="statLabel">
+      選択中の科目
+    </div>
+  </div>
+
+  <div class="stat">
+    <div class="statIcon">🔥</div>
+    <div
+      class="statValue"
+      id="streak"
+    >
+      1日
+    </div>
+    <div class="statLabel">
+      学習ストリーク
+    </div>
+  </div>
+
+</section>
+
+
+<div class="sectionTitle">
+  📚 勉強する科目
+</div>
+
+<section class="subjects">
+
+  <button
+    class="subject active"
+    onclick="selectSubject(this,'数学')"
+  >
+    📐 数学
+  </button>
+
+  <button
+    class="subject"
+    onclick="selectSubject(this,'英語')"
+  >
+    🇺🇸 英語
+  </button>
+
+  <button
+    class="subject"
+    onclick="selectSubject(this,'国語')"
+  >
+    📖 国語
+  </button>
+
+  <button
+    class="subject"
+    onclick="selectSubject(this,'理科')"
+  >
+    🔬 理科
+  </button>
+
+  <button
+    class="subject"
+    onclick="selectSubject(this,'社会')"
+  >
+    🌍 社会
+  </button>
+
+  <button
+    class="subject"
+    onclick="selectSubject(this,'その他')"
+  >
+    ✨ その他
+  </button>
+
+</section>
+
+
+<section class="dashboard">
+
+
+<div class="card">
+
+  <div class="chatHeader">
+
+    <div class="coach">
+
+      <div class="alien">
+        👽
+      </div>
+
+      <div>
+
+        <div class="coachName">
+          Study Coach AI
+        </div>
+
+        <div class="coachSub">
+          <span id="subjectText">
+            数学
+          </span>
+          ・AI学習サポート
+        </div>
+
       </div>
 
     </div>
 
-    <div class="chatInputArea">
+    <div class="status">
+      <span class="statusDot"></span>
+      ONLINE
+    </div>
+
+  </div>
+
+
+  <div
+    id="chatMessages"
+    class="chatMessages"
+  >
+
+    <div class="bubble ai">
+      👽 やあ！Study Coach AIだよ！
+
+      分からない問題でも、
+      勉強方法でも、テスト対策でもOK。
+
+      今日は何を勉強する？
+    </div>
+
+  </div>
+
+
+  <div class="chatInputArea">
+
+    <input
+      id="chatInput"
+      class="chatInput"
+      placeholder="AIコーチに質問してみよう..."
+      onkeydown="handleKey(event)"
+    >
+
+    <button
+      class="sendButton"
+      onclick="sendMessage()"
+    >
+      送信
+    </button>
+
+  </div>
+
+
+  <div class="imageArea">
+
+    <div class="imageTitle">
+      📸 問題の写真をAIに見せる
+    </div>
+
+    <div class="imageDescription">
+      数学の問題や教科書などを撮影して、
+      AIコーチに解説してもらえます。
+    </div>
+
+    <label class="uploadButton">
+
+      📷 写真を選択
 
       <input
-        id="chatInput"
-        class="chatInput"
-        type="text"
-        placeholder="AIに質問してみよう..."
-        onkeydown="handleKey(event)"
+        id="imageInput"
+        type="file"
+        accept="image/*"
+        hidden
+        onchange="previewImage(event)"
       >
 
-      <button
-        class="sendButton"
-        onclick="sendMessage()"
+    </label>
+
+    <img
+      id="preview"
+      class="preview"
+    >
+
+    <button
+      id="analyzeButton"
+      class="analyzeButton"
+      onclick="analyzeImage()"
+    >
+      🔍 この問題をAIに分析してもらう
+    </button>
+
+  </div>
+
+</div>
+
+
+<div class="side">
+
+
+<div class="card sideCard">
+
+  <div class="sideTitle">
+    ⏱️ 集中タイマー
+  </div>
+
+  <div
+    class="timer"
+    id="timer"
+  >
+    00:00
+  </div>
+
+  <div class="timerLabel">
+    集中して勉強した時間
+  </div>
+
+  <div class="timerButtons">
+
+    <button
+      class="actionButton"
+      onclick="startTimer()"
+    >
+      ▶ 開始
+    </button>
+
+    <button
+      class="actionButton secondary"
+      onclick="stopTimer()"
+    >
+      ■ 停止
+    </button>
+
+  </div>
+
+  <div class="progress">
+
+    <div
+      id="progressBar"
+      class="progressBar"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<div class="card sideCard">
+
+  <div class="sideTitle">
+    🎧 勉強BGM
+  </div>
+
+  <div class="music">
+
+    <div class="musicInfo">
+
+      <div class="musicName">
+        Calm Study
+      </div>
+
+      <div
+        class="musicSub"
+        id="musicStatus"
       >
-        送信
-      </button>
+        BGMを流しながら勉強できます
+      </div>
 
     </div>
 
-  </section>
+    <button
+      class="musicButton"
+      id="musicButton"
+      onclick="toggleMusic()"
+    >
+      ▶ 再生
+    </button>
 
-  <section class="infoGrid">
+  </div>
 
-    <div class="infoCard">
-      <h3>⏱️ 勉強時間</h3>
-      <p>
-        今日の勉強時間：
-        <strong id="studyTime">0分</strong>
-      </p>
+  <audio
+    id="studyMusic"
+    loop
+  >
+    <source
+      src="music/study-bgm.mp3"
+      type="audio/mpeg"
+    >
+  </audio>
 
-      <button
-        class="headerButton"
-        onclick="toggleStudy()"
-      >
-        勉強開始 / 停止
-      </button>
+</div>
+
+
+<div class="card sideCard">
+
+  <div class="sideTitle">
+    💡 クイック質問
+  </div>
+
+  <button
+    class="actionButton"
+    onclick="quickQuestion('この問題を分かりやすく説明して')"
+  >
+    📖 分かりやすく説明
+  </button>
+
+  <br><br>
+
+  <button
+    class="actionButton secondary"
+    onclick="quickQuestion('テストに出そうなポイントを教えて')"
+  >
+    🎯 テスト対策
+  </button>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<section class="features">
+
+  <div class="feature">
+
+    <div class="featureIcon">
+      🧠
     </div>
 
-    <div class="infoCard">
-      <h3>👤 アカウント</h3>
-      <p id="accountInfo">
-        アカウント情報を読み込み中...
-      </p>
+    <h3>
+      AI学習サポート
+    </h3>
+
+    <p>
+      分からない問題を質問すると、
+      学年に合わせて分かりやすく説明します。
+    </p>
+
+  </div>
+
+
+  <div class="feature">
+
+    <div class="featureIcon">
+      📸
     </div>
 
-  </section>
+    <h3>
+      画像問題分析
+    </h3>
+
+    <p>
+      問題の写真を送って、
+      AIコーチに読み取ってもらえます。
+    </p>
+
+  </div>
+
+
+  <div class="feature">
+
+    <div class="featureIcon">
+      📊
+    </div>
+
+    <h3>
+      学習記録
+    </h3>
+
+    <p>
+      勉強時間や質問数を記録して、
+      毎日の学習を見える化します。
+    </p>
+
+  </div>
+
+</section>
 
 </main>
 
@@ -487,65 +1227,82 @@ button{
   class="overlay"
 >
 
-  <div class="modal">
+<div class="modal">
 
-    <div class="modalLogo">
-      Study <span>Coach AI</span>
-    </div>
-
-    <h1>はじめに確認してください</h1>
-
-    <div class="modalIntro">
-      Study Coach AIを利用する前に、以下の内容を確認してください。
-    </div>
-
-    <label class="check">
-      <input
-        type="checkbox"
-        id="termsCheck"
-      >
-
-      <span>
-        利用規約を確認し、サービスの利用条件に同意します。
-      </span>
-    </label>
-
-    <label class="check">
-      <input
-        type="checkbox"
-        id="privacyCheck"
-      >
-
-      <span>
-        個人情報の利用目的・取り扱いについて確認しました。
-      </span>
-    </label>
-
-    <label class="check">
-      <input
-        type="checkbox"
-        id="aiDataCheck"
-      >
-
-      <span>
-        質問内容などのデータがAI機能の提供に利用されることを確認しました。
-      </span>
-    </label>
-
-    <div
-      id="consentError"
-      class="formError"
-    ></div>
-
-    <button
-      id="consentButton"
-      class="modalButton"
-      onclick="acceptConsent()"
-    >
-      同意してアカウント作成へ
-    </button>
-
+  <div class="modalLogo">
+    Study <span>Coach AI</span>
   </div>
+
+  <h1>
+    はじめに確認してください
+  </h1>
+
+  <div class="modalIntro">
+    Study Coach AIを利用する前に、
+    以下の内容を確認してください。
+  </div>
+
+  <label class="check">
+
+    <input
+      type="checkbox"
+      id="termsCheck"
+    >
+
+    <span>
+      利用規約を確認し、
+      サービスの利用条件に同意します。
+    </span>
+
+  </label>
+
+
+  <label class="check">
+
+    <input
+      type="checkbox"
+      id="privacyCheck"
+    >
+
+    <span>
+      個人情報の利用目的・取り扱いについて
+      確認しました。
+    </span>
+
+  </label>
+
+
+  <label class="check">
+
+    <input
+      type="checkbox"
+      id="aiDataCheck"
+    >
+
+    <span>
+      質問内容やAI機能に送信する画像などの
+      データが利用されることを確認しました。
+    </span>
+
+  </label>
+
+
+  <div
+    id="consentError"
+    class="error"
+  ></div>
+
+
+  <button
+    id="consentButton"
+    class="modalButton"
+    disabled
+    onclick="acceptConsent()"
+  >
+    同意してアカウント作成へ
+  </button>
+
+</div>
 
 </div>
 
@@ -559,91 +1316,100 @@ button{
   class="overlay hidden"
 >
 
-  <div class="modal">
+<div class="modal">
 
-    <div class="modalLogo">
-      Study <span>Coach AI</span>
-    </div>
+  <div class="modalLogo">
+    Study <span>Coach AI</span>
+  </div>
 
-    <h1>アカウントを作成 👤</h1>
+  <h1>
+    アカウントを作成 👤
+  </h1>
 
-    <div class="modalIntro">
-      学習記録を管理するための情報を入力してください。
-    </div>
+  <div class="modalIntro">
+    あなた専用の学習スペースを作ります。
+  </div>
 
-    <div class="form">
+  <div class="form">
 
-      <div class="field">
+    <div class="field">
 
-        <label>ニックネーム</label>
+      <label>
+        ニックネーム
+      </label>
 
-        <input
-          id="nickname"
-          type="text"
-          maxlength="30"
-          placeholder="例：ゆうせい"
-        >
-
-      </div>
-
-      <div class="field">
-
-        <label>年齢</label>
-
-        <input
-          id="age"
-          type="number"
-          min="1"
-          max="120"
-          placeholder="例：16"
-        >
-
-      </div>
-
-      <div class="field">
-
-        <label>
-          性別
-          <span>（任意）</span>
-        </label>
-
-        <select id="gender">
-
-          <option value="">
-            回答しない
-          </option>
-
-          <option value="male">
-            男性
-          </option>
-
-          <option value="female">
-            女性
-          </option>
-
-          <option value="other">
-            その他
-          </option>
-
-        </select>
-
-      </div>
-
-      <button
-        class="modalButton"
-        onclick="createAccount()"
+      <input
+        id="nickname"
+        type="text"
+        maxlength="30"
+        placeholder="例：ゆうせい"
       >
-        アカウントを作成
-      </button>
-
-      <div
-        id="accountError"
-        class="formError"
-      ></div>
 
     </div>
+
+
+    <div class="field">
+
+      <label>
+        年齢
+      </label>
+
+      <input
+        id="age"
+        type="number"
+        min="1"
+        max="120"
+        placeholder="例：16"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        性別（任意）
+      </label>
+
+      <select id="gender">
+
+        <option value="">
+          回答しない
+        </option>
+
+        <option value="male">
+          男性
+        </option>
+
+        <option value="female">
+          女性
+        </option>
+
+        <option value="other">
+          その他
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <button
+      class="modalButton"
+      onclick="createAccount()"
+    >
+      アカウントを作成する
+    </button>
+
+
+    <div
+      id="accountError"
+      class="error"
+    ></div>
 
   </div>
+
+</div>
 
 </div>
 
@@ -651,7 +1417,7 @@ button{
 <script>
 
 /* =========================
-   SETTINGS
+   CONFIG
 ========================= */
 
 const WORKER_URL =
@@ -712,26 +1478,17 @@ checks.forEach(id => {
 
 function acceptConsent(){
 
-  const allChecked =
-    checks.every(id => {
-
-      const checkbox =
-        document.getElementById(id);
-
-      return checkbox &&
-             checkbox.checked;
-
-    });
-
-  if(!allChecked){
-
+  if(
+    !checks.every(id =>
+      document.getElementById(id)?.checked
+    )
+  ){
     document.getElementById(
       "consentError"
     ).textContent =
       "3つすべてにチェックを入れてください。";
 
     return;
-
   }
 
   localStorage.setItem(
@@ -739,11 +1496,13 @@ function acceptConsent(){
     "accepted"
   );
 
-  document
-    .getElementById("consentScreen")
-    .classList.add("hidden");
+  document.getElementById(
+    "consentScreen"
+  ).classList.add("hidden");
 
-  showCreateAccount();
+  document.getElementById(
+    "accountScreen"
+  ).classList.remove("hidden");
 
 }
 
@@ -752,31 +1511,22 @@ function acceptConsent(){
    ACCOUNT
 ========================= */
 
-function showCreateAccount(){
-
-  document
-    .getElementById("accountScreen")
-    .classList.remove("hidden");
-
-}
-
-
 function createAccount(){
 
   const nickname =
-    document
-      .getElementById("nickname")
-      .value.trim();
+    document.getElementById(
+      "nickname"
+    ).value.trim();
 
   const age =
-    document
-      .getElementById("age")
-      .value;
+    document.getElementById(
+      "age"
+    ).value;
 
   const gender =
-    document
-      .getElementById("gender")
-      .value;
+    document.getElementById(
+      "gender"
+    ).value;
 
   const error =
     document.getElementById(
@@ -815,9 +1565,9 @@ function createAccount(){
     "true"
   );
 
-  document
-    .getElementById("accountScreen")
-    .classList.add("hidden");
+  document.getElementById(
+    "accountScreen"
+  ).classList.add("hidden");
 
   loadUser();
 
@@ -833,25 +1583,41 @@ function loadUser(){
 
   if(!raw)return;
 
-  const user =
-    JSON.parse(raw);
+  try{
 
-  document.getElementById(
-    "welcomeText"
-  ).textContent =
-    `${user.nickname}さん、今日も勉強しよう📚`;
+    const user =
+      JSON.parse(raw);
 
-  document.getElementById(
-    "accountInfo"
-  ).textContent =
-    `${user.nickname} / ${user.age}歳`;
+    document.getElementById(
+      "welcomeText"
+    ).textContent =
+      `${user.nickname}さん、今日も頑張ろう🔥`;
+
+  }catch(e){
+
+    console.error(e);
+
+  }
 
 }
 
 
 /* =========================
-   AI CHAT
+   CHAT
 ========================= */
+
+let questionCount =
+  Number(
+    localStorage.getItem(
+      "questionCount"
+    ) || 0
+  );
+
+document.getElementById(
+  "questionCount"
+).textContent =
+  questionCount;
+
 
 function handleKey(event){
 
@@ -881,9 +1647,21 @@ async function sendMessage(){
 
   input.value = "";
 
+  questionCount++;
+
+  localStorage.setItem(
+    "questionCount",
+    questionCount
+  );
+
+  document.getElementById(
+    "questionCount"
+  ).textContent =
+    questionCount;
+
   const thinking =
     addMessage(
-      "考え中...🤔",
+      "👽 考え中...",
       "ai"
     );
 
@@ -913,13 +1691,10 @@ async function sendMessage(){
 
     if(!response.ok){
 
-      console.error(
-        "Worker error:",
-        data
-      );
+      console.error(data);
 
       addMessage(
-        "😭 AIとの接続でエラーが起きました。\n" +
+        "😭 AIとの接続でエラーが発生しました。\n" +
         "エラーコード: " +
         response.status,
         "ai"
@@ -947,6 +1722,17 @@ async function sendMessage(){
     );
 
   }
+
+}
+
+
+function quickQuestion(text){
+
+  document.getElementById(
+    "chatInput"
+  ).value = text;
+
+  sendMessage();
 
 }
 
@@ -994,7 +1780,9 @@ function selectSubject(
 ){
 
   document
-    .querySelectorAll(".subject")
+    .querySelectorAll(
+      ".subject"
+    )
     .forEach(
       b =>
         b.classList.remove(
@@ -1011,63 +1799,296 @@ function selectSubject(
   ).textContent =
     subject;
 
+  document.getElementById(
+    "subjectCount"
+  ).textContent =
+    "1";
+
 }
 
 
 /* =========================
-   STUDY TIMER
+   IMAGE
 ========================= */
 
-let studying = false;
-
-let studyMinutes =
-  Number(
-    localStorage.getItem(
-      "studyMinutes"
-    ) || 0
-  );
-
-document.getElementById(
-  "studyTime"
-).textContent =
-  studyMinutes + "分";
+let imageBase64 = null;
 
 
-function toggleStudy(){
+function previewImage(event){
 
-  studying =
-    !studying;
+  const file =
+    event.target.files[0];
 
-  addMessage(
-    studying
-      ? "⏱️ 勉強スタート！集中タイム開始🔥"
-      : "⏸️ 勉強タイムを停止しました。お疲れさま！",
-    "ai"
-  );
+  if(!file)return;
+
+  if(
+    !file.type.startsWith(
+      "image/"
+    )
+  ){
+
+    alert(
+      "画像ファイルを選択してください。"
+    );
+
+    return;
+
+  }
+
+  const reader =
+    new FileReader();
+
+  reader.onload = function(e){
+
+    imageBase64 =
+      e.target.result;
+
+    const preview =
+      document.getElementById(
+        "preview"
+      );
+
+    preview.src =
+      imageBase64;
+
+    preview.style.display =
+      "block";
+
+    document.getElementById(
+      "analyzeButton"
+    ).style.display =
+      "block";
+
+  };
+
+  reader.readAsDataURL(file);
 
 }
 
 
-setInterval(
-  () => {
+async function analyzeImage(){
 
-    if(!studying)return;
+  if(!imageBase64)return;
 
-    studyMinutes++;
+  addMessage(
+    "📸 問題の写真を送信しました。",
+    "user"
+  );
 
-    localStorage.setItem(
-      "studyMinutes",
-      studyMinutes
+  const thinking =
+    addMessage(
+      "👽 問題を見ているよ...🔍",
+      "ai"
     );
 
-    document.getElementById(
-      "studyTime"
-    ).textContent =
-      studyMinutes + "分";
+  try{
 
-  },
-  60000
-);
+    const response =
+      await fetch(
+        WORKER_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+            message:
+              "この画像に写っている問題を読み取り、高校生にも分かりやすく日本語で解説してください。答えだけでなく、途中の考え方も説明してください。",
+            image:imageBase64
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    thinking.remove();
+
+    if(!response.ok){
+
+      console.error(data);
+
+      addMessage(
+        "😭 画像分析でエラーが発生しました。\n" +
+        "エラーコード: " +
+        response.status,
+        "ai"
+      );
+
+      return;
+
+    }
+
+    addMessage(
+      data.answer ||
+      "画像を分析できませんでした。",
+      "ai"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    thinking.remove();
+
+    addMessage(
+      "😭 画像をAIに送信できませんでした。",
+      "ai"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+let timerSeconds = 0;
+let timerInterval = null;
+
+
+function updateTimer(){
+
+  const minutes =
+    Math.floor(
+      timerSeconds / 60
+    );
+
+  const seconds =
+    timerSeconds % 60;
+
+  document.getElementById(
+    "timer"
+  ).textContent =
+    String(minutes).padStart(2,"0") +
+    ":" +
+    String(seconds).padStart(2,"0");
+
+  const percent =
+    Math.min(
+      timerSeconds / 3600 * 100,
+      100
+    );
+
+  document.getElementById(
+    "progressBar"
+  ).style.width =
+    percent + "%";
+
+}
+
+
+function startTimer(){
+
+  if(timerInterval)return;
+
+  timerInterval =
+    setInterval(
+      () => {
+
+        timerSeconds++;
+
+        updateTimer();
+
+        if(
+          timerSeconds % 60 === 0
+        ){
+
+          const old =
+            Number(
+              localStorage.getItem(
+                "studyMinutes"
+              ) || 0
+            );
+
+          localStorage.setItem(
+            "studyMinutes",
+            old + 1
+          );
+
+          document.getElementById(
+            "studyTime"
+          ).textContent =
+            (old + 1) + "分";
+
+        }
+
+      },
+      1000
+    );
+
+}
+
+
+function stopTimer(){
+
+  clearInterval(
+    timerInterval
+  );
+
+  timerInterval = null;
+
+}
+
+
+/* =========================
+   MUSIC
+========================= */
+
+function toggleMusic(){
+
+  const music =
+    document.getElementById(
+      "studyMusic"
+    );
+
+  const button =
+    document.getElementById(
+      "musicButton"
+    );
+
+  const status =
+    document.getElementById(
+      "musicStatus"
+    );
+
+  if(music.paused){
+
+    music.play()
+      .then(() => {
+
+        button.textContent =
+          "⏸ 停止";
+
+        status.textContent =
+          "🎧 BGM再生中";
+
+      })
+      .catch(() => {
+
+        status.textContent =
+          "BGMファイルを追加してください。";
+
+      });
+
+  }else{
+
+    music.pause();
+
+    button.textContent =
+      "▶ 再生";
+
+    status.textContent =
+      "BGM停止中";
+
+  }
+
+}
 
 
 /* =========================
@@ -1105,22 +2126,38 @@ window.addEventListener(
         "studyCoachLoggedIn"
       );
 
-    if(consent !== "accepted"){
+    if(
+      consent !== "accepted"
+    ){
 
-      document
-        .getElementById(
-          "consentScreen"
-        )
-        .classList.remove(
-          "hidden"
-        );
+      document.getElementById(
+        "consentScreen"
+      ).classList.remove(
+        "hidden"
+      );
 
     }
     else if(!loggedIn){
 
-      showCreateAccount();
+      document.getElementById(
+        "accountScreen"
+      ).classList.remove(
+        "hidden"
+      );
 
     }
+
+    const savedMinutes =
+      Number(
+        localStorage.getItem(
+          "studyMinutes"
+        ) || 0
+      );
+
+    document.getElementById(
+      "studyTime"
+    ).textContent =
+      savedMinutes + "分";
 
   }
 );
@@ -1129,3 +2166,4 @@ window.addEventListener(
 
 </body>
 </html>
+```
