@@ -1812,35 +1812,101 @@ function greeting(){
 
 function sendMessage(){
 
-  const input=
-    document.getElementById(
-      "chatInput"
-    );
+  async function sendMessage(){
 
-  const text=
+  const input =
+    document.getElementById("chatInput");
+
+  const text =
     input.value.trim();
 
-
-  if(!text)return;
-
+  if(!text) return;
 
   addUserMessage(text);
 
-  input.value="";
+  input.value = "";
 
+  addAIMessage("🐾 考え中...");
 
-  setTimeout(()=>{
+  try {
 
-    let answer=
-      "なるほど！👍 そこについて一緒に考えてみよう。";
+    const response = await fetch(
+      "https://study-coach-ai.6y7ps8znts.workers.dev/",
+      {
+        method: "POST",
 
+        headers: {
+          "Content-Type": "application/json"
+        },
 
-    if(text.includes("数学")){
+        body: JSON.stringify({
+          message: text
+        })
+      }
+    );
 
-      answer=
-        "数学だね！📐 問題の写真を送ってくれたら、解き方を順番に説明するよ。";
+    const data = await response.json();
 
+    // 「考え中...」を削除
+    const chat =
+      document.getElementById("chatMessages");
+
+    const messages =
+      chat.querySelectorAll(".bubble.ai");
+
+    const lastMessage =
+      messages[messages.length - 1];
+
+    if(lastMessage){
+      lastMessage.remove();
     }
+
+    if(!response.ok){
+
+      console.error(
+        "AI API Error:",
+        data
+      );
+
+      addAIMessage(
+        "😭 AIとの接続でエラーが起きたみたい。\n" +
+        "エラーコード: " +
+        response.status
+      );
+
+      return;
+    }
+
+    if(!data.answer){
+
+      addAIMessage(
+        "😭 AIから回答を受け取れなかった。"
+      );
+
+      console.log(
+        "AI response:",
+        data
+      );
+
+      return;
+    }
+
+    addAIMessage(data.answer);
+
+  } catch(error){
+
+    console.error(
+      "Connection Error:",
+      error
+    );
+
+    addAIMessage(
+      "😭 AIとの接続に失敗したみたい。"
+    );
+
+  }
+
+}
 
     else if(text.includes("英語")){
 
