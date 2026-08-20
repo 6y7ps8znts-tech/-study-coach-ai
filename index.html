@@ -1,998 +1,1535 @@
+# Study Coach AI 完成版
+
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Study Coach AI</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", sans-serif;
-    color: #f8fafc;
-    background:
-        radial-gradient(circle at 20% 10%, rgba(56,189,248,.18), transparent 30%),
-        radial-gradient(circle at 90% 20%, rgba(139,92,246,.2), transparent 30%),
-        #050816;
-    overflow-x: hidden;
+body{
+  margin:0;
+  min-height:100vh;
+  color:white;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%,#243b80 0%,transparent 30%),
+    radial-gradient(circle at 85% 80%,#43236f 0%,transparent 30%),
+    linear-gradient(135deg,#050713,#111936);
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-    background-size: 38px 38px;
-    pointer-events: none;
+button,input{
+  font-family:inherit;
 }
 
-.app {
-    position: relative;
-    max-width: 560px;
-    margin: auto;
-    padding: 20px 16px 60px;
+.app{
+  width:min(1150px,94%);
+  margin:auto;
+  padding:22px 0 50px;
 }
 
-/* TOP */
+/* HEADER */
 
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
 }
 
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.logo{
+  font-size:24px;
+  font-weight:900;
 }
 
-.logo {
-    width: 45px;
-    height: 45px;
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
-    background: linear-gradient(135deg,#22d3ee,#6366f1,#a855f7);
-    box-shadow: 0 0 30px rgba(56,189,248,.3);
+.logo span{
+  color:#86a2ff;
 }
 
-.brand-name {
-    font-size: 14px;
-    font-weight: 800;
+.online{
+  padding:8px 13px;
+  border:1px solid #ffffff20;
+  border-radius:30px;
+  background:#ffffff0d;
+  color:#b7c4ff;
+  font-size:12px;
 }
 
-.brand-sub {
-    font-size: 8px;
-    color: #64748b;
-    letter-spacing: 1.5px;
-}
-
-.online {
-    font-size: 9px;
-    color: #86efac;
-    border: 1px solid rgba(74,222,128,.2);
-    background: rgba(74,222,128,.06);
-    padding: 7px 10px;
-    border-radius: 99px;
-}
-
-.online span {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    background: #4ade80;
-    border-radius: 50%;
-    margin-right: 5px;
-    box-shadow: 0 0 10px #4ade80;
+.dot{
+  display:inline-block;
+  width:7px;
+  height:7px;
+  margin-right:6px;
+  border-radius:50%;
+  background:#64ffae;
+  box-shadow:0 0 12px #64ffae;
 }
 
 /* HERO */
 
-.hero h1 {
-    margin: 0;
-    font-size: 44px;
-    line-height: 1;
-    letter-spacing: -3px;
+.hero{
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+  padding:35px 20px;
+  min-height:450px;
+  border:1px solid #ffffff18;
+  border-radius:30px;
+  background:#ffffff0c;
+  backdrop-filter:blur(20px);
 }
 
-.gradient {
-    background: linear-gradient(90deg,#67e8f9,#818cf8,#c084fc);
-    -webkit-background-clip: text;
-    color: transparent;
+.heroGlow{
+  position:absolute;
+  width:350px;
+  height:350px;
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
+  background:#668cff;
+  filter:blur(130px);
+  opacity:.22;
 }
 
-.hero p {
-    color: #94a3b8;
-    line-height: 1.8;
-    font-size: 13px;
+.coach{
+  position:relative;
+  z-index:2;
+  animation:appear .7s ease;
 }
 
-/* =========================
-   AI CHARACTER
-========================= */
-
-.ai-section {
-    margin-top: 25px;
-    position: relative;
+@keyframes appear{
+  from{
+    opacity:0;
+    transform:translateY(20px) scale(.9);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 }
 
-.ai-card {
-    position: relative;
-    min-height: 280px;
-    border-radius: 30px;
-    overflow: hidden;
-    border: 1px solid rgba(148,163,184,.12);
-    background:
-        radial-gradient(circle at 50% 70%, rgba(56,189,248,.12), transparent 35%),
-        rgba(15,23,42,.65);
-    backdrop-filter: blur(20px);
+.animal{
+  font-size:120px;
+  line-height:1;
+  animation:float 3s ease-in-out infinite;
 }
 
-/* floating particles */
-
-.particle {
-    position: absolute;
-    color: #67e8f9;
-    opacity: .5;
-    animation: particleFloat 4s ease-in-out infinite;
+@keyframes float{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-10px);
+  }
 }
 
-.p1 { top: 25px; left: 25px; }
-.p2 { top: 50px; right: 35px; animation-delay: 1s; }
-.p3 { bottom: 45px; left: 55px; animation-delay: 2s; }
-.p4 { bottom: 30px; right: 55px; animation-delay: .5s; }
-
-@keyframes particleFloat {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+.coachName{
+  margin-top:12px;
+  font-size:31px;
+  font-weight:900;
 }
 
-/* speech bubble */
-
-.speech {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    padding: 14px 17px;
-    border-radius: 18px;
-    background: rgba(30,41,59,.9);
-    border: 1px solid rgba(125,211,252,.15);
-    color: #e0f2fe;
-    font-size: 12px;
-    line-height: 1.7;
-    box-shadow: 0 15px 40px rgba(0,0,0,.25);
+.rarity{
+  display:inline-block;
+  margin-top:8px;
+  padding:6px 13px;
+  border-radius:20px;
+  background:#ffffff12;
+  font-size:12px;
 }
 
-.speech strong {
-    color: #67e8f9;
+.message{
+  width:min(650px,100%);
+  margin:22px auto;
+  padding:17px 20px;
+  border-radius:20px;
+  background:#ffffff0d;
+  border:1px solid #ffffff15;
+  line-height:1.7;
 }
 
-/* CHARACTER */
-
-.character {
-    position: absolute;
-    left: 50%;
-    bottom: -10px;
-    transform: translateX(-50%);
-    width: 145px;
-    height: 170px;
-    animation: characterFloat 3s ease-in-out infinite;
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-@keyframes characterFloat {
-    0%,100% {
-        transform: translateX(-50%) translateY(0);
-    }
-
-    50% {
-        transform: translateX(-50%) translateY(-7px);
-    }
+.primary,
+.secondary{
+  padding:13px 19px;
+  border-radius:14px;
+  color:white;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s;
 }
 
-/* hair */
-
-.hair {
-    position: absolute;
-    width: 108px;
-    height: 110px;
-    left: 18px;
-    top: 3px;
-    border-radius: 48% 52% 42% 45%;
-    background: linear-gradient(135deg,#172554,#312e81);
-    box-shadow: 0 0 30px rgba(99,102,241,.3);
+.primary{
+  border:0;
+  background:linear-gradient(135deg,#648bff,#9c63ff);
 }
 
-/* face */
-
-.face {
-    position: absolute;
-    width: 86px;
-    height: 92px;
-    left: 30px;
-    top: 28px;
-    border-radius: 46% 46% 48% 48%;
-    background: linear-gradient(145deg,#ffe4d6,#ffd1c1);
-    box-shadow: inset 0 -5px 10px rgba(255,150,130,.1);
+.secondary{
+  background:#ffffff0d;
+  border:1px solid #ffffff18;
 }
 
-/* ears */
-
-.ear-left,
-.ear-right {
-    position: absolute;
-    width: 15px;
-    height: 22px;
-    top: 63px;
-    background: #ffd1c1;
-    border-radius: 50%;
+.primary:hover,
+.secondary:hover{
+  transform:translateY(-2px);
 }
 
-.ear-left { left: 24px; }
-.ear-right { right: 24px; }
-
-/* eyes */
-
-.eye {
-    position: absolute;
-    top: 63px;
-    width: 9px;
-    height: 13px;
-    border-radius: 50%;
-    background: #172554;
+.legendary{
+  border-color:#ffd66b80;
+  box-shadow:0 0 60px #ffd66b25;
 }
 
-.eye-left { left: 51px; }
-.eye-right { right: 51px; }
+/* DASHBOARD */
 
-.eye::after {
-    content: "";
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: white;
-    border-radius: 50%;
-    top: 2px;
-    left: 2px;
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:18px;
 }
 
-/* mouth */
-
-.mouth {
-    position: absolute;
-    left: 68px;
-    top: 82px;
-    width: 10px;
-    height: 6px;
-    border-bottom: 2px solid #be6670;
-    border-radius: 50%;
+.stat{
+  padding:18px;
+  border-radius:20px;
+  background:#ffffff0b;
+  border:1px solid #ffffff15;
 }
 
-/* body */
-
-.body {
-    position: absolute;
-    width: 100px;
-    height: 58px;
-    left: 23px;
-    bottom: 0;
-    border-radius: 35px 35px 18px 18px;
-    background: linear-gradient(135deg,#0ea5e9,#6366f1);
-    box-shadow: 0 15px 30px rgba(37,99,235,.25);
+.statTitle{
+  color:#9da8c5;
+  font-size:12px;
 }
 
-.body::after {
-    content: "SC";
-    position: absolute;
-    left: 39px;
-    top: 18px;
-    font-weight: 900;
-    font-size: 12px;
-    color: rgba(255,255,255,.8);
+.statValue{
+  margin-top:8px;
+  font-size:24px;
+  font-weight:900;
 }
 
-/* little antenna */
-
-.antenna {
-    position: absolute;
-    width: 3px;
-    height: 23px;
-    background: #67e8f9;
-    left: 70px;
-    top: -16px;
+.progress{
+  height:6px;
+  margin-top:12px;
+  overflow:hidden;
+  border-radius:10px;
+  background:#ffffff10;
 }
 
-.antenna::before {
-    content: "";
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    left: -3px;
-    top: -5px;
-    border-radius: 50%;
-    background: #67e8f9;
-    box-shadow: 0 0 15px #67e8f9;
+.progressBar{
+  height:100%;
+  width:5%;
+  border-radius:10px;
+  background:linear-gradient(90deg,#648cff,#a86aff);
 }
 
-/* character label */
+/* MAIN */
 
-.character-name {
-    position: absolute;
-    bottom: 13px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 9px;
-    color: #64748b;
-    letter-spacing: 2px;
+.mainGrid{
+  display:grid;
+  grid-template-columns:1.3fr .8fr;
+  gap:18px;
+  margin-top:18px;
 }
 
-/* =========================
-   BUTTONS
-========================= */
-
-.main-button {
-    width: 100%;
-    margin-top: 12px;
-    padding: 15px;
-    border: none;
-    border-radius: 17px;
-    color: white;
-    font-size: 13px;
-    font-weight: 800;
-    background: linear-gradient(90deg,#0891b2,#6366f1,#8b5cf6);
-    box-shadow: 0 15px 35px rgba(99,102,241,.25);
-    cursor: pointer;
-    transition: .2s;
+.panel{
+  padding:22px;
+  border-radius:24px;
+  background:#ffffff0b;
+  border:1px solid #ffffff15;
+  backdrop-filter:blur(15px);
 }
 
-.main-button:hover {
-    transform: translateY(-2px);
+.panelTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:17px;
 }
 
-.quick-chat {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 12px;
+.panelTitle h2{
+  margin:0;
+  font-size:18px;
 }
 
-.quick-chat button {
-    padding: 12px;
-    border-radius: 14px;
-    border: 1px solid rgba(148,163,184,.1);
-    background: rgba(15,23,42,.65);
-    color: #cbd5e1;
-    font-size: 10px;
-    cursor: pointer;
+.panelTitle span{
+  color:#929db9;
+  font-size:12px;
 }
 
-/* =========================
-   STATS
-========================= */
+/* CHAT */
 
-.stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
-    margin-top: 14px;
+.chat{
+  min-height:390px;
+  display:flex;
+  flex-direction:column;
 }
 
-.stat {
-    padding: 15px;
-    border-radius: 19px;
-    background: rgba(15,23,42,.62);
-    border: 1px solid rgba(148,163,184,.08);
+.chatMessages{
+  flex:1;
+  max-height:330px;
+  overflow-y:auto;
 }
 
-.stat-label {
-    color: #64748b;
-    font-size: 8px;
+.bubble{
+  width:fit-content;
+  max-width:85%;
+  margin:9px 0;
+  padding:12px 15px;
+  border-radius:17px;
+  line-height:1.6;
+  font-size:14px;
 }
 
-.stat-number {
-    margin-top: 5px;
-    font-size: 22px;
-    font-weight: 900;
+.ai{
+  background:#668cff18;
+  border:1px solid #668cff25;
 }
 
-.stat-number small {
-    font-size: 9px;
-    color: #94a3b8;
+.user{
+  margin-left:auto;
+  background:linear-gradient(135deg,#6281ff,#9060e8);
 }
 
-/* =========================
-   UPLOAD
-========================= */
-
-.upload-card {
-    margin-top: 15px;
-    padding: 20px;
-    border-radius: 25px;
-    background: rgba(15,23,42,.7);
-    border: 1px solid rgba(148,163,184,.1);
+.chatInput{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
 }
 
-.section-title {
-    font-size: 15px;
-    font-weight: 850;
-    margin-bottom: 6px;
+.chatInput input{
+  flex:1;
+  min-width:0;
+  padding:13px;
+  outline:none;
+  color:white;
+  background:#00000030;
+  border:1px solid #ffffff18;
+  border-radius:14px;
 }
 
-.section-sub {
-    color: #64748b;
-    font-size: 10px;
-    margin-bottom: 15px;
+.send{
+  width:48px;
+  border:0;
+  border-radius:14px;
+  color:white;
+  background:linear-gradient(135deg,#6389ff,#9b63ef);
+  cursor:pointer;
 }
 
-.upload-label {
-    min-height: 145px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-    border: 1px dashed rgba(56,189,248,.25);
-    border-radius: 20px;
-    cursor: pointer;
-    background: rgba(2,6,23,.35);
+/* MENU */
+
+.menu{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
 }
 
-.upload-icon {
-    font-size: 28px;
+.menuItem{
+  padding:17px;
+  border-radius:17px;
+  background:#ffffff09;
+  border:1px solid #ffffff12;
+  cursor:pointer;
+  transition:.2s;
 }
 
-.upload-title {
-    font-size: 12px;
-    font-weight: 800;
+.menuItem:hover{
+  transform:translateY(-3px);
+  background:#ffffff10;
 }
 
-.upload-sub {
-    color: #475569;
-    font-size: 8px;
+.menuIcon{
+  font-size:28px;
 }
 
-#image-upload {
-    display: none;
+.menuName{
+  margin-top:7px;
+  font-weight:800;
 }
 
-#preview {
-    display: none;
-    width: 100%;
-    max-height: 400px;
-    object-fit: contain;
-    margin-top: 14px;
-    border-radius: 18px;
-    background: #020617;
+.menuDesc{
+  margin-top:4px;
+  color:#919cb8;
+  font-size:11px;
 }
 
-/* AI ANSWER */
+/* SUBJECT */
 
-#loading {
-    display: none;
-    text-align: center;
-    padding: 25px;
-    color: #67e8f9;
-    font-size: 11px;
+.subjects{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
 }
 
-#answer {
-    display: none;
-    margin-top: 14px;
-    padding: 18px;
-    border-radius: 18px;
-    background: rgba(2,6,23,.55);
-    border: 1px solid rgba(56,189,248,.12);
-    font-size: 12px;
-    line-height: 1.8;
+.subject{
+  padding:9px 13px;
+  color:#dbe2ff;
+  background:#ffffff09;
+  border:1px solid #ffffff15;
+  border-radius:12px;
+  cursor:pointer;
 }
 
-#question-area {
-    display: none;
-    margin-top: 12px;
+.subject.active{
+  color:white;
+  background:linear-gradient(135deg,#6383ff,#9563ed);
 }
 
-#question {
-    width: 100%;
-    min-height: 80px;
-    resize: vertical;
-    border-radius: 15px;
-    padding: 12px;
-    background: rgba(2,6,23,.6);
-    border: 1px solid rgba(148,163,184,.1);
-    color: white;
-    outline: none;
-    font-family: inherit;
+/* IMAGE */
+
+.uploadBox{
+  margin-top:20px;
+  padding:20px;
+  text-align:center;
+  border:1px dashed #ffffff30;
+  border-radius:18px;
+  background:#ffffff05;
 }
 
-#question-button {
-    width: 100%;
-    margin-top: 8px;
-    padding: 13px;
-    border: none;
-    border-radius: 14px;
-    background: #1e293b;
-    color: #cbd5e1;
-    font-weight: 800;
+.uploadBox input{
+  display:none;
 }
 
-/* FOOTER */
-
-.footer {
-    text-align: center;
-    color: #334155;
-    font-size: 8px;
-    margin-top: 35px;
-    letter-spacing: 1.5px;
+.uploadButton{
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:13px;
+  background:#ffffff10;
+  cursor:pointer;
+  font-size:13px;
 }
+
+.preview{
+  display:none;
+  max-width:100%;
+  max-height:220px;
+  margin:15px auto 0;
+  border-radius:15px;
+}
+
+/* RARE */
+
+.rareBox{
+  margin-top:18px;
+  padding:21px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#ffd34b0d,#9a65ff0d);
+  border:1px solid #ffd66b20;
+}
+
+.rareTitle{
+  font-weight:900;
+}
+
+.rareText{
+  margin-top:7px;
+  color:#9aa5c1;
+  font-size:12px;
+  line-height:1.7;
+}
+
+footer{
+  margin-top:30px;
+  text-align:center;
+  color:#68738e;
+  font-size:11px;
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+  .dashboard{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .mainGrid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  .app{
+    width:94%;
+  }
+
+  .hero{
+    min-height:400px;
+    padding:28px 15px;
+  }
+
+  .animal{
+    font-size:95px;
+  }
+
+  .coachName{
+    font-size:25px;
+  }
+
+  .dashboard{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stat{
+    padding:14px;
+  }
+
+  .statValue{
+    font-size:20px;
+  }
+}
+
 </style>
 </head>
+
 
 <body>
 
 <div class="app">
 
-    <!-- HEADER -->
+<header>
 
-    <div class="topbar">
+  <div class="logo">
+    Study <span>Coach AI</span>
+  </div>
 
-        <div class="brand">
+  <div class="online">
+    <span class="dot"></span>
+    AI ONLINE
+  </div>
 
-            <div class="logo">
-                SC
-            </div>
+</header>
 
-            <div>
-                <div class="brand-name">
-                    Study Coach AI
-                </div>
 
-                <div class="brand-sub">
-                    NEXT GENERATION LEARNING
-                </div>
-            </div>
+<!-- AI COACH -->
 
-        </div>
+<section class="hero" id="coachCard">
 
-        <div class="online">
-            <span></span>
-            AI ONLINE
-        </div>
+  <div class="heroGlow"></div>
+
+  <div class="coach" id="coach">
+
+    <div class="animal" id="animal">
+      🐱
+    </div>
+
+    <div class="coachName" id="coachName">
+      ネココーチ
+    </div>
+
+    <div class="rarity" id="rarity">
+      ⭐ ノーマル
+    </div>
+
+    <div class="message" id="message">
+      今日も一緒に勉強しよ〜！📚
+    </div>
+
+    <div class="buttons">
+
+      <button
+        class="primary"
+        onclick="randomCoach()"
+      >
+        🎲 コーチを選ぶ
+      </button>
+
+      <button
+        class="secondary"
+        onclick="greeting()"
+      >
+        💬 話しかける
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section class="dashboard">
+
+  <div class="stat">
+
+    <div class="statTitle">
+      🔥 連続学習
+    </div>
+
+    <div
+      class="statValue"
+      id="streak"
+    >
+      1日
+    </div>
+
+    <div class="progress">
+      <div
+        class="progressBar"
+        style="width:30%"
+      ></div>
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <div class="statTitle">
+      ⏱ 今日の勉強
+    </div>
+
+    <div
+      class="statValue"
+      id="studyTime"
+    >
+      0分
+    </div>
+
+    <div class="progress">
+      <div
+        class="progressBar"
+        id="timeBar"
+        style="width:5%"
+      ></div>
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <div class="statTitle">
+      📚 教科
+    </div>
+
+    <div
+      class="statValue"
+      id="subjectText"
+    >
+      数学
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <div class="statTitle">
+      ⭐ コーチ
+    </div>
+
+    <div
+      class="statValue"
+      id="coachCount"
+    >
+      0
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- MAIN -->
+
+<section class="mainGrid">
+
+
+<!-- CHAT -->
+
+<div class="panel chat">
+
+  <div class="panelTitle">
+
+    <h2>
+      💬 AIコーチ
+    </h2>
+
+    <span>
+      いつでも質問OK
+    </span>
+
+  </div>
+
+
+  <div
+    class="chatMessages"
+    id="chatMessages"
+  >
+
+    <div class="bubble ai">
+
+      🐾 こんにちは！<br>
+      分からない問題があったら
+      何でも聞いてね！
+
+    </div>
+
+  </div>
+
+
+  <div class="chatInput">
+
+    <input
+      id="chatInput"
+      type="text"
+      placeholder="コーチに質問してみよう..."
+      onkeydown="if(event.key==='Enter')sendMessage()"
+    >
+
+    <button
+      class="send"
+      onclick="sendMessage()"
+    >
+      ➤
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- MENU -->
+
+<div class="panel">
+
+  <div class="panelTitle">
+    <h2>🚀 学習メニュー</h2>
+  </div>
+
+
+  <div class="menu">
+
+    <div
+      class="menuItem"
+      onclick="focusUpload()"
+    >
+
+      <div class="menuIcon">
+        📸
+      </div>
+
+      <div class="menuName">
+        問題を解説
+      </div>
+
+      <div class="menuDesc">
+        写真を選んで問題を送る
+      </div>
 
     </div>
 
 
-    <!-- HERO -->
+    <div
+      class="menuItem"
+      onclick="startStudy()"
+    >
 
-    <section class="hero">
+      <div class="menuIcon">
+        ⏱️
+      </div>
 
-        <h1>
-            勉強を、<br>
-            <span class="gradient">
-                AIと楽しもう。
-            </span>
-        </h1>
+      <div class="menuName">
+        勉強スタート
+      </div>
 
-        <p>
-            分からない問題を送るだけ。<br>
-            AIコーチが、あなたの理解に合わせて一緒に考えます。
-        </p>
-
-    </section>
-
-
-    <!-- AI CHARACTER -->
-
-    <section class="ai-section">
-
-        <div class="ai-card">
-
-            <div class="particle p1">✦</div>
-            <div class="particle p2">✧</div>
-            <div class="particle p3">·</div>
-            <div class="particle p4">✦</div>
-
-
-            <div class="speech">
-
-                <strong>コーチ：</strong>
-
-                やっほー！👋<br>
-
-                今日も一緒に勉強しよ！
-                分からない問題があったら、
-                写真を送ってね ✨
-
-            </div>
-
-
-            <div class="character">
-
-                <div class="hair"></div>
-
-                <div class="ear-left"></div>
-                <div class="ear-right"></div>
-
-                <div class="face"></div>
-
-                <div class="eye eye-left"></div>
-                <div class="eye eye-right"></div>
-
-                <div class="mouth"></div>
-
-                <div class="antenna"></div>
-
-                <div class="body"></div>
-
-            </div>
-
-
-            <div class="character-name">
-                AI COACH
-            </div>
-
-        </div>
-
-
-        <button
-            class="main-button"
-            id="talkButton"
-        >
-            💬 コーチと話す
-        </button>
-
-
-        <div class="quick-chat">
-
-            <button data-message="今日何を勉強したらいい？">
-                📚 今日何勉強する？
-            </button>
-
-            <button data-message="勉強のやる気が出ない！">
-                🔥 やる気が出ない
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- STATS -->
-
-    <div class="stats">
-
-        <div class="stat">
-
-            <div class="stat-label">
-                STUDY TIME
-            </div>
-
-            <div class="stat-number">
-                42
-                <small>min</small>
-            </div>
-
-        </div>
-
-        <div class="stat">
-
-            <div class="stat-label">
-                STREAK
-            </div>
-
-            <div class="stat-number">
-                7
-                <small>days 🔥</small>
-            </div>
-
-        </div>
+      <div class="menuDesc">
+        学習時間を記録
+      </div>
 
     </div>
 
 
-    <!-- UPLOAD -->
+    <div
+      class="menuItem"
+      onclick="showStats()"
+    >
 
-    <section class="upload-card">
+      <div class="menuIcon">
+        📊
+      </div>
 
-        <div class="section-title">
-            📸 問題をAIに見せる
-        </div>
+      <div class="menuName">
+        学習記録
+      </div>
 
-        <div class="section-sub">
-            数学・英語・理科など、写真から問題を読み取ります。
-        </div>
+      <div class="menuDesc">
+        今日の勉強状況
+      </div>
 
-
-        <label
-            class="upload-label"
-            for="image-upload"
-        >
-
-            <div class="upload-icon">
-                ✨
-            </div>
-
-            <div class="upload-title">
-                問題の写真を選ぶ
-            </div>
-
-            <div class="upload-sub">
-                TAP TO SCAN
-            </div>
-
-        </label>
-
-
-        <input
-            type="file"
-            id="image-upload"
-            accept="image/*"
-        >
-
-
-        <img
-            id="preview"
-            alt="問題画像"
-        >
-
-
-        <button
-            id="explain-button"
-            class="main-button"
-            style="display:none;"
-        >
-            🤖 AIに解説してもらう
-        </button>
-
-
-        <div id="loading">
-            ✦ AIが問題を解析中...
-        </div>
-
-
-        <div id="answer">
-
-            <strong style="color:#67e8f9;">
-                ✦ AI COACH
-            </strong>
-
-            <p>
-                これはテスト用の解説です！
-            </p>
-
-            <p>
-                ① 問題文から条件を整理する
-                <br>
-                ② 必要な公式を確認する
-                <br>
-                ③ 順番に計算して答えを出す
-            </p>
-
-            <p>
-                分からないところがあったら、
-                下から質問してね！
-            </p>
-
-        </div>
-
-
-        <div id="question-area">
-
-            <textarea
-                id="question"
-                placeholder="コーチに質問してみよう..."
-            ></textarea>
-
-            <button id="question-button">
-                💬 質問する
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <div class="footer">
-        STUDY COACH AI · FUTURE OF LEARNING
     </div>
+
+
+    <div
+      class="menuItem"
+      onclick="randomCoach()"
+    >
+
+      <div class="menuIcon">
+        🎲
+      </div>
+
+      <div class="menuName">
+        コーチ変更
+      </div>
+
+      <div class="menuDesc">
+        新しい動物が登場
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SUBJECT -->
+
+  <div style="margin-top:22px">
+
+    <div class="panelTitle">
+
+      <h2>
+        📚 教科
+      </h2>
+
+    </div>
+
+
+    <div class="subjects">
+
+      <button
+        class="subject active"
+        onclick="selectSubject(this,'数学')"
+      >
+        数学
+      </button>
+
+      <button
+        class="subject"
+        onclick="selectSubject(this,'英語')"
+      >
+        英語
+      </button>
+
+      <button
+        class="subject"
+        onclick="selectSubject(this,'理科')"
+      >
+        理科
+      </button>
+
+      <button
+        class="subject"
+        onclick="selectSubject(this,'社会')"
+      >
+        社会
+      </button>
+
+      <button
+        class="subject"
+        onclick="selectSubject(this,'国語')"
+      >
+        国語
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- IMAGE -->
+
+  <div
+    class="uploadBox"
+    id="uploadBox"
+  >
+
+    <label class="uploadButton">
+
+      📷 問題の写真を選択
+
+      <input
+        type="file"
+        id="imageInput"
+        accept="image/*"
+        onchange="previewImage(event)"
+      >
+
+    </label>
+
+
+    <img
+      id="preview"
+      class="preview"
+    >
+
+
+    <div
+      id="imageStatus"
+      style="
+        margin-top:10px;
+        color:#8994b2;
+        font-size:11px;
+      "
+    >
+      写真を選ぶとここに表示されます
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- RARE -->
+
+<section class="rareBox">
+
+  <div class="rareTitle">
+    🌟 AIコーチランダムシステム
+  </div>
+
+  <div class="rareText">
+
+    アプリを開くたびに
+    今日のコーチがランダムで登場！
+
+    <br><br>
+
+    ⭐ ノーマル：80%<br>
+    💎 レア：18%<br>
+    🌟 LEGENDARY：2%
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  Study Coach AI<br>
+  Study Smarter, Not Harder.
+
+</footer>
 
 </div>
 
 
 <script>
 
-const imageUpload =
-    document.getElementById("image-upload");
+/* =========================
+   COACH DATA
+========================= */
 
-const preview =
-    document.getElementById("preview");
+const coaches = [
 
-const explainButton =
-    document.getElementById("explain-button");
+  {
+    animal:"🐱",
+    name:"ネココーチ",
+    rarity:"⭐ ノーマル",
+    message:"一緒に頑張ろうね！分からないところは何でも聞いて🐾",
+    type:"normal"
+  },
 
-const loading =
-    document.getElementById("loading");
+  {
+    animal:"🐶",
+    name:"イヌコーチ",
+    rarity:"⭐ ノーマル",
+    message:"よっしゃ！今日も勉強やるぞーー！！🔥",
+    type:"normal"
+  },
 
-const answer =
-    document.getElementById("answer");
+  {
+    animal:"🐰",
+    name:"ウサギコーチ",
+    rarity:"⭐ ノーマル",
+    message:"えらい！今日も少しずつ進めよ〜！✨",
+    type:"normal"
+  },
 
-const questionArea =
-    document.getElementById("question-area");
+  {
+    animal:"🦊",
+    name:"キツネコーチ",
+    rarity:"💎 レア",
+    message:"いい問題だね。焦らず順番に考えてみよう。",
+    type:"rare"
+  },
 
-const question =
-    document.getElementById("question");
+  {
+    animal:"🐼",
+    name:"パンダコーチ",
+    rarity:"💎 レア",
+    message:"ゆっくりで大丈夫。理解することが一番大事だよ🐼",
+    type:"rare"
+  },
 
-const questionButton =
-    document.getElementById("question-button");
+  {
+    animal:"🐨",
+    name:"コアラコーチ",
+    rarity:"💎 レア",
+    message:"休憩も大切。一緒に進もう🌿",
+    type:"rare"
+  },
 
-const talkButton =
-    document.getElementById("talkButton");
+  {
+    animal:"🐧",
+    name:"ペンギンコーチ",
+    rarity:"💎 レア",
+    message:"今日の目標、一緒にクリアしよう！🐧",
+    type:"rare"
+  },
+
+  {
+    animal:"🐉",
+    name:"ドラゴンコーチ",
+    rarity:"🌟 LEGENDARY",
+    message:"伝説のコーチが現れた……！今日は本気でいこう🔥",
+    type:"legendary"
+  }
+
+];
 
 
 /* =========================
-   CHARACTER TALK
+   VARIABLES
 ========================= */
 
-const speech =
-    document.querySelector(".speech");
+let coachNumber=0;
 
-talkButton.addEventListener("click", function() {
+let studying=false;
 
-    speech.innerHTML =
-        "<strong>コーチ：</strong><br>" +
-        "もちろん！😊<br>" +
-        "今日は何を勉強する？";
-
-});
+let studyMinutes=
+Number(
+  localStorage.getItem("studyMinutes") || 0
+);
 
 
-/* QUICK QUESTIONS */
+/* =========================
+   RANDOM COACH
+========================= */
 
-document
-    .querySelectorAll(".quick-chat button")
-    .forEach(button => {
+function randomCoach(){
 
-        button.addEventListener("click", function() {
+  const roll=Math.random();
 
-            const message =
-                this.dataset.message;
+  let coach;
 
-            speech.innerHTML =
-                "<strong>コーチ：</strong><br>" +
-                "「" +
-                message +
-                "」だね！✨<br>" +
-                "一緒に考えてみよ！";
 
-        });
+  if(roll<0.02){
 
-    });
+    coach=coaches[7];
+
+  }
+
+  else if(roll<0.20){
+
+    const rare=
+      coaches.filter(
+        c=>c.type==="rare"
+      );
+
+    coach=
+      rare[
+        Math.floor(
+          Math.random()*rare.length
+        )
+      ];
+
+  }
+
+  else{
+
+    const normal=
+      coaches.filter(
+        c=>c.type==="normal"
+      );
+
+    coach=
+      normal[
+        Math.floor(
+          Math.random()*normal.length
+        )
+      ];
+
+  }
+
+
+  showCoach(coach);
+
+}
+
+
+/* =========================
+   SHOW COACH
+========================= */
+
+function showCoach(coach){
+
+  const card=
+    document.getElementById(
+      "coachCard"
+    );
+
+  const element=
+    document.getElementById(
+      "coach"
+    );
+
+
+  document.getElementById(
+    "animal"
+  ).textContent=
+    coach.animal;
+
+
+  document.getElementById(
+    "coachName"
+  ).textContent=
+    coach.name;
+
+
+  document.getElementById(
+    "rarity"
+  ).textContent=
+    coach.rarity;
+
+
+  document.getElementById(
+    "message"
+  ).textContent=
+    coach.message;
+
+
+  card.classList.remove(
+    "legendary"
+  );
+
+
+  element.style.animation="none";
+
+  void element.offsetWidth;
+
+  element.style.animation=
+    "appear .7s ease";
+
+
+  if(
+    coach.type==="legendary"
+  ){
+
+    card.classList.add(
+      "legendary"
+    );
+
+  }
+
+
+  coachNumber++;
+
+
+  document.getElementById(
+    "coachCount"
+  ).textContent=
+    coachNumber;
+
+
+  if(
+    coach.type==="legendary"
+  ){
+
+    addAIMessage(
+      "🌟 LEGENDARYコーチが出現した！！"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   GREETING
+========================= */
+
+function greeting(){
+
+  const messages=[
+
+    "今日の勉強、何から始める？📚",
+
+    "分からない問題があったら写真でも送ってね！📸",
+
+    "まず5分だけやってみる？🔥",
+
+    "今日も少しずつ進めよう！",
+
+    "一緒に頑張ろうね🐾"
+
+  ];
+
+
+  const message=
+    messages[
+      Math.floor(
+        Math.random()*messages.length
+      )
+    ];
+
+
+  addAIMessage(message);
+
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+function sendMessage(){
+
+  const input=
+    document.getElementById(
+      "chatInput"
+    );
+
+  const text=
+    input.value.trim();
+
+
+  if(!text)return;
+
+
+  addUserMessage(text);
+
+  input.value="";
+
+
+  setTimeout(()=>{
+
+    let answer=
+      "なるほど！👍 そこについて一緒に考えてみよう。";
+
+
+    if(text.includes("数学")){
+
+      answer=
+        "数学だね！📐 問題の写真を送ってくれたら、解き方を順番に説明するよ。";
+
+    }
+
+    else if(text.includes("英語")){
+
+      answer=
+        "英語だね！🇺🇸 分からない英文や単語を送ってみて！";
+
+    }
+
+    else if(text.includes("分からない")){
+
+      answer=
+        "大丈夫！分からないところがあるのは普通だよ。どこで止まったか教えて😊";
+
+    }
+
+    else if(
+      text.includes("こんにちは") ||
+      text.includes("おはよう")
+    ){
+
+      answer=
+        "こんにちは！今日も一緒に勉強しよう📚✨";
+
+    }
+
+
+    addAIMessage(answer);
+
+  },700);
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function addUserMessage(text){
+
+  const chat=
+    document.getElementById(
+      "chatMessages"
+    );
+
+  const bubble=
+    document.createElement(
+      "div"
+    );
+
+  bubble.className=
+    "bubble user";
+
+  bubble.textContent=
+    text;
+
+  chat.appendChild(
+    bubble
+  );
+
+  chat.scrollTop=
+    chat.scrollHeight;
+
+}
+
+
+function addAIMessage(text){
+
+  const chat=
+    document.getElementById(
+      "chatMessages"
+    );
+
+  const bubble=
+    document.createElement(
+      "div"
+    );
+
+  bubble.className=
+    "bubble ai";
+
+  bubble.textContent=
+    text;
+
+  chat.appendChild(
+    bubble
+  );
+
+  chat.scrollTop=
+    chat.scrollHeight;
+
+}
+
+
+/* =========================
+   SUBJECT
+========================= */
+
+function selectSubject(
+  button,
+  subject
+){
+
+  document
+    .querySelectorAll(".subject")
+    .forEach(
+      b=>
+        b.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  document.getElementById(
+    "subjectText"
+  ).textContent=
+    subject;
+
+
+  addAIMessage(
+    subject+
+    "を勉強するんだね！📚"
+  );
+
+}
 
 
 /* =========================
    IMAGE
 ========================= */
 
-imageUpload.addEventListener("change", function() {
+function previewImage(event){
 
-    const file = this.files[0];
+  const file=
+    event.target.files[0];
 
-    if (!file) return;
-
-    preview.src =
-        URL.createObjectURL(file);
-
-    preview.style.display =
-        "block";
-
-    explainButton.style.display =
-        "block";
-
-    loading.style.display =
-        "none";
-
-    answer.style.display =
-        "none";
-
-    questionArea.style.display =
-        "none";
-
-    speech.innerHTML =
-        "<strong>コーチ：</strong><br>" +
-        "写真を受け取ったよ！📸<br>" +
-        "この問題、一緒に見てみよう！";
-
-});
+  if(!file)return;
 
 
-/* =========================
-   EXPLAIN
-========================= */
-
-explainButton.addEventListener("click", function() {
-
-    explainButton.style.display =
-        "none";
-
-    loading.style.display =
-        "block";
-
-    answer.style.display =
-        "none";
-
-    questionArea.style.display =
-        "none";
+  const preview=
+    document.getElementById(
+      "preview"
+    );
 
 
-    speech.innerHTML =
-        "<strong>コーチ：</strong><br>" +
-        "今、問題を解析してるよ… 🤖✨";
+  preview.src=
+    URL.createObjectURL(
+      file
+    );
 
 
-    setTimeout(function() {
-
-        loading.style.display =
-            "none";
-
-        answer.style.display =
-            "block";
-
-        questionArea.style.display =
-            "block";
+  preview.style.display=
+    "block";
 
 
-        speech.innerHTML =
-            "<strong>コーチ：</strong><br>" +
-            "解析できたよ！🎉<br>" +
-            "まずは考え方から説明するね！";
+  document.getElementById(
+    "imageStatus"
+  ).textContent=
+    "問題の写真を読み込みました！";
 
-    }, 1200);
 
-});
+  addAIMessage(
+    "📸 問題の写真を受け取ったよ！本物のAIを接続すると、この画像を読み取って解説できるようになるよ。"
+  );
+
+}
 
 
 /* =========================
-   QUESTION
+   UPLOAD
 ========================= */
 
-questionButton.addEventListener("click", function() {
+function focusUpload(){
 
-    const text =
-        question.value.trim();
+  document.getElementById(
+    "uploadBox"
+  ).scrollIntoView({
+    behavior:"smooth"
+  });
 
-    if (!text) {
-
-        speech.innerHTML =
-            "<strong>コーチ：</strong><br>" +
-            "質問を入力してみて！👀";
-
-        return;
-    }
+}
 
 
-    speech.innerHTML =
-        "<strong>コーチ：</strong><br>" +
-        "なるほど！「" +
-        text +
-        "」が分からないんだね。<br>" +
-        "ここをもう少し詳しく説明するよ！💡";
+/* =========================
+   STUDY
+========================= */
 
-    question.value = "";
+function startStudy(){
 
-});
+  studying=!studying;
+
+
+  if(studying){
+
+    addAIMessage(
+      "⏱️ 勉強スタート！集中タイム開始🔥"
+    );
+
+  }
+
+  else{
+
+    addAIMessage(
+      "⏸️ 勉強タイムをストップしたよ！お疲れさま👏"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+document.getElementById(
+  "studyTime"
+).textContent=
+  studyMinutes+"分";
+
+
+setInterval(()=>{
+
+  if(!studying)return;
+
+
+  studyMinutes++;
+
+
+  localStorage.setItem(
+    "studyMinutes",
+    studyMinutes
+  );
+
+
+  document.getElementById(
+    "studyTime"
+  ).textContent=
+    studyMinutes+"分";
+
+
+  const width=
+    Math.min(
+      studyMinutes/60*100,
+      100
+    );
+
+
+  document.getElementById(
+    "timeBar"
+  ).style.width=
+    width+"%";
+
+
+},60000);
+
+
+/* =========================
+   STATS
+========================= */
+
+function showStats(){
+
+  addAIMessage(
+    "📊 今日の勉強時間は "+
+    studyMinutes+
+    "分だよ！"
+  );
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+window.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
+
+    setTimeout(()=>{
+
+      randomCoach();
+
+      addAIMessage(
+        "🎲 今日のコーチが決まったよ！"
+      );
+
+    },500);
+
+  }
+);
 
 </script>
 
 </body>
 </html>
+```
