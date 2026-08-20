@@ -2211,24 +2211,17 @@ window.addEventListener(
       );
 
 
-    if(consent!=="accepted"){
+   if(!loggedIn){
 
-      document
-        .getElementById(
-          "consentScreen"
-        )
-        .classList.remove(
-          "hidden"
-        );
+  showCreateAccount();
 
-    }
+}
 
-    else if(!loggedIn){
+else{
 
-      showLogin();
+  enterApp();
 
-    }
-
+}
     else{
 
       enterApp();
