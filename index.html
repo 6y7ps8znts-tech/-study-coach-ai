@@ -1,13 +1,22 @@
-```html
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Study Coach AI - ALI</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Study Coach AI</title>
 
 <style>
+
+/* =========================
+   RESET
+========================= */
 
 *{
   box-sizing:border-box;
@@ -15,214 +24,474 @@
   padding:0;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
+
+  min-height:100vh;
+
   font-family:
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
 
-  color:white;
-  min-height:100vh;
+  color:#fff;
 
   background:
-    radial-gradient(circle at 20% 20%,rgba(92,70,190,.35),transparent 30%),
-    radial-gradient(circle at 80% 30%,rgba(20,150,190,.25),transparent 30%),
-    radial-gradient(circle at 50% 80%,rgba(120,40,180,.25),transparent 35%),
-    linear-gradient(135deg,#030513,#080b24,#02030d);
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(100,70,255,.30),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 25%,
+      rgba(0,220,255,.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 50% 90%,
+      rgba(180,50,255,.20),
+      transparent 35%
+    ),
+    #030511;
 
   overflow-x:hidden;
 }
 
-body::before{
+/* =========================
+   STARS
+========================= */
+
+body::before,
+body::after{
+
   content:"";
+
   position:fixed;
+
   inset:0;
 
+  pointer-events:none;
+
+  z-index:-1;
+
   background-image:
-    radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px),
-    radial-gradient(circle,rgba(255,255,255,.35) 1px,transparent 1px);
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.8) 1px,
+      transparent 1px
+    );
 
-  background-size:90px 90px,150px 150px;
-
-  background-position:10px 20px,50px 80px;
+  background-size:
+    90px 90px;
 
   opacity:.35;
-  pointer-events:none;
 }
 
+body::after{
+
+  background-size:
+    150px 150px;
+
+  background-position:
+    40px 70px;
+
+  opacity:.18;
+}
+
+/* =========================
+   HEADER
+========================= */
+
 header{
+
   position:sticky;
+
   top:0;
-  z-index:20;
+
+  z-index:100;
 
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
   padding:16px 28px;
 
-  background:rgba(4,5,20,.72);
-  backdrop-filter:blur(18px);
+  background:
+    rgba(3,5,20,.78);
 
-  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter:
+    blur(18px);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
 }
 
 .logo{
+
   font-size:22px;
+
   font-weight:900;
+
+  letter-spacing:-.5px;
 }
 
 .logo span{
-  color:#8c7cff;
+
+  color:#8f7cff;
+
+  text-shadow:
+    0 0 15px rgba(143,124,255,.5);
 }
 
 .headerRight{
+
   display:flex;
+
   align-items:center;
+
   gap:12px;
 }
 
-.alienStatus{
-  display:flex;
-  align-items:center;
-  gap:8px;
+.status{
 
-  font-size:13px;
-  color:#aab4d8;
+  display:flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  font-size:12px;
+
+  color:#aab3d0;
 }
 
 .statusDot{
-  width:9px;
-  height:9px;
+
+  width:8px;
+
+  height:8px;
 
   border-radius:50%;
 
-  background:#50ff9b;
+  background:#55ffad;
 
-  box-shadow:0 0 12px #50ff9b;
+  box-shadow:
+    0 0 12px #55ffad;
 }
 
-.musicButton{
+.musicBtn{
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:
+    rgba(255,255,255,.07);
+
+  color:white;
+
   padding:9px 13px;
 
   border-radius:12px;
 
-  color:white;
-
-  background:rgba(255,255,255,.08);
-
-  border:1px solid rgba(255,255,255,.1);
-
   cursor:pointer;
 }
 
+/* =========================
+   MAIN
+========================= */
+
 .container{
-  width:min(1200px,94%);
+
+  width:min(1180px,94%);
+
   margin:auto;
 
-  padding:30px 0 60px;
+  padding:
+    30px 0 70px;
 }
 
+/* =========================
+   HERO
+========================= */
+
 .hero{
+
   display:grid;
 
-  grid-template-columns:1.2fr .8fr;
+  grid-template-columns:
+    1.2fr .8fr;
 
-  gap:22px;
+  gap:20px;
 
-  margin-bottom:22px;
+  margin-bottom:20px;
 }
 
 .card{
-  border:1px solid rgba(255,255,255,.1);
 
-  background:rgba(11,14,39,.72);
+  background:
+    rgba(10,14,38,.76);
 
-  backdrop-filter:blur(18px);
+  border:
+    1px solid rgba(255,255,255,.10);
 
   border-radius:24px;
 
   padding:24px;
 
+  backdrop-filter:
+    blur(18px);
+
   box-shadow:
-    0 20px 70px rgba(0,0,0,.3);
+    0 25px 70px rgba(0,0,0,.30);
 }
 
-.alienCard{
+/* =========================
+   ALIEN
+========================= */
+
+.alienArea{
+
   display:flex;
 
   align-items:center;
 
-  gap:20px;
+  gap:22px;
 }
 
 .alien{
-  width:105px;
-  height:105px;
+
+  position:relative;
+
+  width:115px;
+
+  height:130px;
+
+  flex-shrink:0;
+
+  animation:
+    floatAlien 4s ease-in-out infinite;
+}
+
+@keyframes floatAlien{
+
+  0%,100%{
+    transform:translateY(0) rotate(-2deg);
+  }
+
+  50%{
+    transform:translateY(-10px) rotate(2deg);
+  }
+
+}
+
+.alienHead{
+
+  position:absolute;
+
+  width:100px;
+
+  height:108px;
+
+  left:7px;
+
+  top:10px;
+
+  border-radius:
+    48% 48% 44% 44%;
+
+  background:
+    radial-gradient(
+      circle at 35% 25%,
+      #c7fff0,
+      #5ce0c3 42%,
+      #238d88 75%,
+      #0d414e
+    );
+
+  border:
+    2px solid rgba(200,255,245,.55);
+
+  box-shadow:
+    0 0 35px rgba(63,255,210,.45),
+    inset 0 -15px 25px rgba(0,0,0,.18);
+}
+
+.eye{
+
+  position:absolute;
+
+  width:29px;
+
+  height:47px;
+
+  top:36px;
+
+  background:
+    radial-gradient(
+      circle at 40% 35%,
+      #fff,
+      #b8e9ff 15%,
+      #18224f 40%,
+      #050713 70%
+    );
+
+  border-radius:60%;
+
+  box-shadow:
+    0 0 15px rgba(100,200,255,.65);
+}
+
+.eye.left{
+  left:18px;
+  transform:rotate(10deg);
+}
+
+.eye.right{
+  right:18px;
+  transform:rotate(-10deg);
+}
+
+.mouth{
+
+  position:absolute;
+
+  width:30px;
+
+  height:13px;
+
+  left:35px;
+
+  bottom:20px;
+
+  border-bottom:
+    3px solid #174f52;
+
+  border-radius:50%;
+}
+
+.antenna{
+
+  position:absolute;
+
+  width:3px;
+
+  height:18px;
+
+  left:55px;
+
+  top:-5px;
+
+  background:#5ce0c3;
+}
+
+.antenna::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:8px;
+
+  height:8px;
 
   border-radius:50%;
 
-  display:flex;
+  top:-6px;
 
-  align-items:center;
-  justify-content:center;
+  left:-2px;
 
-  font-size:62px;
-
-  background:
-    radial-gradient(circle at 35% 30%,#b4fff0,#36b9a8 45%,#153d50);
+  background:#9d7cff;
 
   box-shadow:
-    0 0 30px rgba(68,255,210,.35),
-    inset 0 0 30px rgba(255,255,255,.15);
-
-  flex-shrink:0;
+    0 0 14px #9d7cff;
 }
 
-.alienCard h1{
+/* =========================
+   HERO TEXT
+========================= */
+
+.hero h1{
+
   font-size:30px;
+
   margin-bottom:8px;
 }
 
-.alienCard p{
-  color:#aab2d1;
-  line-height:1.6;
-}
+.hero p{
 
-button{
-  border:0;
-  cursor:pointer;
+  color:#aab3d0;
 
-  color:white;
-
-  font-weight:800;
-
-  border-radius:14px;
-
-  transition:.2s;
-}
-
-button:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.1);
+  line-height:1.7;
 }
 
 .primary{
-  background:linear-gradient(135deg,#7167ff,#a65cff);
 
-  padding:14px 18px;
+  border:0;
+
+  color:white;
+
+  font-weight:900;
+
+  padding:13px 17px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7167ff,
+      #a25cff
+    );
+
+  box-shadow:
+    0 8px 25px rgba(116,90,255,.25);
 }
 
 .secondary{
-  background:rgba(255,255,255,.08);
 
-  border:1px solid rgba(255,255,255,.1);
+  color:white;
 
-  padding:13px 16px;
+  font-weight:700;
+
+  padding:12px 15px;
+
+  border-radius:13px;
+
+  cursor:pointer;
+
+  background:
+    rgba(255,255,255,.07);
+
+  border:
+    1px solid rgba(255,255,255,.10);
 }
 
-.featureGrid{
+button{
+
+  transition:.18s;
+}
+
+button:hover{
+
+  transform:translateY(-2px);
+
+  filter:brightness(1.1);
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.features{
+
   display:grid;
 
   grid-template-columns:
@@ -230,118 +499,156 @@ button:hover{
 
   gap:14px;
 
-  margin-bottom:22px;
+  margin-bottom:20px;
 }
 
 .feature{
+
   padding:20px;
 
   border-radius:20px;
 
-  background:rgba(12,15,42,.72);
+  background:
+    rgba(10,14,38,.72);
 
-  border:1px solid rgba(255,255,255,.09);
+  border:
+    1px solid rgba(255,255,255,.08);
 
   cursor:pointer;
 }
 
 .featureIcon{
-  font-size:28px;
 
-  margin-bottom:12px;
+  font-size:30px;
+
+  margin-bottom:10px;
 }
 
 .feature h3{
+
+  font-size:16px;
+
   margin-bottom:5px;
 }
 
 .feature p{
-  font-size:13px;
 
-  color:#9ca7ca;
+  color:#929dbd;
+
+  font-size:13px;
 
   line-height:1.5;
 }
 
-.chatLayout{
+/* =========================
+   CHAT
+========================= */
+
+.chatGrid{
+
   display:grid;
 
-  grid-template-columns:1fr 320px;
+  grid-template-columns:
+    1fr 300px;
 
   gap:20px;
 }
 
-.chatBox{
-  min-height:650px;
+.chat{
+
+  min-height:620px;
 
   display:flex;
 
   flex-direction:column;
 }
 
-.chatMessages{
+.messages{
+
   flex:1;
 
   overflow-y:auto;
 
+  min-height:420px;
+
   max-height:500px;
 
-  padding:10px 2px 20px;
+  padding:5px 2px 20px;
 }
 
 .message{
+
   display:flex;
 
-  gap:10px;
+  gap:9px;
 
-  margin-bottom:16px;
+  margin-bottom:15px;
 }
 
 .message.user{
+
   justify-content:flex-end;
 }
 
 .avatar{
+
   width:38px;
+
   height:38px;
+
+  border-radius:50%;
 
   display:flex;
 
   align-items:center;
+
   justify-content:center;
 
-  border-radius:50%;
-
-  background:rgba(255,255,255,.08);
+  background:
+    rgba(255,255,255,.08);
 
   flex-shrink:0;
 }
 
 .bubble{
-  max-width:75%;
+
+  max-width:76%;
 
   padding:13px 16px;
 
+  line-height:1.65;
+
   border-radius:18px;
 
-  line-height:1.6;
-
   white-space:pre-wrap;
+
+  overflow-wrap:anywhere;
 }
 
-.ai .bubble{
-  background:rgba(255,255,255,.07);
-}
+.message.ai .bubble{
 
-.user .bubble{
   background:
-    linear-gradient(135deg,#675cff,#914fff);
+    rgba(255,255,255,.07);
+}
+
+.message.user .bubble{
+
+  background:
+    linear-gradient(
+      135deg,
+      #695cff,
+      #9854ff
+    );
 }
 
 .chatInputArea{
-  display:flex;
 
-  gap:8px;
+  display:grid;
+
+  grid-template-columns:
+    auto auto 1fr auto;
+
+  gap:7px;
 
   border-top:
     1px solid rgba(255,255,255,.08);
@@ -349,111 +656,104 @@ button:hover{
   padding-top:15px;
 }
 
-.chatInput{
-  flex:1;
+.input{
 
-  background:rgba(255,255,255,.06);
+  width:100%;
+
+  border:0;
+
+  outline:0;
 
   color:white;
 
-  border:1px solid rgba(255,255,255,.1);
+  background:
+    rgba(255,255,255,.06);
 
-  padding:14px;
+  border:
+    1px solid rgba(255,255,255,.09);
 
-  border-radius:14px;
+  border-radius:13px;
 
-  outline:none;
+  padding:13px;
 }
 
-.chatInput:focus{
-  border-color:#776cff;
-}
+/* =========================
+   SIDE
+========================= */
 
 .sideTitle{
+
   font-size:17px;
 
-  margin-bottom:15px;
+  margin-bottom:14px;
 }
 
+.sideButton{
+
+  width:100%;
+
+  margin-bottom:8px;
+}
+
+/* =========================
+   STATS
+========================= */
+
 .stat{
-  margin-bottom:16px;
+
+  margin-bottom:17px;
 }
 
 .statTop{
+
   display:flex;
 
   justify-content:space-between;
 
-  margin-bottom:7px;
+  font-size:13px;
+
+  margin-bottom:6px;
 }
 
-.statBar{
+.bar{
+
   height:8px;
 
-  background:rgba(255,255,255,.08);
+  background:
+    rgba(255,255,255,.07);
 
   border-radius:20px;
 
   overflow:hidden;
 }
 
-.statBar div{
+.bar div{
+
   height:100%;
 
   width:68%;
 
-  background:
-    linear-gradient(90deg,#7167ff,#b36aff);
-
   border-radius:20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #7066ff,
+      #b568ff
+    );
 }
 
-.uploadBox{
-  border:2px dashed rgba(150,140,255,.4);
-
-  border-radius:18px;
-
-  padding:25px;
-
-  text-align:center;
-
-  margin-top:10px;
-}
-
-.uploadBox input{
-  display:none;
-}
-
-.preview{
-  width:100%;
-
-  max-height:250px;
-
-  object-fit:contain;
-
-  border-radius:14px;
-
-  margin-top:15px;
-
-  display:none;
-}
-
-.photoActions{
-  display:flex;
-
-  gap:8px;
-
-  margin-top:12px;
-}
+/* =========================
+   PHOTO
+========================= */
 
 .modal{
+
   position:fixed;
 
   inset:0;
 
-  background:rgba(0,0,0,.75);
-
-  backdrop-filter:blur(12px);
+  z-index:300;
 
   display:none;
 
@@ -461,85 +761,199 @@ button:hover{
 
   justify-content:center;
 
-  z-index:100;
+  padding:15px;
+
+  background:
+    rgba(0,0,0,.78);
+
+  backdrop-filter:
+    blur(10px);
 }
 
 .modalContent{
-  width:min(650px,92%);
 
-  background:#0c102d;
+  width:min(650px,100%);
 
-  border:1px solid rgba(255,255,255,.12);
+  max-height:90vh;
 
-  border-radius:25px;
+  overflow:auto;
 
   padding:25px;
-}
 
-.close{
-  float:right;
+  border-radius:24px;
 
-  width:35px;
-  height:35px;
-
-  background:rgba(255,255,255,.08);
-}
-
-.musicPanel{
-  position:fixed;
-
-  bottom:20px;
-  right:20px;
-
-  z-index:50;
-
-  width:260px;
-
-  background:rgba(9,12,35,.9);
+  background:#0b102d;
 
   border:
     1px solid rgba(255,255,255,.12);
+}
 
-  backdrop-filter:blur(18px);
+.close{
+
+  float:right;
+
+  border:0;
+
+  width:34px;
+
+  height:34px;
+
+  border-radius:10px;
+
+  color:white;
+
+  background:
+    rgba(255,255,255,.08);
+
+  cursor:pointer;
+}
+
+.upload{
+
+  margin-top:18px;
+
+  padding:28px;
+
+  text-align:center;
+
+  border:
+    2px dashed rgba(135,120,255,.45);
 
   border-radius:18px;
 
-  padding:15px;
+  cursor:pointer;
+}
 
-  box-shadow:
-    0 15px 50px rgba(0,0,0,.35);
+.upload input{
 
   display:none;
 }
 
-.musicPanel h3{
-  margin-bottom:10px;
+.preview{
+
+  width:100%;
+
+  max-height:300px;
+
+  object-fit:contain;
+
+  margin-top:15px;
+
+  border-radius:15px;
+
+  display:none;
+}
+
+.modalButtons{
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:8px;
+
+  margin-top:12px;
+}
+
+/* =========================
+   MUSIC
+========================= */
+
+.musicPanel{
+
+  position:fixed;
+
+  right:18px;
+
+  bottom:18px;
+
+  z-index:200;
+
+  display:none;
+
+  width:270px;
+
+  padding:17px;
+
+  border-radius:18px;
+
+  background:
+    rgba(7,10,30,.94);
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  backdrop-filter:
+    blur(18px);
+}
+
+.musicPanel input{
+
+  width:100%;
 }
 
 .musicRow{
+
   display:flex;
 
   align-items:center;
 
   gap:10px;
+
+  margin-top:10px;
 }
 
-.musicRow input{
-  flex:1;
+/* =========================
+   AD
+========================= */
+
+.adBox{
+
+  min-height:90px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  text-align:center;
+
+  margin:
+    20px 0;
+
+  border:
+    1px dashed rgba(255,255,255,.14);
+
+  border-radius:18px;
+
+  color:#77819e;
+
+  background:
+    rgba(255,255,255,.025);
+
+  font-size:12px;
 }
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:900px){
 
   .hero{
+
     grid-template-columns:1fr;
   }
 
-  .featureGrid{
+  .features{
+
     grid-template-columns:
       repeat(2,1fr);
   }
 
-  .chatLayout{
+  .chatGrid{
+
     grid-template-columns:1fr;
   }
 
@@ -548,46 +962,223 @@ button:hover{
 @media(max-width:600px){
 
   header{
-    padding:14px 15px;
+
+    padding:
+      13px 14px;
+  }
+
+  .logo{
+
+    font-size:18px;
+  }
+
+  .status{
+
+    display:none;
   }
 
   .container{
-    width:92%;
+
+    width:94%;
+
+    padding-top:20px;
+  }
+
+  .card{
+
+    padding:18px;
+
+    border-radius:19px;
+  }
+
+  .alienArea{
+
+    align-items:flex-start;
+
+    gap:13px;
   }
 
   .alien{
-    width:75px;
-    height:75px;
 
-    font-size:42px;
+    width:78px;
+
+    height:90px;
   }
 
-  .alienCard h1{
-    font-size:23px;
+  .alienHead{
+
+    width:72px;
+
+    height:78px;
   }
 
-  .featureGrid{
-    grid-template-columns:1fr 1fr;
+  .eye{
+
+    width:20px;
+
+    height:34px;
+
+    top:26px;
   }
 
-  .chatBox{
-    min-height:550px;
+  .eye.left{
+    left:12px;
   }
 
-  .alienStatus{
-    display:none;
+  .eye.right{
+    right:12px;
+  }
+
+  .mouth{
+
+    left:25px;
+
+    bottom:14px;
+  }
+
+  .antenna{
+
+    left:39px;
+  }
+
+  .hero h1{
+
+    font-size:22px;
+
+    line-height:1.35;
+  }
+
+  .hero p{
+
+    font-size:13px;
+
+    line-height:1.6;
+  }
+
+  .features{
+
+    grid-template-columns:
+      1fr 1fr;
+
+    gap:9px;
+  }
+
+  .feature{
+
+    padding:14px;
+
+    min-height:130px;
+  }
+
+  .featureIcon{
+
+    font-size:24px;
+  }
+
+  .feature h3{
+
+    font-size:14px;
+  }
+
+  .feature p{
+
+    font-size:11px;
+  }
+
+  .chat{
+
+    min-height:560px;
+  }
+
+  .messages{
+
+    min-height:360px;
+
+    max-height:430px;
+  }
+
+  .bubble{
+
+    max-width:84%;
+
+    font-size:14px;
+
+    padding:11px 13px;
+  }
+
+  .chatInputArea{
+
+    grid-template-columns:
+      42px 42px 1fr;
+
+    gap:6px;
+  }
+
+  .chatInputArea .primary{
+
+    grid-column:
+      1 / -1;
+  }
+
+  .input{
+
+    min-width:0;
+
+    font-size:14px;
+  }
+
+  .musicPanel{
+
+    left:15px;
+
+    right:15px;
+
+    bottom:15px;
+
+    width:auto;
+  }
+
+  .modalContent{
+
+    padding:18px;
+  }
+
+  .modalButtons{
+
+    grid-template-columns:1fr;
+  }
+
+}
+
+/* =========================
+   SMALL ANIMATION
+========================= */
+
+.glow{
+
+  animation:
+    glow 2.5s ease-in-out infinite;
+}
+
+@keyframes glow{
+
+  0%,100%{
+    box-shadow:
+      0 0 20px rgba(111,99,255,.15);
+  }
+
+  50%{
+    box-shadow:
+      0 0 35px rgba(111,99,255,.35);
   }
 
 }
 
 </style>
+
 </head>
 
 <body>
-
-<!-- =========================
-     HEADER
-========================= -->
 
 <header>
 
@@ -597,16 +1188,13 @@ button:hover{
 
   <div class="headerRight">
 
-    <div class="alienStatus">
-
-      <div class="statusDot"></div>
-
+    <div class="status">
+      <span class="statusDot"></span>
       ALI ONLINE
-
     </div>
 
     <button
-      class="musicButton"
+      class="musicBtn"
       onclick="toggleMusicPanel()"
     >
       🎵 BGM
@@ -616,34 +1204,21 @@ button:hover{
 
 </header>
 
-<!-- =========================
-     MUSIC
-========================= -->
-
-<audio
-  id="bgm"
-  loop
-  preload="auto"
->
-  <source
-    src="bgm.mp3"
-    type="audio/mpeg"
-  >
-</audio>
-
 <div
   id="musicPanel"
   class="musicPanel"
 >
 
-  <h3>🌌 宇宙BGM</h3>
+  <strong>
+    🌌 宇宙BGM
+  </strong>
 
   <div class="musicRow">
 
     <button
+      id="musicToggle"
       class="primary"
       onclick="toggleMusic()"
-      id="musicToggle"
     >
       ▶ 再生
     </button>
@@ -653,8 +1228,8 @@ button:hover{
       type="range"
       min="0"
       max="1"
-      step="0.01"
-      value="0.35"
+      step=".01"
+      value=".25"
       oninput="changeVolume()"
     >
 
@@ -662,50 +1237,69 @@ button:hover{
 
   <p
     style="
-      color:#9ca7ca;
-      font-size:12px;
-      margin-top:10px;
+      color:#8791af;
+      font-size:11px;
+      margin-top:9px;
     "
   >
-    BGMはループ再生されます。
+    最初に画面をタップすると
+    宇宙BGMを開始できます。
   </p>
 
 </div>
 
 <main class="container">
 
-<!-- =========================
-     HERO
-========================= -->
+<!-- HERO -->
 
 <section class="hero">
 
-  <div class="card alienCard">
+  <div class="card glow">
 
-    <div class="alien">
-      👽
-    </div>
+    <div class="alienArea">
 
-    <div>
+      <div class="alien">
 
-      <h1>
-        こんにちは、太郎！
-      </h1>
+        <div class="antenna"></div>
 
-      <p>
-        僕は <strong>ALI</strong>。<br>
-        宇宙からやってきた学習コーチだよ。<br>
-        分からない問題は何でも聞いてみて。
-      </p>
+        <div class="alienHead">
 
-      <br>
+          <div class="eye left"></div>
 
-      <button
-        class="primary"
-        onclick="focusChat()"
-      >
-        👽 ALIに質問する
-      </button>
+          <div class="eye right"></div>
+
+          <div class="mouth"></div>
+
+        </div>
+
+      </div>
+
+      <div>
+
+        <h1>
+          こんにちは、
+          <span id="userName">
+            太郎
+          </span>！
+        </h1>
+
+        <p>
+          僕は宇宙から来たAI学習コーチ
+          <strong>ALI</strong>。<br>
+          分からない問題を送ってくれたら、
+          一緒に考えるよ 🚀
+        </p>
+
+        <br>
+
+        <button
+          class="primary"
+          onclick="focusChat()"
+        >
+          👽 ALIに質問
+        </button>
+
+      </div>
 
     </div>
 
@@ -714,7 +1308,7 @@ button:hover{
   <div class="card">
 
     <h2>
-      🚀 今日の学習状況
+      📊 今日の学習
     </h2>
 
     <br>
@@ -724,7 +1318,7 @@ button:hover{
       <div class="statTop">
 
         <span>
-          今日の進捗
+          学習進捗
         </span>
 
         <strong>
@@ -733,7 +1327,7 @@ button:hover{
 
       </div>
 
-      <div class="statBar">
+      <div class="bar">
         <div></div>
       </div>
 
@@ -753,20 +1347,17 @@ button:hover{
 
       </div>
 
-      <div class="statBar">
-
-        <div
-          style="width:72%"
-        ></div>
-
+      <div class="bar">
+        <div style="width:72%"></div>
       </div>
 
     </div>
 
     <p
       style="
-        color:#9ca7ca;
-        font-size:13px;
+        color:#929dbd;
+        font-size:12px;
+        line-height:1.6;
       "
     >
       今日も少しずつ進めよう。
@@ -776,11 +1367,9 @@ button:hover{
 
 </section>
 
-<!-- =========================
-     FEATURES
-========================= -->
+<!-- FEATURES -->
 
-<section class="featureGrid">
+<section class="features">
 
   <div
     class="feature"
@@ -792,12 +1381,11 @@ button:hover{
     </div>
 
     <h3>
-      問題を写真で送る
+      写真問題分析
     </h3>
 
     <p>
-      数学・英語などの問題を
-      写真からALIに分析してもらう
+      問題を写真で送ってALIに分析してもらう
     </p>
 
   </div>
@@ -805,21 +1393,20 @@ button:hover{
   <div
     class="feature"
     onclick="quickQuestion(
-      'この問題を分かりやすく説明して'
+      '数学を教えて'
     )"
   >
 
     <div class="featureIcon">
-      🧠
+      🔢
     </div>
 
     <h3>
-      問題を解説
+      数学
     </h3>
 
     <p>
-      難しい問題を
-      やさしく説明
+      数学の問題を質問
     </p>
 
   </div>
@@ -827,7 +1414,28 @@ button:hover{
   <div
     class="feature"
     onclick="quickQuestion(
-      '今日おすすめの勉強方法を教えて'
+      '英語を教えて'
+    )"
+  >
+
+    <div class="featureIcon">
+      🇬🇧
+    </div>
+
+    <h3>
+      英語
+    </h3>
+
+    <p>
+      英語の勉強をサポート
+    </p>
+
+  </div>
+
+  <div
+    class="feature"
+    onclick="quickQuestion(
+      '今日の勉強計画を作って'
     )"
   >
 
@@ -836,55 +1444,45 @@ button:hover{
     </div>
 
     <h3>
-      学習プラン
+      学習計画
     </h3>
 
     <p>
-      今日やるべき勉強を
-      ALIが提案
-    </p>
-
-  </div>
-
-  <div
-    class="feature"
-    onclick="quickQuestion(
-      '英語の問題を5問出して'
-    )"
-  >
-
-    <div class="featureIcon">
-      📝
-    </div>
-
-    <h3>
-      問題を作る
-    </h3>
-
-    <p>
-      AIにオリジナル問題を
-      作ってもらう
+      今日やることをAIが提案
     </p>
 
   </div>
 
 </section>
 
-<!-- =========================
-     CHAT
-========================= -->
+<!-- AD -->
 
-<section class="chatLayout">
+<div class="adBox">
 
-  <div class="card chatBox">
+  広告スペース
+
+  <!--
+    後で広告サービスのタグを
+    ここに配置できます。
+  -->
+
+</div>
+
+<!-- CHAT -->
+
+<section class="chatGrid">
+
+  <div class="card chat">
 
     <h2>
       👽 ALIと話す
     </h2>
 
+    <br>
+
     <div
-      id="chatMessages"
-      class="chatMessages"
+      id="messages"
+      class="messages"
     >
 
       <div class="message ai">
@@ -894,9 +1492,9 @@ button:hover{
         </div>
 
         <div class="bubble">
-          やあ、太郎！🚀<br>
-          分からない問題、勉強方法、
-          テスト対策なんでも聞いて！
+          やあ！🚀<br>
+          僕はALI。<br>
+          分からない問題を送ってみて！
         </div>
 
       </div>
@@ -908,7 +1506,6 @@ button:hover{
       <button
         class="secondary"
         onclick="openPhotoModal()"
-        title="写真を送る"
       >
         📷
       </button>
@@ -916,15 +1513,14 @@ button:hover{
       <button
         class="secondary"
         onclick="startVoice()"
-        title="音声入力"
       >
         🎙️
       </button>
 
       <input
         id="chatInput"
-        class="chatInput"
-        placeholder="ALIに質問してみよう..."
+        class="input"
+        placeholder="例：二次方程式が分からない"
         onkeydown="handleKey(event)"
       >
 
@@ -944,45 +1540,41 @@ button:hover{
     <div class="card">
 
       <h3 class="sideTitle">
-        🌌 ALIの機能
+        🚀 クイック学習
       </h3>
 
       <button
-        class="secondary"
-        style="width:100%;margin-bottom:8px"
-        onclick="quickQuestion('数学の勉強をしたい')"
+        class="secondary sideButton"
+        onclick="quickQuestion(
+          '数学の問題を5問出して'
+        )"
       >
-        🔢 数学
+        🔢 数学問題
       </button>
 
       <button
-        class="secondary"
-        style="width:100%;margin-bottom:8px"
-        onclick="quickQuestion('英語を勉強したい')"
+        class="secondary sideButton"
+        onclick="quickQuestion(
+          '英単語の問題を出して'
+        )"
       >
-        🇬🇧 英語
+        🇬🇧 英単語
       </button>
 
       <button
-        class="secondary"
-        style="width:100%;margin-bottom:8px"
-        onclick="quickQuestion('理科を勉強したい')"
+        class="secondary sideButton"
+        onclick="quickQuestion(
+          '理科の問題を出して'
+        )"
       >
         🧪 理科
       </button>
 
       <button
-        class="secondary"
-        style="width:100%;margin-bottom:8px"
-        onclick="quickQuestion('社会を勉強したい')"
-      >
-        🌍 社会
-      </button>
-
-      <button
-        class="secondary"
-        style="width:100%"
-        onclick="quickQuestion('テスト前なので勉強計画を作って')"
+        class="secondary sideButton"
+        onclick="quickQuestion(
+          'テスト前の勉強計画を作って'
+        )"
       >
         📚 テスト対策
       </button>
@@ -994,20 +1586,29 @@ button:hover{
     <div class="card">
 
       <h3 class="sideTitle">
-        ⚡ クイック質問
+        👤 プロフィール
       </h3>
 
       <p
         style="
-          color:#9ca7ca;
-          line-height:1.6;
+          color:#929dbd;
           font-size:13px;
+          line-height:1.7;
         "
       >
-        「この問題分からない」
-        「明日のテストどうしよう」
-        みたいな感じでOK。
+        名前を変更したい場合は、
+        下のボタンから設定できます。
       </p>
+
+      <br>
+
+      <button
+        class="primary"
+        style="width:100%"
+        onclick="changeName()"
+      >
+        名前を変更
+      </button>
 
     </div>
 
@@ -1017,9 +1618,7 @@ button:hover{
 
 </main>
 
-<!-- =========================
-     PHOTO MODAL
-========================= -->
+<!-- PHOTO MODAL -->
 
 <div
   id="photoModal"
@@ -1036,32 +1635,33 @@ button:hover{
     </button>
 
     <h2>
-      📸 問題をALIに見せる
+      📸 問題を送る
     </h2>
 
     <p
       style="
-        color:#aab2d1;
-        line-height:1.6;
+        color:#929dbd;
+        line-height:1.7;
+        margin-top:8px;
       "
     >
-      問題の写真を選択すると、
-      ALIが内容を確認して解説します。
+      問題の写真を選択してください。
     </p>
 
-    <div class="uploadBox">
+    <label class="upload">
 
-      <label for="photoInput">
+      <div
+        style="
+          font-size:45px;
+          margin-bottom:8px;
+        "
+      >
+        📷
+      </div>
 
-        <div style="font-size:45px">
-          📷
-        </div>
-
-        <strong>
-          ここを押して写真を選択
-        </strong>
-
-      </label>
+      <strong>
+        写真を選択
+      </strong>
 
       <input
         id="photoInput"
@@ -1071,17 +1671,16 @@ button:hover{
       >
 
       <img
-        id="photoPreview"
+        id="preview"
         class="preview"
       >
 
-    </div>
+    </label>
 
-    <div class="photoActions">
+    <div class="modalButtons">
 
       <button
         class="secondary"
-        style="flex:1"
         onclick="closePhotoModal()"
       >
         キャンセル
@@ -1089,10 +1688,9 @@ button:hover{
 
       <button
         class="primary"
-        style="flex:1"
         onclick="analyzePhoto()"
       >
-        👽 ALIに分析してもらう
+        👽 AIに分析させる
       </button>
 
     </div>
@@ -1103,73 +1701,250 @@ button:hover{
 
 <script>
 
+/* =========================
+   API
+========================= */
+
 const API_URL =
   "https://study-coach-ai.6y7ps8znts.workers.dev/";
+
+/* =========================
+   USER NAME
+========================= */
+
+function loadName(){
+
+  let name =
+    localStorage.getItem(
+      "studyCoachName"
+    );
+
+  if(!name){
+
+    name = "太郎";
+
+    localStorage.setItem(
+      "studyCoachName",
+      name
+    );
+
+  }
+
+  document
+    .getElementById(
+      "userName"
+    )
+    .textContent = name;
+
+}
+
+function changeName(){
+
+  const current =
+    localStorage.getItem(
+      "studyCoachName"
+    ) || "太郎";
+
+  const name =
+    prompt(
+      "名前を入力してください",
+      current
+    );
+
+  if(!name)
+    return;
+
+  const clean =
+    name.trim().slice(0,30);
+
+  if(!clean)
+    return;
+
+  localStorage.setItem(
+    "studyCoachName",
+    clean
+  );
+
+  document
+    .getElementById(
+      "userName"
+    )
+    .textContent =
+    clean;
+
+}
 
 /* =========================
    MUSIC
 ========================= */
 
-const bgm =
-  document.getElementById("bgm");
+/*
+  外部MP3を使わず、
+  Web Audio APIで宇宙系の
+  アンビエントサウンドを生成します。
 
-bgm.volume = 0.35;
+  ブラウザの自動再生制限があるため、
+  ユーザーが一度操作した後に再生します。
+*/
 
-function toggleMusicPanel(){
+let audioContext = null;
+let masterGain = null;
+let musicTimer = null;
+let musicPlaying = false;
 
-  const panel =
-    document.getElementById(
-      "musicPanel"
+function setupMusic(){
+
+  if(audioContext)
+    return;
+
+  audioContext =
+    new (
+      window.AudioContext ||
+      window.webkitAudioContext
+    )();
+
+  masterGain =
+    audioContext.createGain();
+
+  masterGain.gain.value =
+    Number(
+      document.getElementById(
+        "volume"
+      ).value
     );
 
-  if(
-    panel.style.display === "block"
-  ){
-
-    panel.style.display =
-      "none";
-
-  }else{
-
-    panel.style.display =
-      "block";
-
-  }
+  masterGain.connect(
+    audioContext.destination
+  );
 
 }
 
-function toggleMusic(){
+function playTone(
+  frequency,
+  duration,
+  type="sine"
+){
+
+  if(!audioContext)
+    return;
+
+  const oscillator =
+    audioContext.createOscillator();
+
+  const gain =
+    audioContext.createGain();
+
+  oscillator.type =
+    type;
+
+  oscillator.frequency.value =
+    frequency;
+
+  gain.gain.setValueAtTime(
+    0,
+    audioContext.currentTime
+  );
+
+  gain.gain.linearRampToValueAtTime(
+    .06,
+    audioContext.currentTime + .8
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    .001,
+    audioContext.currentTime + duration
+  );
+
+  oscillator.connect(gain);
+
+  gain.connect(masterGain);
+
+  oscillator.start();
+
+  oscillator.stop(
+    audioContext.currentTime +
+    duration
+  );
+
+}
+
+function musicLoop(){
+
+  if(!musicPlaying)
+    return;
+
+  playTone(
+    110,
+    5,
+    "sine"
+  );
+
+  setTimeout(
+    ()=>{
+      if(musicPlaying)
+        playTone(
+          164.81,
+          5,
+          "sine"
+        );
+    },
+    1200
+  );
+
+  setTimeout(
+    ()=>{
+      if(musicPlaying)
+        playTone(
+          220,
+          5,
+          "triangle"
+        );
+    },
+    2500
+  );
+
+  musicTimer =
+    setTimeout(
+      musicLoop,
+      5200
+    );
+
+}
+
+async function toggleMusic(){
+
+  setupMusic();
+
+  if(
+    audioContext.state ===
+    "suspended"
+  ){
+
+    await audioContext.resume();
+
+  }
 
   const button =
     document.getElementById(
       "musicToggle"
     );
 
-  if(bgm.paused){
+  if(!musicPlaying){
 
-    bgm.play()
-      .then(()=>{
+    musicPlaying = true;
 
-        button.textContent =
-          "⏸ 停止";
+    button.textContent =
+      "⏸ 停止";
 
-      })
-      .catch(error=>{
-
-        console.error(
-          "BGM Error:",
-          error
-        );
-
-        alert(
-          "BGMを再生できませんでした。"
-        );
-
-      });
+    musicLoop();
 
   }else{
 
-    bgm.pause();
+    musicPlaying = false;
+
+    clearTimeout(
+      musicTimer
+    );
 
     button.textContent =
       "▶ 再生";
@@ -1180,12 +1955,29 @@ function toggleMusic(){
 
 function changeVolume(){
 
-  bgm.volume =
+  if(!masterGain)
+    return;
+
+  masterGain.gain.value =
     Number(
       document.getElementById(
         "volume"
       ).value
     );
+
+}
+
+function toggleMusicPanel(){
+
+  const panel =
+    document.getElementById(
+      "musicPanel"
+    );
+
+  panel.style.display =
+    panel.style.display === "block"
+      ? "none"
+      : "block";
 
 }
 
@@ -1232,9 +2024,9 @@ function addMessage(
   type
 ){
 
-  const chat =
+  const messages =
     document.getElementById(
-      "chatMessages"
+      "messages"
     );
 
   const wrapper =
@@ -1277,12 +2069,37 @@ function addMessage(
     bubble
   );
 
-  chat.appendChild(
+  messages.appendChild(
     wrapper
   );
 
-  chat.scrollTop =
-    chat.scrollHeight;
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+function removeThinking(){
+
+  const list =
+    document.querySelectorAll(
+      ".message.ai"
+    );
+
+  if(!list.length)
+    return;
+
+  const last =
+    list[list.length - 1];
+
+  if(
+    last.textContent.includes(
+      "考えています"
+    )
+  ){
+
+    last.remove();
+
+  }
 
 }
 
@@ -1296,7 +2113,8 @@ async function sendMessage(){
   const text =
     input.value.trim();
 
-  if(!text) return;
+  if(!text)
+    return;
 
   addMessage(
     text,
@@ -1306,7 +2124,7 @@ async function sendMessage(){
   input.value = "";
 
   addMessage(
-    "🛸 ALIが考えています...",
+    "👽 ALIが考えています...",
     "ai"
   );
 
@@ -1325,7 +2143,11 @@ async function sendMessage(){
 
           body:
             JSON.stringify({
-              message:text
+              message:text,
+              name:
+                localStorage.getItem(
+                  "studyCoachName"
+                ) || "太郎"
             })
         }
       );
@@ -1337,13 +2159,15 @@ async function sendMessage(){
 
     if(!response.ok){
 
-      console.error(data);
-
       addMessage(
-        "⚠️ ALIとの通信でエラーが発生しました。\n"+
-        "エラー: "+
+        "⚠️ AIとの通信に失敗しました。\n"+
+        "エラーコード: "+
         response.status,
         "ai"
+      );
+
+      console.error(
+        data
       );
 
       return;
@@ -1352,13 +2176,15 @@ async function sendMessage(){
 
     addMessage(
       data.answer ||
-      "ALIから回答を受け取れませんでした。",
+      "ALIから回答がありませんでした。",
       "ai"
     );
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
     removeThinking();
 
@@ -1366,33 +2192,6 @@ async function sendMessage(){
       "⚠️ ALIとの接続に失敗しました。",
       "ai"
     );
-
-  }
-
-}
-
-function removeThinking(){
-
-  const messages =
-    document.querySelectorAll(
-      "#chatMessages .message.ai"
-    );
-
-  if(!messages.length)
-    return;
-
-  const last =
-    messages[
-      messages.length - 1
-    ];
-
-  if(
-    last.textContent.includes(
-      "ALIが考えています"
-    )
-  ){
-
-    last.remove();
 
   }
 
@@ -1434,7 +2233,7 @@ function previewPhoto(event){
 
   const preview =
     document.getElementById(
-      "photoPreview"
+      "preview"
     );
 
   preview.src =
@@ -1447,120 +2246,10 @@ function previewPhoto(event){
 
 }
 
-async function analyzePhoto(){
-
-  const input =
-    document.getElementById(
-      "photoInput"
-    );
-
-  const file =
-    input.files[0];
-
-  if(!file){
-
-    alert(
-      "まず問題の写真を選択してください。"
-    );
-
-    return;
-
-  }
-
-  closePhotoModal();
-
-  addMessage(
-    "📸 問題の写真をALIに送りました。",
-    "user"
-  );
-
-  addMessage(
-    "👽 写真を解析しています...",
-    "ai"
-  );
-
-  try{
-
-    const base64 =
-      await fileToBase64(
-        file
-      );
-
-    const response =
-      await fetch(
-        API_URL,
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-
-              message:
-                "この画像の問題を分析してください。"+
-                "問題文を読み取り、"+
-                "答えだけではなく、"+
-                "高校生にも分かりやすく"+
-                "解き方を説明してください。",
-
-              image:base64
-
-            })
-        }
-      );
-
-    const data =
-      await response.json();
-
-    removeThinking();
-
-    if(!response.ok){
-
-      console.error(data);
-
-      addMessage(
-        "⚠️ 写真の分析に失敗しました。\n"+
-        "エラー: "+
-        response.status,
-        "ai"
-      );
-
-      return;
-
-    }
-
-    addMessage(
-      data.answer ||
-      "写真をうまく読み取れませんでした。",
-      "ai"
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    removeThinking();
-
-    addMessage(
-      "⚠️ 写真分析中にエラーが発生しました。",
-      "ai"
-    );
-
-  }
-
-}
-
 function fileToBase64(file){
 
   return new Promise(
-    (
-      resolve,
-      reject
-    )=>{
+    (resolve,reject)=>{
 
       const reader =
         new FileReader();
@@ -1584,17 +2273,130 @@ function fileToBase64(file){
 
 }
 
+async function analyzePhoto(){
+
+  const input =
+    document.getElementById(
+      "photoInput"
+    );
+
+  const file =
+    input.files[0];
+
+  if(!file){
+
+    alert(
+      "写真を選択してください。"
+    );
+
+    return;
+
+  }
+
+  closePhotoModal();
+
+  addMessage(
+    "📸 問題の写真を送りました。",
+    "user"
+  );
+
+  addMessage(
+    "👽 写真を解析しています...",
+    "ai"
+  );
+
+  try{
+
+    const image =
+      await fileToBase64(
+        file
+      );
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              message:
+                "この写真の問題を分析してください。問題文を読み取り、答えだけでなく、高校生にも分かりやすく解き方を説明してください。",
+
+              image:image,
+
+              name:
+                localStorage.getItem(
+                  "studyCoachName"
+                ) || "太郎"
+
+            })
+          }
+        }
+      );
+
+    const data =
+      await response.json();
+
+    removeThinking();
+
+    if(!response.ok){
+
+      addMessage(
+        "⚠️ 写真分析に失敗しました。\n"+
+        "エラーコード: "+
+        response.status,
+        "ai"
+      );
+
+      console.error(
+        data
+      );
+
+      return;
+
+    }
+
+    addMessage(
+      data.answer ||
+      "写真を読み取れませんでした。",
+      "ai"
+    );
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+    removeThinking();
+
+    addMessage(
+      "⚠️ 写真分析中にエラーが発生しました。",
+      "ai"
+    );
+
+  }
+
+}
+
 /* =========================
    VOICE
 ========================= */
 
 function startVoice(){
 
-  const SpeechRecognition =
+  const Recognition =
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;
 
-  if(!SpeechRecognition){
+  if(!Recognition){
 
     alert(
       "このブラウザでは音声入力を利用できません。"
@@ -1605,7 +2407,7 @@ function startVoice(){
   }
 
   const recognition =
-    new SpeechRecognition();
+    new Recognition();
 
   recognition.lang =
     "ja-JP";
@@ -1615,43 +2417,26 @@ function startVoice(){
   recognition.onresult =
     event=>{
 
-      const text =
-        event.results[0][0]
-          .transcript;
-
       document
         .getElementById(
           "chatInput"
         )
         .value =
-        text;
+        event.results[0][0]
+          .transcript;
 
     };
 
 }
 
-document
-  .getElementById(
-    "photoModal"
-  )
-  .addEventListener(
-    "click",
-    event=>{
+/* =========================
+   START
+========================= */
 
-      if(
-        event.target.id ===
-        "photoModal"
-      ){
-
-        closePhotoModal();
-
-      }
-
-    }
-  );
+loadName();
 
 </script>
 
 </body>
+
 </html>
-```
