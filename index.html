@@ -1254,59 +1254,81 @@ footer{
    CONSENT
 ========================= */
 
-const checks=[
+const checks = [
   "termsCheck",
   "privacyCheck",
   "aiDataCheck"
 ];
 
-checks.forEach(id=>{
-  document.getElementById(id).addEventListener(
-    "change",
-    updateConsentButton
-  );
-});
+function updateConsentButton() {
 
-function updateConsentButton(){
+  const allChecked = checks.every(id => {
+    const checkbox = document.getElementById(id);
+    return checkbox && checkbox.checked;
+  });
 
-  const allChecked=
-    checks.every(
-      id=>document.getElementById(id).checked
-    );
+  const button =
+    document.getElementById("consentButton");
 
-  document.getElementById(
-    "consentButton"
-  ).disabled=!allChecked;
+  if (button) {
+    button.disabled = !allChecked;
+  }
 
 }
 
-function acceptConsent(){
+function acceptConsent() {
 
-  const allChecked=
-    checks.every(
-      id=>document.getElementById(id).checked
-    );
+  const allChecked = checks.every(id => {
+    const checkbox = document.getElementById(id);
+    return checkbox && checkbox.checked;
+  });
 
-  if(!allChecked){
+  if (!allChecked) {
 
-    document.getElementById(
-      "consentError"
-    ).textContent=
-      "すべての確認項目を確認してください。";
+    const error =
+      document.getElementById("consentError");
+
+    if (error) {
+      error.textContent =
+        "3つすべてにチェックを入れてください。";
+    }
 
     return;
-
   }
 
+  // 同意済みとして保存
   localStorage.setItem(
     "studyCoachConsent",
     "accepted"
   );
 
+  // アカウント作成画面へ
   showCreateAccount();
 
 }
 
+// 3つのチェックボックスを監視
+document.addEventListener("DOMContentLoaded", () => {
+
+  checks.forEach(id => {
+
+    const checkbox =
+      document.getElementById(id);
+
+    if (checkbox) {
+
+      checkbox.addEventListener(
+        "change",
+        updateConsentButton
+      );
+
+    }
+
+  });
+
+  updateConsentButton();
+
+});
 
 /* =========================
    PRIVACY INFO
