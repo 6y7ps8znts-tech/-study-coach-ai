@@ -1273,7 +1273,23 @@ function updateConsentButton() {
   if (button) {
     button.disabled = !allChecked;
   }
+}
 
+checks.forEach(id => {
+
+  const checkbox =
+    document.getElementById(id);
+
+  if (checkbox) {
+    checkbox.addEventListener(
+      "change",
+      updateConsentButton
+    );
+  }
+
+});
+
+updateConsentButton();
 }
 
 function acceptConsent() {
