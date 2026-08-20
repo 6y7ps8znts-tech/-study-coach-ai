@@ -4,757 +4,592 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Study Coach AI</title>
+
+<title>Study Coach AI - ALI</title>
 
 <style>
+
 *{
   box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
+  margin:0;
+  padding:0;
 }
 
 body{
-  margin:0;
-  color:#eef2ff;
   font-family:
-    Inter,
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background:
-    radial-gradient(circle at 10% 10%,rgba(109,92,255,.25),transparent 30%),
-    radial-gradient(circle at 90% 20%,rgba(46,211,183,.14),transparent 28%),
-    radial-gradient(circle at 50% 100%,rgba(126,80,255,.18),transparent 35%),
-    #080b18;
+
+  color:white;
   min-height:100vh;
+
+  background:
+    radial-gradient(circle at 20% 20%,rgba(92,70,190,.35),transparent 30%),
+    radial-gradient(circle at 80% 30%,rgba(20,150,190,.25),transparent 30%),
+    radial-gradient(circle at 50% 80%,rgba(120,40,180,.25),transparent 35%),
+    linear-gradient(135deg,#030513,#080b24,#02030d);
+
+  overflow-x:hidden;
 }
 
-button,
-input,
-select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-.hidden{
-  display:none!important;
-}
-
-/* ===== BACKGROUND ===== */
-
-.bg-orb{
+body::before{
+  content:"";
   position:fixed;
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  filter:blur(90px);
-  opacity:.18;
+  inset:0;
+
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px),
+    radial-gradient(circle,rgba(255,255,255,.35) 1px,transparent 1px);
+
+  background-size:90px 90px,150px 150px;
+
+  background-position:10px 20px,50px 80px;
+
+  opacity:.35;
   pointer-events:none;
-  z-index:-1;
 }
 
-.orb1{
-  background:#6c5cff;
-  top:-80px;
-  left:-80px;
-}
-
-.orb2{
-  background:#27d8b5;
-  right:-100px;
-  top:30%;
-}
-
-.orb3{
-  background:#9a5cff;
-  bottom:-100px;
-  left:40%;
-}
-
-/* ===== HEADER ===== */
-
-.header{
+header{
   position:sticky;
   top:0;
-  z-index:50;
-  height:72px;
-  padding:0 28px;
+  z-index:20;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  background:rgba(8,11,24,.76);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,.07);
+
+  padding:16px 28px;
+
+  background:rgba(4,5,20,.72);
+  backdrop-filter:blur(18px);
+
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .logo{
   font-size:22px;
-  font-weight:950;
-  letter-spacing:-.7px;
+  font-weight:900;
 }
 
 .logo span{
-  color:#8b7cff;
+  color:#8c7cff;
 }
 
 .headerRight{
   display:flex;
   align-items:center;
-  gap:10px;
-}
-
-.status{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  font-size:12px;
-  color:#9ca8c8;
-}
-
-.statusDot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#35d69c;
-  box-shadow:0 0 12px #35d69c;
-}
-
-.logout{
-  border:1px solid rgba(255,255,255,.1);
-  color:#cbd3ed;
-  background:rgba(255,255,255,.05);
-  padding:9px 13px;
-  border-radius:11px;
-}
-
-/* ===== MAIN ===== */
-
-.main{
-  width:min(1180px,calc(100% - 30px));
-  margin:auto;
-  padding:28px 0 60px;
-}
-
-.hero{
-  position:relative;
-  overflow:hidden;
-  padding:32px;
-  border-radius:28px;
-  border:1px solid rgba(255,255,255,.08);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(35,39,76,.88),
-      rgba(17,20,43,.92)
-    );
-  box-shadow:0 25px 80px rgba(0,0,0,.25);
-}
-
-.hero::after{
-  content:"";
-  position:absolute;
-  width:230px;
-  height:230px;
-  border-radius:50%;
-  background:#735cff;
-  filter:blur(90px);
-  opacity:.18;
-  right:-80px;
-  top:-90px;
-}
-
-.heroTop{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.hero h1{
-  font-size:clamp(26px,4vw,42px);
-  margin:0 0 10px;
-  letter-spacing:-1.5px;
-}
-
-.hero p{
-  margin:0;
-  color:#9fa9c5;
-  line-height:1.7;
-}
-
-.aiBadge{
-  white-space:nowrap;
-  height:max-content;
-  padding:9px 12px;
-  border-radius:999px;
-  background:rgba(117,100,255,.14);
-  border:1px solid rgba(139,124,255,.25);
-  color:#bdb5ff;
-  font-size:12px;
-  font-weight:800;
-}
-
-/* ===== STATS ===== */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:13px;
-  margin:18px 0;
-}
-
-.stat{
-  padding:18px;
-  border-radius:19px;
-  border:1px solid rgba(255,255,255,.07);
-  background:rgba(20,24,46,.72);
-  backdrop-filter:blur(14px);
-}
-
-.statIcon{
-  font-size:22px;
-}
-
-.statValue{
-  margin-top:9px;
-  font-size:22px;
-  font-weight:950;
-}
-
-.statLabel{
-  margin-top:3px;
-  color:#7f89a8;
-  font-size:12px;
-}
-
-/* ===== SUBJECTS ===== */
-
-.sectionTitle{
-  margin:25px 0 12px;
-  font-size:16px;
-  font-weight:900;
-}
-
-.subjects{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:10px;
-}
-
-.subject{
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:16px;
-  padding:15px 10px;
-  background:rgba(20,24,46,.78);
-  color:#b9c2dd;
-  font-weight:850;
-  transition:.18s;
-}
-
-.subject:hover{
-  transform:translateY(-2px);
-  border-color:rgba(139,124,255,.45);
-}
-
-.subject.active{
-  color:white;
-  border-color:#806fff;
-  background:
-    linear-gradient(
-      135deg,
-      #6656ef,
-      #8c63e9
-    );
-  box-shadow:0 8px 25px rgba(111,91,255,.2);
-}
-
-/* ===== TWO COLUMN ===== */
-
-.dashboard{
-  display:grid;
-  grid-template-columns:1.5fr .75fr;
-  gap:18px;
-  margin-top:18px;
-}
-
-.card{
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(17,21,42,.82);
-  border-radius:24px;
-  box-shadow:0 20px 60px rgba(0,0,0,.18);
-  overflow:hidden;
-}
-
-/* ===== CHAT ===== */
-
-.chatHeader{
-  padding:18px 20px;
-  border-bottom:1px solid rgba(255,255,255,.07);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.coach{
-  display:flex;
-  align-items:center;
   gap:12px;
 }
 
-.alien{
-  width:44px;
-  height:44px;
+.alienStatus{
   display:flex;
   align-items:center;
+  gap:8px;
+
+  font-size:13px;
+  color:#aab4d8;
+}
+
+.statusDot{
+  width:9px;
+  height:9px;
+
+  border-radius:50%;
+
+  background:#50ff9b;
+
+  box-shadow:0 0 12px #50ff9b;
+}
+
+.musicButton{
+  padding:9px 13px;
+
+  border-radius:12px;
+
+  color:white;
+
+  background:rgba(255,255,255,.08);
+
+  border:1px solid rgba(255,255,255,.1);
+
+  cursor:pointer;
+}
+
+.container{
+  width:min(1200px,94%);
+  margin:auto;
+
+  padding:30px 0 60px;
+}
+
+.hero{
+  display:grid;
+
+  grid-template-columns:1.2fr .8fr;
+
+  gap:22px;
+
+  margin-bottom:22px;
+}
+
+.card{
+  border:1px solid rgba(255,255,255,.1);
+
+  background:rgba(11,14,39,.72);
+
+  backdrop-filter:blur(18px);
+
+  border-radius:24px;
+
+  padding:24px;
+
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.3);
+}
+
+.alienCard{
+  display:flex;
+
+  align-items:center;
+
+  gap:20px;
+}
+
+.alien{
+  width:105px;
+  height:105px;
+
+  border-radius:50%;
+
+  display:flex;
+
+  align-items:center;
   justify-content:center;
-  border-radius:14px;
-  font-size:27px;
+
+  font-size:62px;
+
   background:
-    radial-gradient(circle,#403c89,#171a38);
-  box-shadow:0 0 25px rgba(119,104,255,.2);
+    radial-gradient(circle at 35% 30%,#b4fff0,#36b9a8 45%,#153d50);
+
+  box-shadow:
+    0 0 30px rgba(68,255,210,.35),
+    inset 0 0 30px rgba(255,255,255,.15);
+
+  flex-shrink:0;
 }
 
-.coachName{
-  font-weight:900;
+.alienCard h1{
+  font-size:30px;
+  margin-bottom:8px;
 }
 
-.coachSub{
-  color:#7f89a8;
-  font-size:11px;
-  margin-top:3px;
+.alienCard p{
+  color:#aab2d1;
+  line-height:1.6;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+
+  color:white;
+
+  font-weight:800;
+
+  border-radius:14px;
+
+  transition:.2s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.1);
+}
+
+.primary{
+  background:linear-gradient(135deg,#7167ff,#a65cff);
+
+  padding:14px 18px;
+}
+
+.secondary{
+  background:rgba(255,255,255,.08);
+
+  border:1px solid rgba(255,255,255,.1);
+
+  padding:13px 16px;
+}
+
+.featureGrid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:14px;
+
+  margin-bottom:22px;
+}
+
+.feature{
+  padding:20px;
+
+  border-radius:20px;
+
+  background:rgba(12,15,42,.72);
+
+  border:1px solid rgba(255,255,255,.09);
+
+  cursor:pointer;
+}
+
+.featureIcon{
+  font-size:28px;
+
+  margin-bottom:12px;
+}
+
+.feature h3{
+  margin-bottom:5px;
+}
+
+.feature p{
+  font-size:13px;
+
+  color:#9ca7ca;
+
+  line-height:1.5;
+}
+
+.chatLayout{
+  display:grid;
+
+  grid-template-columns:1fr 320px;
+
+  gap:20px;
+}
+
+.chatBox{
+  min-height:650px;
+
+  display:flex;
+
+  flex-direction:column;
 }
 
 .chatMessages{
-  height:470px;
+  flex:1;
+
   overflow-y:auto;
-  padding:20px;
+
+  max-height:500px;
+
+  padding:10px 2px 20px;
+}
+
+.message{
+  display:flex;
+
+  gap:10px;
+
+  margin-bottom:16px;
+}
+
+.message.user{
+  justify-content:flex-end;
+}
+
+.avatar{
+  width:38px;
+  height:38px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.08);
+
+  flex-shrink:0;
 }
 
 .bubble{
-  max-width:82%;
-  padding:13px 15px;
-  border-radius:17px;
-  margin-bottom:12px;
+  max-width:75%;
+
+  padding:13px 16px;
+
+  border-radius:18px;
+
+  line-height:1.6;
+
   white-space:pre-wrap;
-  line-height:1.65;
-  font-size:14px;
 }
 
-.bubble.user{
-  margin-left:auto;
-  color:white;
+.ai .bubble{
+  background:rgba(255,255,255,.07);
+}
+
+.user .bubble{
   background:
-    linear-gradient(
-      135deg,
-      #6656ef,
-      #815fe4
-    );
-  border-bottom-right-radius:5px;
-}
-
-.bubble.ai{
-  color:#dfe5fa;
-  background:#20253e;
-  border-bottom-left-radius:5px;
+    linear-gradient(135deg,#675cff,#914fff);
 }
 
 .chatInputArea{
   display:flex;
-  gap:9px;
-  padding:14px;
-  border-top:1px solid rgba(255,255,255,.07);
+
+  gap:8px;
+
+  border-top:
+    1px solid rgba(255,255,255,.08);
+
+  padding-top:15px;
 }
 
 .chatInput{
   flex:1;
-  min-width:0;
+
+  background:rgba(255,255,255,.06);
+
   color:white;
-  background:#0d1124;
-  border:1px solid rgba(255,255,255,.09);
+
+  border:1px solid rgba(255,255,255,.1);
+
+  padding:14px;
+
   border-radius:14px;
-  padding:13px;
+
   outline:none;
 }
 
 .chatInput:focus{
-  border-color:#7666ff;
-}
-
-.sendButton{
-  border:0;
-  border-radius:14px;
-  padding:0 19px;
-  color:white;
-  background:#735cff;
-  font-weight:900;
-}
-
-/* ===== SIDE ===== */
-
-.side{
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-.sideCard{
-  padding:20px;
+  border-color:#776cff;
 }
 
 .sideTitle{
-  font-weight:900;
+  font-size:17px;
+
   margin-bottom:15px;
 }
 
-.timer{
-  font-size:38px;
-  font-weight:950;
-  letter-spacing:-1px;
+.stat{
+  margin-bottom:16px;
 }
 
-.timerLabel{
-  color:#7f89a8;
-  font-size:12px;
-}
-
-.timerButtons{
+.statTop{
   display:flex;
-  gap:8px;
-  margin-top:15px;
-}
 
-.actionButton{
-  flex:1;
-  border:0;
-  padding:11px;
-  border-radius:12px;
-  color:white;
-  background:#735cff;
-  font-weight:850;
-}
-
-.actionButton.secondary{
-  background:#282e4a;
-}
-
-.progress{
-  height:8px;
-  border-radius:999px;
-  background:#292e48;
-  overflow:hidden;
-  margin-top:15px;
-}
-
-.progressBar{
-  width:0%;
-  height:100%;
-  background:linear-gradient(90deg,#6d5cff,#36d7b0);
-  transition:.3s;
-}
-
-/* ===== IMAGE ===== */
-
-.imageArea{
-  padding:20px;
-  border-top:1px solid rgba(255,255,255,.07);
-}
-
-.imageTitle{
-  font-weight:900;
-  margin-bottom:6px;
-}
-
-.imageDescription{
-  color:#7f89a8;
-  font-size:12px;
-  line-height:1.6;
-  margin-bottom:14px;
-}
-
-.uploadButton{
-  display:block;
-  text-align:center;
-  padding:13px;
-  border-radius:13px;
-  background:#282e4a;
-  color:#dfe5fa;
-  font-weight:850;
-  cursor:pointer;
-}
-
-.preview{
-  display:none;
-  width:100%;
-  max-height:220px;
-  object-fit:contain;
-  margin-top:13px;
-  border-radius:14px;
-  background:#090c19;
-}
-
-.analyzeButton{
-  display:none;
-  width:100%;
-  margin-top:10px;
-  padding:13px;
-  border:0;
-  border-radius:13px;
-  color:white;
-  background:linear-gradient(135deg,#735cff,#a15ce8);
-  font-weight:900;
-}
-
-/* ===== MUSIC ===== */
-
-.music{
-  display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:12px;
+
+  margin-bottom:7px;
 }
 
-.musicInfo{
-  min-width:0;
+.statBar{
+  height:8px;
+
+  background:rgba(255,255,255,.08);
+
+  border-radius:20px;
+
+  overflow:hidden;
 }
 
-.musicName{
-  font-weight:900;
-}
+.statBar div{
+  height:100%;
 
-.musicSub{
-  color:#7f89a8;
-  font-size:11px;
-  margin-top:4px;
-}
+  width:68%;
 
-.musicButton{
-  border:0;
-  border-radius:12px;
-  padding:11px 13px;
-  color:white;
-  background:#282e4a;
-  font-weight:850;
-}
+  background:
+    linear-gradient(90deg,#7167ff,#b36aff);
 
-/* ===== QUICK FEATURES ===== */
-
-.features{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:13px;
-  margin-top:18px;
-}
-
-.feature{
-  padding:19px;
-  border:1px solid rgba(255,255,255,.07);
-  background:rgba(17,21,42,.72);
   border-radius:20px;
 }
 
-.featureIcon{
-  font-size:25px;
+.uploadBox{
+  border:2px dashed rgba(150,140,255,.4);
+
+  border-radius:18px;
+
+  padding:25px;
+
+  text-align:center;
+
+  margin-top:10px;
 }
 
-.feature h3{
-  margin:10px 0 6px;
-  font-size:15px;
+.uploadBox input{
+  display:none;
 }
 
-.feature p{
-  margin:0;
-  color:#7f89a8;
-  line-height:1.6;
-  font-size:12px;
+.preview{
+  width:100%;
+
+  max-height:250px;
+
+  object-fit:contain;
+
+  border-radius:14px;
+
+  margin-top:15px;
+
+  display:none;
 }
 
-/* ===== MODAL ===== */
-
-.overlay{
-  position:fixed;
-  inset:0;
-  z-index:100;
+.photoActions{
   display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  background:rgba(3,5,15,.78);
-  backdrop-filter:blur(14px);
+
+  gap:8px;
+
+  margin-top:12px;
 }
 
 .modal{
-  width:min(530px,100%);
-  max-height:90vh;
-  overflow-y:auto;
-  padding:28px;
+  position:fixed;
+
+  inset:0;
+
+  background:rgba(0,0,0,.75);
+
+  backdrop-filter:blur(12px);
+
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  z-index:100;
+}
+
+.modalContent{
+  width:min(650px,92%);
+
+  background:#0c102d;
+
+  border:1px solid rgba(255,255,255,.12);
+
   border-radius:25px;
-  background:#14182d;
-  border:1px solid rgba(255,255,255,.1);
-  box-shadow:0 30px 100px rgba(0,0,0,.45);
+
+  padding:25px;
 }
 
-.modalLogo{
-  font-size:21px;
-  font-weight:950;
-  margin-bottom:15px;
+.close{
+  float:right;
+
+  width:35px;
+  height:35px;
+
+  background:rgba(255,255,255,.08);
 }
 
-.modalLogo span{
-  color:#806fff;
+.musicPanel{
+  position:fixed;
+
+  bottom:20px;
+  right:20px;
+
+  z-index:50;
+
+  width:260px;
+
+  background:rgba(9,12,35,.9);
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  backdrop-filter:blur(18px);
+
+  border-radius:18px;
+
+  padding:15px;
+
+  box-shadow:
+    0 15px 50px rgba(0,0,0,.35);
+
+  display:none;
 }
 
-.modal h1{
-  margin:0 0 8px;
+.musicPanel h3{
+  margin-bottom:10px;
 }
 
-.modalIntro{
-  color:#8c96b4;
-  line-height:1.65;
-  margin-bottom:18px;
-}
-
-.check{
+.musicRow{
   display:flex;
-  align-items:flex-start;
+
+  align-items:center;
+
   gap:10px;
-  margin:14px 0;
-  color:#cbd3ea;
-  line-height:1.55;
-  font-size:13px;
 }
 
-.check input{
-  width:18px;
-  height:18px;
-  margin-top:2px;
-  accent-color:#735cff;
+.musicRow input{
+  flex:1;
 }
 
-.modalButton{
-  width:100%;
-  border:0;
-  padding:14px;
-  border-radius:13px;
-  color:white;
-  background:linear-gradient(135deg,#735cff,#9860e8);
-  font-weight:900;
-  margin-top:8px;
-}
+@media(max-width:900px){
 
-.modalButton:disabled{
-  opacity:.4;
-  cursor:not-allowed;
-}
-
-.form{
-  display:grid;
-  gap:14px;
-}
-
-.field label{
-  display:block;
-  margin-bottom:6px;
-  color:#cbd3ea;
-  font-weight:800;
-  font-size:13px;
-}
-
-.field input,
-.field select{
-  width:100%;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:12px;
-  padding:12px;
-  color:white;
-  background:#0c1021;
-  outline:none;
-}
-
-.error{
-  color:#ff7c87;
-  font-size:13px;
-  margin-top:7px;
-}
-
-/* ===== MOBILE ===== */
-
-@media(max-width:850px){
-
-  .dashboard{
+  .hero{
     grid-template-columns:1fr;
   }
 
-  .stats{
-    grid-template-columns:repeat(2,1fr);
+  .featureGrid{
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
-  .subjects{
-    grid-template-columns:repeat(3,1fr);
+  .chatLayout{
+    grid-template-columns:1fr;
   }
 
 }
 
-@media(max-width:560px){
+@media(max-width:600px){
 
-  .header{
-    padding:0 14px;
+  header{
+    padding:14px 15px;
   }
 
-  .status{
+  .container{
+    width:92%;
+  }
+
+  .alien{
+    width:75px;
+    height:75px;
+
+    font-size:42px;
+  }
+
+  .alienCard h1{
+    font-size:23px;
+  }
+
+  .featureGrid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .chatBox{
+    min-height:550px;
+  }
+
+  .alienStatus{
     display:none;
   }
 
-  .main{
-    width:min(100% - 18px,1180px);
-  }
-
-  .hero{
-    padding:22px;
-  }
-
-  .heroTop{
-    flex-direction:column;
-  }
-
-  .stats{
-    gap:8px;
-  }
-
-  .stat{
-    padding:13px;
-  }
-
-  .subjects{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .chatMessages{
-    height:390px;
-  }
-
-  .bubble{
-    max-width:90%;
-  }
-
-  .features{
-    grid-template-columns:1fr;
-  }
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="bg-orb orb1"></div>
-<div class="bg-orb orb2"></div>
-<div class="bg-orb orb3"></div>
+<!-- =========================
+     HEADER
+========================= -->
 
-<header class="header">
+<header>
 
   <div class="logo">
     Study <span>Coach AI</span>
@@ -762,980 +597,635 @@ button{
 
   <div class="headerRight">
 
-    <div class="status">
-      <span class="statusDot"></span>
-      AI ONLINE
+    <div class="alienStatus">
+
+      <div class="statusDot"></div>
+
+      ALI ONLINE
+
     </div>
 
     <button
-      class="logout"
-      onclick="logout()"
+      class="musicButton"
+      onclick="toggleMusicPanel()"
     >
-      ログアウト
+      🎵 BGM
     </button>
 
   </div>
 
 </header>
 
+<!-- =========================
+     MUSIC
+========================= -->
 
-<main class="main">
-
-<section class="hero">
-
-  <div class="heroTop">
-
-    <div>
-
-      <h1 id="welcomeText">
-        今日も一緒に勉強しよう📚
-      </h1>
-
-      <p>
-        AIコーチに質問して、問題を解いて、
-        勉強時間もまとめて管理しよう。
-      </p>
-
-    </div>
-
-    <div class="aiBadge">
-      👽 Study Coach AI
-    </div>
-
-  </div>
-
-</section>
-
-
-<section class="stats">
-
-  <div class="stat">
-    <div class="statIcon">⏱️</div>
-    <div
-      class="statValue"
-      id="studyTime"
-    >
-      0分
-    </div>
-    <div class="statLabel">
-      今日の勉強時間
-    </div>
-  </div>
-
-  <div class="stat">
-    <div class="statIcon">💬</div>
-    <div
-      class="statValue"
-      id="questionCount"
-    >
-      0
-    </div>
-    <div class="statLabel">
-      今日の質問
-    </div>
-  </div>
-
-  <div class="stat">
-    <div class="statIcon">📚</div>
-    <div
-      class="statValue"
-      id="subjectCount"
-    >
-      1
-    </div>
-    <div class="statLabel">
-      選択中の科目
-    </div>
-  </div>
-
-  <div class="stat">
-    <div class="statIcon">🔥</div>
-    <div
-      class="statValue"
-      id="streak"
-    >
-      1日
-    </div>
-    <div class="statLabel">
-      学習ストリーク
-    </div>
-  </div>
-
-</section>
-
-
-<div class="sectionTitle">
-  📚 勉強する科目
-</div>
-
-<section class="subjects">
-
-  <button
-    class="subject active"
-    onclick="selectSubject(this,'数学')"
+<audio
+  id="bgm"
+  loop
+  preload="auto"
+>
+  <source
+    src="bgm.mp3"
+    type="audio/mpeg"
   >
-    📐 数学
-  </button>
+</audio>
 
-  <button
-    class="subject"
-    onclick="selectSubject(this,'英語')"
-  >
-    🇺🇸 英語
-  </button>
+<div
+  id="musicPanel"
+  class="musicPanel"
+>
 
-  <button
-    class="subject"
-    onclick="selectSubject(this,'国語')"
-  >
-    📖 国語
-  </button>
+  <h3>🌌 宇宙BGM</h3>
 
-  <button
-    class="subject"
-    onclick="selectSubject(this,'理科')"
-  >
-    🔬 理科
-  </button>
-
-  <button
-    class="subject"
-    onclick="selectSubject(this,'社会')"
-  >
-    🌍 社会
-  </button>
-
-  <button
-    class="subject"
-    onclick="selectSubject(this,'その他')"
-  >
-    ✨ その他
-  </button>
-
-</section>
-
-
-<section class="dashboard">
-
-
-<div class="card">
-
-  <div class="chatHeader">
-
-    <div class="coach">
-
-      <div class="alien">
-        👽
-      </div>
-
-      <div>
-
-        <div class="coachName">
-          Study Coach AI
-        </div>
-
-        <div class="coachSub">
-          <span id="subjectText">
-            数学
-          </span>
-          ・AI学習サポート
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="status">
-      <span class="statusDot"></span>
-      ONLINE
-    </div>
-
-  </div>
-
-
-  <div
-    id="chatMessages"
-    class="chatMessages"
-  >
-
-    <div class="bubble ai">
-      👽 やあ！Study Coach AIだよ！
-
-      分からない問題でも、
-      勉強方法でも、テスト対策でもOK。
-
-      今日は何を勉強する？
-    </div>
-
-  </div>
-
-
-  <div class="chatInputArea">
-
-    <input
-      id="chatInput"
-      class="chatInput"
-      placeholder="AIコーチに質問してみよう..."
-      onkeydown="handleKey(event)"
-    >
+  <div class="musicRow">
 
     <button
-      class="sendButton"
-      onclick="sendMessage()"
-    >
-      送信
-    </button>
-
-  </div>
-
-
-  <div class="imageArea">
-
-    <div class="imageTitle">
-      📸 問題の写真をAIに見せる
-    </div>
-
-    <div class="imageDescription">
-      数学の問題や教科書などを撮影して、
-      AIコーチに解説してもらえます。
-    </div>
-
-    <label class="uploadButton">
-
-      📷 写真を選択
-
-      <input
-        id="imageInput"
-        type="file"
-        accept="image/*"
-        hidden
-        onchange="previewImage(event)"
-      >
-
-    </label>
-
-    <img
-      id="preview"
-      class="preview"
-    >
-
-    <button
-      id="analyzeButton"
-      class="analyzeButton"
-      onclick="analyzeImage()"
-    >
-      🔍 この問題をAIに分析してもらう
-    </button>
-
-  </div>
-
-</div>
-
-
-<div class="side">
-
-
-<div class="card sideCard">
-
-  <div class="sideTitle">
-    ⏱️ 集中タイマー
-  </div>
-
-  <div
-    class="timer"
-    id="timer"
-  >
-    00:00
-  </div>
-
-  <div class="timerLabel">
-    集中して勉強した時間
-  </div>
-
-  <div class="timerButtons">
-
-    <button
-      class="actionButton"
-      onclick="startTimer()"
-    >
-      ▶ 開始
-    </button>
-
-    <button
-      class="actionButton secondary"
-      onclick="stopTimer()"
-    >
-      ■ 停止
-    </button>
-
-  </div>
-
-  <div class="progress">
-
-    <div
-      id="progressBar"
-      class="progressBar"
-    ></div>
-
-  </div>
-
-</div>
-
-
-<div class="card sideCard">
-
-  <div class="sideTitle">
-    🎧 勉強BGM
-  </div>
-
-  <div class="music">
-
-    <div class="musicInfo">
-
-      <div class="musicName">
-        Calm Study
-      </div>
-
-      <div
-        class="musicSub"
-        id="musicStatus"
-      >
-        BGMを流しながら勉強できます
-      </div>
-
-    </div>
-
-    <button
-      class="musicButton"
-      id="musicButton"
+      class="primary"
       onclick="toggleMusic()"
+      id="musicToggle"
     >
       ▶ 再生
     </button>
 
-  </div>
-
-  <audio
-    id="studyMusic"
-    loop
-  >
-    <source
-      src="music/study-bgm.mp3"
-      type="audio/mpeg"
+    <input
+      id="volume"
+      type="range"
+      min="0"
+      max="1"
+      step="0.01"
+      value="0.35"
+      oninput="changeVolume()"
     >
-  </audio>
 
-</div>
-
-
-<div class="card sideCard">
-
-  <div class="sideTitle">
-    💡 クイック質問
   </div>
 
-  <button
-    class="actionButton"
-    onclick="quickQuestion('この問題を分かりやすく説明して')"
+  <p
+    style="
+      color:#9ca7ca;
+      font-size:12px;
+      margin-top:10px;
+    "
   >
-    📖 分かりやすく説明
-  </button>
-
-  <br><br>
-
-  <button
-    class="actionButton secondary"
-    onclick="quickQuestion('テストに出そうなポイントを教えて')"
-  >
-    🎯 テスト対策
-  </button>
+    BGMはループ再生されます。
+  </p>
 
 </div>
 
+<main class="container">
 
-</div>
+<!-- =========================
+     HERO
+========================= -->
 
-</section>
+<section class="hero">
 
+  <div class="card alienCard">
 
-<section class="features">
-
-  <div class="feature">
-
-    <div class="featureIcon">
-      🧠
+    <div class="alien">
+      👽
     </div>
 
-    <h3>
-      AI学習サポート
-    </h3>
+    <div>
 
-    <p>
-      分からない問題を質問すると、
-      学年に合わせて分かりやすく説明します。
+      <h1>
+        こんにちは、太郎！
+      </h1>
+
+      <p>
+        僕は <strong>ALI</strong>。<br>
+        宇宙からやってきた学習コーチだよ。<br>
+        分からない問題は何でも聞いてみて。
+      </p>
+
+      <br>
+
+      <button
+        class="primary"
+        onclick="focusChat()"
+      >
+        👽 ALIに質問する
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>
+      🚀 今日の学習状況
+    </h2>
+
+    <br>
+
+    <div class="stat">
+
+      <div class="statTop">
+
+        <span>
+          今日の進捗
+        </span>
+
+        <strong>
+          68%
+        </strong>
+
+      </div>
+
+      <div class="statBar">
+        <div></div>
+      </div>
+
+    </div>
+
+    <div class="stat">
+
+      <div class="statTop">
+
+        <span>
+          🔥 連続学習
+        </span>
+
+        <strong>
+          7日
+        </strong>
+
+      </div>
+
+      <div class="statBar">
+
+        <div
+          style="width:72%"
+        ></div>
+
+      </div>
+
+    </div>
+
+    <p
+      style="
+        color:#9ca7ca;
+        font-size:13px;
+      "
+    >
+      今日も少しずつ進めよう。
     </p>
 
   </div>
 
+</section>
 
-  <div class="feature">
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section class="featureGrid">
+
+  <div
+    class="feature"
+    onclick="openPhotoModal()"
+  >
 
     <div class="featureIcon">
       📸
     </div>
 
     <h3>
-      画像問題分析
+      問題を写真で送る
     </h3>
 
     <p>
-      問題の写真を送って、
-      AIコーチに読み取ってもらえます。
+      数学・英語などの問題を
+      写真からALIに分析してもらう
     </p>
 
   </div>
 
-
-  <div class="feature">
+  <div
+    class="feature"
+    onclick="quickQuestion(
+      'この問題を分かりやすく説明して'
+    )"
+  >
 
     <div class="featureIcon">
-      📊
+      🧠
     </div>
 
     <h3>
-      学習記録
+      問題を解説
     </h3>
 
     <p>
-      勉強時間や質問数を記録して、
-      毎日の学習を見える化します。
+      難しい問題を
+      やさしく説明
+    </p>
+
+  </div>
+
+  <div
+    class="feature"
+    onclick="quickQuestion(
+      '今日おすすめの勉強方法を教えて'
+    )"
+  >
+
+    <div class="featureIcon">
+      🎯
+    </div>
+
+    <h3>
+      学習プラン
+    </h3>
+
+    <p>
+      今日やるべき勉強を
+      ALIが提案
+    </p>
+
+  </div>
+
+  <div
+    class="feature"
+    onclick="quickQuestion(
+      '英語の問題を5問出して'
+    )"
+  >
+
+    <div class="featureIcon">
+      📝
+    </div>
+
+    <h3>
+      問題を作る
+    </h3>
+
+    <p>
+      AIにオリジナル問題を
+      作ってもらう
     </p>
 
   </div>
 
 </section>
 
-</main>
-
-
 <!-- =========================
-     CONSENT
+     CHAT
 ========================= -->
 
-<div
-  id="consentScreen"
-  class="overlay"
->
+<section class="chatLayout">
 
-<div class="modal">
+  <div class="card chatBox">
 
-  <div class="modalLogo">
-    Study <span>Coach AI</span>
-  </div>
-
-  <h1>
-    はじめに確認してください
-  </h1>
-
-  <div class="modalIntro">
-    Study Coach AIを利用する前に、
-    以下の内容を確認してください。
-  </div>
-
-  <label class="check">
-
-    <input
-      type="checkbox"
-      id="termsCheck"
-    >
-
-    <span>
-      利用規約を確認し、
-      サービスの利用条件に同意します。
-    </span>
-
-  </label>
-
-
-  <label class="check">
-
-    <input
-      type="checkbox"
-      id="privacyCheck"
-    >
-
-    <span>
-      個人情報の利用目的・取り扱いについて
-      確認しました。
-    </span>
-
-  </label>
-
-
-  <label class="check">
-
-    <input
-      type="checkbox"
-      id="aiDataCheck"
-    >
-
-    <span>
-      質問内容やAI機能に送信する画像などの
-      データが利用されることを確認しました。
-    </span>
-
-  </label>
-
-
-  <div
-    id="consentError"
-    class="error"
-  ></div>
-
-
-  <button
-    id="consentButton"
-    class="modalButton"
-    disabled
-    onclick="acceptConsent()"
-  >
-    同意してアカウント作成へ
-  </button>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-     ACCOUNT
-========================= -->
-
-<div
-  id="accountScreen"
-  class="overlay hidden"
->
-
-<div class="modal">
-
-  <div class="modalLogo">
-    Study <span>Coach AI</span>
-  </div>
-
-  <h1>
-    アカウントを作成 👤
-  </h1>
-
-  <div class="modalIntro">
-    あなた専用の学習スペースを作ります。
-  </div>
-
-  <div class="form">
-
-    <div class="field">
-
-      <label>
-        ニックネーム
-      </label>
-
-      <input
-        id="nickname"
-        type="text"
-        maxlength="30"
-        placeholder="例：ゆうせい"
-      >
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        年齢
-      </label>
-
-      <input
-        id="age"
-        type="number"
-        min="1"
-        max="120"
-        placeholder="例：16"
-      >
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        性別（任意）
-      </label>
-
-      <select id="gender">
-
-        <option value="">
-          回答しない
-        </option>
-
-        <option value="male">
-          男性
-        </option>
-
-        <option value="female">
-          女性
-        </option>
-
-        <option value="other">
-          その他
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <button
-      class="modalButton"
-      onclick="createAccount()"
-    >
-      アカウントを作成する
-    </button>
-
+    <h2>
+      👽 ALIと話す
+    </h2>
 
     <div
-      id="accountError"
-      class="error"
-    ></div>
+      id="chatMessages"
+      class="chatMessages"
+    >
+
+      <div class="message ai">
+
+        <div class="avatar">
+          👽
+        </div>
+
+        <div class="bubble">
+          やあ、太郎！🚀<br>
+          分からない問題、勉強方法、
+          テスト対策なんでも聞いて！
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="chatInputArea">
+
+      <button
+        class="secondary"
+        onclick="openPhotoModal()"
+        title="写真を送る"
+      >
+        📷
+      </button>
+
+      <button
+        class="secondary"
+        onclick="startVoice()"
+        title="音声入力"
+      >
+        🎙️
+      </button>
+
+      <input
+        id="chatInput"
+        class="chatInput"
+        placeholder="ALIに質問してみよう..."
+        onkeydown="handleKey(event)"
+      >
+
+      <button
+        class="primary"
+        onclick="sendMessage()"
+      >
+        送信
+      </button>
+
+    </div>
+
+  </div>
+
+  <aside>
+
+    <div class="card">
+
+      <h3 class="sideTitle">
+        🌌 ALIの機能
+      </h3>
+
+      <button
+        class="secondary"
+        style="width:100%;margin-bottom:8px"
+        onclick="quickQuestion('数学の勉強をしたい')"
+      >
+        🔢 数学
+      </button>
+
+      <button
+        class="secondary"
+        style="width:100%;margin-bottom:8px"
+        onclick="quickQuestion('英語を勉強したい')"
+      >
+        🇬🇧 英語
+      </button>
+
+      <button
+        class="secondary"
+        style="width:100%;margin-bottom:8px"
+        onclick="quickQuestion('理科を勉強したい')"
+      >
+        🧪 理科
+      </button>
+
+      <button
+        class="secondary"
+        style="width:100%;margin-bottom:8px"
+        onclick="quickQuestion('社会を勉強したい')"
+      >
+        🌍 社会
+      </button>
+
+      <button
+        class="secondary"
+        style="width:100%"
+        onclick="quickQuestion('テスト前なので勉強計画を作って')"
+      >
+        📚 テスト対策
+      </button>
+
+    </div>
+
+    <br>
+
+    <div class="card">
+
+      <h3 class="sideTitle">
+        ⚡ クイック質問
+      </h3>
+
+      <p
+        style="
+          color:#9ca7ca;
+          line-height:1.6;
+          font-size:13px;
+        "
+      >
+        「この問題分からない」
+        「明日のテストどうしよう」
+        みたいな感じでOK。
+      </p>
+
+    </div>
+
+  </aside>
+
+</section>
+
+</main>
+
+<!-- =========================
+     PHOTO MODAL
+========================= -->
+
+<div
+  id="photoModal"
+  class="modal"
+>
+
+  <div class="modalContent">
+
+    <button
+      class="close"
+      onclick="closePhotoModal()"
+    >
+      ×
+    </button>
+
+    <h2>
+      📸 問題をALIに見せる
+    </h2>
+
+    <p
+      style="
+        color:#aab2d1;
+        line-height:1.6;
+      "
+    >
+      問題の写真を選択すると、
+      ALIが内容を確認して解説します。
+    </p>
+
+    <div class="uploadBox">
+
+      <label for="photoInput">
+
+        <div style="font-size:45px">
+          📷
+        </div>
+
+        <strong>
+          ここを押して写真を選択
+        </strong>
+
+      </label>
+
+      <input
+        id="photoInput"
+        type="file"
+        accept="image/*"
+        onchange="previewPhoto(event)"
+      >
+
+      <img
+        id="photoPreview"
+        class="preview"
+      >
+
+    </div>
+
+    <div class="photoActions">
+
+      <button
+        class="secondary"
+        style="flex:1"
+        onclick="closePhotoModal()"
+      >
+        キャンセル
+      </button>
+
+      <button
+        class="primary"
+        style="flex:1"
+        onclick="analyzePhoto()"
+      >
+        👽 ALIに分析してもらう
+      </button>
+
+    </div>
 
   </div>
 
 </div>
-
-</div>
-
 
 <script>
 
-/* =========================
-   CONFIG
-========================= */
-
-const WORKER_URL =
-  "https://study-coach-ai.6y7ps8znts.workers.dev";
-
+const API_URL =
+  "https://study-coach-ai.6y7ps8znts.workers.dev/";
 
 /* =========================
-   CONSENT
+   MUSIC
 ========================= */
 
-const checks = [
-  "termsCheck",
-  "privacyCheck",
-  "aiDataCheck"
-];
+const bgm =
+  document.getElementById("bgm");
 
-function updateConsentButton(){
+bgm.volume = 0.35;
 
-  const allChecked =
-    checks.every(id => {
+function toggleMusicPanel(){
 
-      const checkbox =
-        document.getElementById(id);
+  const panel =
+    document.getElementById(
+      "musicPanel"
+    );
 
-      return checkbox &&
-             checkbox.checked;
+  if(
+    panel.style.display === "block"
+  ){
 
-    });
+    panel.style.display =
+      "none";
+
+  }else{
+
+    panel.style.display =
+      "block";
+
+  }
+
+}
+
+function toggleMusic(){
 
   const button =
     document.getElementById(
-      "consentButton"
+      "musicToggle"
     );
 
-  if(button){
-    button.disabled =
-      !allChecked;
-  }
+  if(bgm.paused){
 
-}
+    bgm.play()
+      .then(()=>{
 
-checks.forEach(id => {
+        button.textContent =
+          "⏸ 停止";
 
-  const checkbox =
-    document.getElementById(id);
+      })
+      .catch(error=>{
 
-  if(checkbox){
+        console.error(
+          "BGM Error:",
+          error
+        );
 
-    checkbox.addEventListener(
-      "change",
-      updateConsentButton
-    );
+        alert(
+          "BGMを再生できませんでした。"
+        );
 
-  }
+      });
 
-});
+  }else{
 
+    bgm.pause();
 
-function acceptConsent(){
-
-  if(
-    !checks.every(id =>
-      document.getElementById(id)?.checked
-    )
-  ){
-    document.getElementById(
-      "consentError"
-    ).textContent =
-      "3つすべてにチェックを入れてください。";
-
-    return;
-  }
-
-  localStorage.setItem(
-    "studyCoachConsent",
-    "accepted"
-  );
-
-  document.getElementById(
-    "consentScreen"
-  ).classList.add("hidden");
-
-  document.getElementById(
-    "accountScreen"
-  ).classList.remove("hidden");
-
-}
-
-
-/* =========================
-   ACCOUNT
-========================= */
-
-function createAccount(){
-
-  const nickname =
-    document.getElementById(
-      "nickname"
-    ).value.trim();
-
-  const age =
-    document.getElementById(
-      "age"
-    ).value;
-
-  const gender =
-    document.getElementById(
-      "gender"
-    ).value;
-
-  const error =
-    document.getElementById(
-      "accountError"
-    );
-
-  if(!nickname){
-
-    error.textContent =
-      "ニックネームを入力してください。";
-
-    return;
-
-  }
-
-  if(!age){
-
-    error.textContent =
-      "年齢を入力してください。";
-
-    return;
-
-  }
-
-  localStorage.setItem(
-    "studyCoachUser",
-    JSON.stringify({
-      nickname,
-      age,
-      gender
-    })
-  );
-
-  localStorage.setItem(
-    "studyCoachLoggedIn",
-    "true"
-  );
-
-  document.getElementById(
-    "accountScreen"
-  ).classList.add("hidden");
-
-  loadUser();
-
-}
-
-
-function loadUser(){
-
-  const raw =
-    localStorage.getItem(
-      "studyCoachUser"
-    );
-
-  if(!raw)return;
-
-  try{
-
-    const user =
-      JSON.parse(raw);
-
-    document.getElementById(
-      "welcomeText"
-    ).textContent =
-      `${user.nickname}さん、今日も頑張ろう🔥`;
-
-  }catch(e){
-
-    console.error(e);
+    button.textContent =
+      "▶ 再生";
 
   }
 
 }
 
+function changeVolume(){
+
+  bgm.volume =
+    Number(
+      document.getElementById(
+        "volume"
+      ).value
+    );
+
+}
 
 /* =========================
    CHAT
 ========================= */
 
-let questionCount =
-  Number(
-    localStorage.getItem(
-      "questionCount"
-    ) || 0
-  );
+function focusChat(){
 
-document.getElementById(
-  "questionCount"
-).textContent =
-  questionCount;
+  document
+    .getElementById(
+      "chatInput"
+    )
+    .focus();
 
+}
 
 function handleKey(event){
 
-  if(event.key === "Enter"){
+  if(
+    event.key === "Enter"
+  ){
+
     sendMessage();
-  }
-
-}
-
-
-async function sendMessage(){
-
-  const input =
-    document.getElementById(
-      "chatInput"
-    );
-
-  const text =
-    input.value.trim();
-
-  if(!text)return;
-
-  addMessage(
-    text,
-    "user"
-  );
-
-  input.value = "";
-
-  questionCount++;
-
-  localStorage.setItem(
-    "questionCount",
-    questionCount
-  );
-
-  document.getElementById(
-    "questionCount"
-  ).textContent =
-    questionCount;
-
-  const thinking =
-    addMessage(
-      "👽 考え中...",
-      "ai"
-    );
-
-  try{
-
-    const response =
-      await fetch(
-        WORKER_URL,
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:JSON.stringify({
-            message:text
-          })
-        }
-      );
-
-    const data =
-      await response.json();
-
-    thinking.remove();
-
-    if(!response.ok){
-
-      console.error(data);
-
-      addMessage(
-        "😭 AIとの接続でエラーが発生しました。\n" +
-        "エラーコード: " +
-        response.status,
-        "ai"
-      );
-
-      return;
-
-    }
-
-    addMessage(
-      data.answer ||
-      "AIから回答を受け取れませんでした。",
-      "ai"
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    thinking.remove();
-
-    addMessage(
-      "😭 AIとの接続に失敗しました。",
-      "ai"
-    );
 
   }
 
 }
-
 
 function quickQuestion(text){
 
-  document.getElementById(
-    "chatInput"
-  ).value = text;
+  document
+    .getElementById(
+      "chatInput"
+    )
+    .value = text;
 
   sendMessage();
 
 }
-
 
 function addMessage(
   text,
@@ -1747,145 +1237,84 @@ function addMessage(
       "chatMessages"
     );
 
+  const wrapper =
+    document.createElement(
+      "div"
+    );
+
+  wrapper.className =
+    "message " + type;
+
+  const avatar =
+    document.createElement(
+      "div"
+    );
+
+  avatar.className =
+    "avatar";
+
+  avatar.textContent =
+    type === "ai"
+      ? "👽"
+      : "👤";
+
   const bubble =
     document.createElement(
       "div"
     );
 
   bubble.className =
-    "bubble " + type;
+    "bubble";
 
   bubble.textContent =
     text;
 
-  chat.appendChild(
+  wrapper.appendChild(
+    avatar
+  );
+
+  wrapper.appendChild(
     bubble
+  );
+
+  chat.appendChild(
+    wrapper
   );
 
   chat.scrollTop =
     chat.scrollHeight;
 
-  return bubble;
-
 }
 
+async function sendMessage(){
 
-/* =========================
-   SUBJECT
-========================= */
-
-function selectSubject(
-  button,
-  subject
-){
-
-  document
-    .querySelectorAll(
-      ".subject"
-    )
-    .forEach(
-      b =>
-        b.classList.remove(
-          "active"
-        )
-    );
-
-  button.classList.add(
-    "active"
-  );
-
-  document.getElementById(
-    "subjectText"
-  ).textContent =
-    subject;
-
-  document.getElementById(
-    "subjectCount"
-  ).textContent =
-    "1";
-
-}
-
-
-/* =========================
-   IMAGE
-========================= */
-
-let imageBase64 = null;
-
-
-function previewImage(event){
-
-  const file =
-    event.target.files[0];
-
-  if(!file)return;
-
-  if(
-    !file.type.startsWith(
-      "image/"
-    )
-  ){
-
-    alert(
-      "画像ファイルを選択してください。"
-    );
-
-    return;
-
-  }
-
-  const reader =
-    new FileReader();
-
-  reader.onload = function(e){
-
-    imageBase64 =
-      e.target.result;
-
-    const preview =
-      document.getElementById(
-        "preview"
-      );
-
-    preview.src =
-      imageBase64;
-
-    preview.style.display =
-      "block";
-
+  const input =
     document.getElementById(
-      "analyzeButton"
-    ).style.display =
-      "block";
+      "chatInput"
+    );
 
-  };
+  const text =
+    input.value.trim();
 
-  reader.readAsDataURL(file);
-
-}
-
-
-async function analyzeImage(){
-
-  if(!imageBase64)return;
+  if(!text) return;
 
   addMessage(
-    "📸 問題の写真を送信しました。",
+    text,
     "user"
   );
 
-  const thinking =
-    addMessage(
-      "👽 問題を見ているよ...🔍",
-      "ai"
-    );
+  input.value = "";
+
+  addMessage(
+    "🛸 ALIが考えています...",
+    "ai"
+  );
 
   try{
 
     const response =
       await fetch(
-        WORKER_URL,
+        API_URL,
         {
           method:"POST",
 
@@ -1894,26 +1323,25 @@ async function analyzeImage(){
               "application/json"
           },
 
-          body:JSON.stringify({
-            message:
-              "この画像に写っている問題を読み取り、高校生にも分かりやすく日本語で解説してください。答えだけでなく、途中の考え方も説明してください。",
-            image:imageBase64
-          })
+          body:
+            JSON.stringify({
+              message:text
+            })
         }
       );
 
     const data =
       await response.json();
 
-    thinking.remove();
+    removeThinking();
 
     if(!response.ok){
 
       console.error(data);
 
       addMessage(
-        "😭 画像分析でエラーが発生しました。\n" +
-        "エラーコード: " +
+        "⚠️ ALIとの通信でエラーが発生しました。\n"+
+        "エラー: "+
         response.status,
         "ai"
       );
@@ -1924,7 +1352,7 @@ async function analyzeImage(){
 
     addMessage(
       data.answer ||
-      "画像を分析できませんでした。",
+      "ALIから回答を受け取れませんでした。",
       "ai"
     );
 
@@ -1932,10 +1360,10 @@ async function analyzeImage(){
 
     console.error(error);
 
-    thinking.remove();
+    removeThinking();
 
     addMessage(
-      "😭 画像をAIに送信できませんでした。",
+      "⚠️ ALIとの接続に失敗しました。",
       "ai"
     );
 
@@ -1943,224 +1371,284 @@ async function analyzeImage(){
 
 }
 
+function removeThinking(){
 
-/* =========================
-   TIMER
-========================= */
-
-let timerSeconds = 0;
-let timerInterval = null;
-
-
-function updateTimer(){
-
-  const minutes =
-    Math.floor(
-      timerSeconds / 60
+  const messages =
+    document.querySelectorAll(
+      "#chatMessages .message.ai"
     );
 
-  const seconds =
-    timerSeconds % 60;
+  if(!messages.length)
+    return;
 
-  document.getElementById(
-    "timer"
-  ).textContent =
-    String(minutes).padStart(2,"0") +
-    ":" +
-    String(seconds).padStart(2,"0");
+  const last =
+    messages[
+      messages.length - 1
+    ];
 
-  const percent =
-    Math.min(
-      timerSeconds / 3600 * 100,
-      100
-    );
+  if(
+    last.textContent.includes(
+      "ALIが考えています"
+    )
+  ){
 
-  document.getElementById(
-    "progressBar"
-  ).style.width =
-    percent + "%";
+    last.remove();
+
+  }
 
 }
 
+/* =========================
+   PHOTO
+========================= */
 
-function startTimer(){
+function openPhotoModal(){
 
-  if(timerInterval)return;
+  document
+    .getElementById(
+      "photoModal"
+    )
+    .style.display =
+    "flex";
 
-  timerInterval =
-    setInterval(
-      () => {
+}
 
-        timerSeconds++;
+function closePhotoModal(){
 
-        updateTimer();
+  document
+    .getElementById(
+      "photoModal"
+    )
+    .style.display =
+    "none";
 
-        if(
-          timerSeconds % 60 === 0
-        ){
+}
 
-          const old =
-            Number(
-              localStorage.getItem(
-                "studyMinutes"
-              ) || 0
-            );
+function previewPhoto(event){
 
-          localStorage.setItem(
-            "studyMinutes",
-            old + 1
-          );
+  const file =
+    event.target.files[0];
 
-          document.getElementById(
-            "studyTime"
-          ).textContent =
-            (old + 1) + "分";
+  if(!file)
+    return;
 
+  const preview =
+    document.getElementById(
+      "photoPreview"
+    );
+
+  preview.src =
+    URL.createObjectURL(
+      file
+    );
+
+  preview.style.display =
+    "block";
+
+}
+
+async function analyzePhoto(){
+
+  const input =
+    document.getElementById(
+      "photoInput"
+    );
+
+  const file =
+    input.files[0];
+
+  if(!file){
+
+    alert(
+      "まず問題の写真を選択してください。"
+    );
+
+    return;
+
+  }
+
+  closePhotoModal();
+
+  addMessage(
+    "📸 問題の写真をALIに送りました。",
+    "user"
+  );
+
+  addMessage(
+    "👽 写真を解析しています...",
+    "ai"
+  );
+
+  try{
+
+    const base64 =
+      await fileToBase64(
+        file
+      );
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              message:
+                "この画像の問題を分析してください。"+
+                "問題文を読み取り、"+
+                "答えだけではなく、"+
+                "高校生にも分かりやすく"+
+                "解き方を説明してください。",
+
+              image:base64
+
+            })
         }
+      );
 
-      },
-      1000
+    const data =
+      await response.json();
+
+    removeThinking();
+
+    if(!response.ok){
+
+      console.error(data);
+
+      addMessage(
+        "⚠️ 写真の分析に失敗しました。\n"+
+        "エラー: "+
+        response.status,
+        "ai"
+      );
+
+      return;
+
+    }
+
+    addMessage(
+      data.answer ||
+      "写真をうまく読み取れませんでした。",
+      "ai"
     );
 
-}
+  }catch(error){
 
+    console.error(error);
 
-function stopTimer(){
+    removeThinking();
 
-  clearInterval(
-    timerInterval
-  );
-
-  timerInterval = null;
-
-}
-
-
-/* =========================
-   MUSIC
-========================= */
-
-function toggleMusic(){
-
-  const music =
-    document.getElementById(
-      "studyMusic"
+    addMessage(
+      "⚠️ 写真分析中にエラーが発生しました。",
+      "ai"
     );
-
-  const button =
-    document.getElementById(
-      "musicButton"
-    );
-
-  const status =
-    document.getElementById(
-      "musicStatus"
-    );
-
-  if(music.paused){
-
-    music.play()
-      .then(() => {
-
-        button.textContent =
-          "⏸ 停止";
-
-        status.textContent =
-          "🎧 BGM再生中";
-
-      })
-      .catch(() => {
-
-        status.textContent =
-          "BGMファイルを追加してください。";
-
-      });
-
-  }else{
-
-    music.pause();
-
-    button.textContent =
-      "▶ 再生";
-
-    status.textContent =
-      "BGM停止中";
 
   }
 
 }
 
+function fileToBase64(file){
 
-/* =========================
-   LOGOUT
-========================= */
+  return new Promise(
+    (
+      resolve,
+      reject
+    )=>{
 
-function logout(){
+      const reader =
+        new FileReader();
 
-  localStorage.removeItem(
-    "studyCoachLoggedIn"
+      reader.onload =
+        ()=>{
+          resolve(
+            reader.result
+          );
+        };
+
+      reader.onerror =
+        reject;
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
   );
-
-  location.reload();
 
 }
 
-
 /* =========================
-   STARTUP
+   VOICE
 ========================= */
 
-window.addEventListener(
-  "DOMContentLoaded",
-  () => {
+function startVoice(){
 
-    loadUser();
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
 
-    const consent =
-      localStorage.getItem(
-        "studyCoachConsent"
-      );
+  if(!SpeechRecognition){
 
-    const loggedIn =
-      localStorage.getItem(
-        "studyCoachLoggedIn"
-      );
+    alert(
+      "このブラウザでは音声入力を利用できません。"
+    );
 
-    if(
-      consent !== "accepted"
-    ){
-
-      document.getElementById(
-        "consentScreen"
-      ).classList.remove(
-        "hidden"
-      );
-
-    }
-    else if(!loggedIn){
-
-      document.getElementById(
-        "accountScreen"
-      ).classList.remove(
-        "hidden"
-      );
-
-    }
-
-    const savedMinutes =
-      Number(
-        localStorage.getItem(
-          "studyMinutes"
-        ) || 0
-      );
-
-    document.getElementById(
-      "studyTime"
-    ).textContent =
-      savedMinutes + "分";
+    return;
 
   }
-);
+
+  const recognition =
+    new SpeechRecognition();
+
+  recognition.lang =
+    "ja-JP";
+
+  recognition.start();
+
+  recognition.onresult =
+    event=>{
+
+      const text =
+        event.results[0][0]
+          .transcript;
+
+      document
+        .getElementById(
+          "chatInput"
+        )
+        .value =
+        text;
+
+    };
+
+}
+
+document
+  .getElementById(
+    "photoModal"
+  )
+  .addEventListener(
+    "click",
+    event=>{
+
+      if(
+        event.target.id ===
+        "photoModal"
+      ){
+
+        closePhotoModal();
+
+      }
+
+    }
+  );
 
 </script>
 
