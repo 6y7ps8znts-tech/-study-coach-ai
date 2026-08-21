@@ -1,684 +1,12 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SC | Study Coach</title>
-
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  background: #f7f8fa;
-  color: #202124;
-  min-height: 100vh;
-}
-
-button,
-input,
-select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-header {
-  height: 64px;
-  background: #fff;
-  border-bottom: 1px solid #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 28px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.logo {
-  font-size: 21px;
-  font-weight: 800;
-}
-
-.logo span {
-  color: #5875e8;
-}
-
-.app {
-  width: min(1200px, 100%);
-  margin: auto;
-  padding: 30px 20px;
-}
-
-.pageTitle {
-  margin-bottom: 22px;
-}
-
-.pageTitle h1 {
-  font-size: 28px;
-  margin-bottom: 6px;
-}
-
-.pageTitle p {
-  color: #777f8c;
-  font-size: 14px;
-}
-
-.layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 310px;
-  gap: 20px;
-}
-
-.card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.03);
-}
-
-.scTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #edf0f3;
-}
-
-.scTitle {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-}
-
-.scIcon {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  background: #eef2ff;
-  color: #5875e8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-}
-
-.scName {
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.scStatus {
-  color: #8a909d;
-  font-size: 11px;
-  margin-top: 2px;
-}
-
-.mode {
-  font-size: 11px;
-  color: #5875e8;
-  background: #eef2ff;
-  padding: 6px 9px;
-  border-radius: 7px;
-}
-
-.chat {
-  height: 420px;
-  overflow-y: auto;
-  padding: 18px 2px;
-}
-
-.bubble {
-  max-width: 80%;
-  padding: 11px 14px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  line-height: 1.7;
-  font-size: 14px;
-  white-space: pre-wrap;
-}
-
-.bubble.ai {
-  background: #f1f3f5;
-  color: #30343b;
-}
-
-.bubble.user {
-  margin-left: auto;
-  background: #5875e8;
-  color: #fff;
-}
-
-.chatInput {
-  display: flex;
-  gap: 8px;
-}
-
-.chatInput input {
-  flex: 1;
-  min-width: 0;
-  border: 1px solid #dfe3e8;
-  border-radius: 9px;
-  padding: 12px;
-  outline: none;
-}
-
-.chatInput input:focus {
-  border-color: #5875e8;
-}
-
-.primaryButton {
-  border: 0;
-  background: #5875e8;
-  color: #fff;
-  border-radius: 9px;
-  padding: 0 18px;
-  font-weight: 700;
-}
-
-.primaryButton:disabled {
-  opacity: .6;
-  cursor: not-allowed;
-}
-
-.studyCard {
-  margin-top: 18px;
-}
-
-.cardTitle {
-  font-size: 15px;
-  font-weight: 750;
-  margin-bottom: 16px;
-}
-
-.field {
-  margin-bottom: 14px;
-}
-
-.field label {
-  display: block;
-  font-size: 12px;
-  color: #5f6671;
-  margin-bottom: 6px;
-}
-
-.field input,
-.field select {
-  width: 100%;
-  border: 1px solid #dfe3e8;
-  background: #fff;
-  border-radius: 9px;
-  padding: 11px 12px;
-  outline: none;
-}
-
-.field input:focus,
-.field select:focus {
-  border-color: #5875e8;
-}
-
-.studyStatus {
-  margin-top: 12px;
-  padding: 10px;
-  border-radius: 8px;
-  background: #f6f7f9;
-  color: #68707c;
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-.timerDisplay {
-  text-align: center;
-  font-size: 36px;
-  font-weight: 800;
-  margin: 18px 0;
-  letter-spacing: 2px;
-}
-
-.timerSettings {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.timerSettings input {
-  width: 100%;
-  border: 1px solid #dfe3e8;
-  border-radius: 9px;
-  padding: 11px;
-}
-
-.timerButtons {
-  display: flex;
-  gap: 7px;
-}
-
-.timerButtons button {
-  flex: 1;
-  height: 40px;
-}
-
-.timerGauge {
-  height: 8px;
-  background: #edf0f3;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-bottom: 15px;
-}
-
-.timerGaugeBar {
-  width: 0%;
-  height: 100%;
-  background: #5875e8;
-  transition: width .4s;
-}
-
-.stat {
-  padding: 13px 0;
-  border-bottom: 1px solid #edf0f3;
-}
-
-.stat:last-child {
-  border-bottom: 0;
-}
-
-.statLabel {
-  color: #858b96;
-  font-size: 11px;
-}
-
-.statValue {
-  font-size: 18px;
-  font-weight: 800;
-  margin-top: 3px;
-}
-
-.statusText {
-  margin-top: 10px;
-  min-height: 18px;
-  font-size: 12px;
-  color: #777f8c;
-}
-
-@media(max-width:900px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media(max-width:600px) {
-  header {
-    padding: 0 15px;
-  }
-
-  .app {
-    padding: 18px 12px;
-  }
-
-  .pageTitle h1 {
-    font-size: 23px;
-  }
-
-  .chat {
-    height: 360px;
-  }
-
-  .bubble {
-    max-width: 90%;
-  }
-
-  .chatInput {
-    flex-direction: column;
-  }
-
-  .primaryButton {
-    height: 42px;
-  }
-
-  .timerButtons {
-    flex-wrap: wrap;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="logo">
-    SC <span>/ Study Coach</span>
-  </div>
-
-  <div style="font-size:12px;color:#777;">
-    AI Learning Assistant
-  </div>
-</header>
-
-<main class="app">
-
-  <div class="pageTitle">
-    <h1>学習ダッシュボード</h1>
-    <p>SCと一緒に今日の学習を進めましょう。</p>
-  </div>
-
-  <div class="layout">
-
-    <section>
-
-      <!-- SC CHAT -->
-      <div class="card">
-
-        <div class="scTop">
-
-          <div class="scTitle">
-
-            <div class="scIcon">
-              SC
-            </div>
-
-            <div>
-              <div class="scName">
-                Study Coach
-              </div>
-
-              <div class="scStatus">
-                AI Learning Assistant
-              </div>
-            </div>
-
-          </div>
-
-          <div class="mode" id="currentMode">
-            通常モード
-          </div>
-
-        </div>
-
-        <div class="chat" id="chatMessages">
-
-          <div class="bubble ai">
-こんにちは！SCです。
-
-勉強について分からないことがあれば
-気軽に質問してください。
-
-下の「学習内容」で教科と単元を設定すると、
-その内容を前提に回答します。
-          </div>
-
-        </div>
-
-        <div class="chatInput">
-
-          <input
-            id="messageInput"
-            type="text"
-            placeholder="SCに質問する..."
-            onkeydown="handleEnter(event)"
-          >
-
-          <button
-            class="primaryButton"
-            id="sendButton"
-            onclick="sendMessage()"
-          >
-            送信
-          </button>
-
-        </div>
-
-        <div class="statusText" id="chatStatus"></div>
-
-      </div>
-
-
-      <!-- STUDY CONTENT -->
-      <div class="card studyCard">
-
-        <div class="cardTitle">
-          学習内容
-        </div>
-
-        <div class="field">
-
-          <label>学年</label>
-
-          <select id="studyGrade">
-
-            <option value="1">
-              高校1年
-            </option>
-
-            <option value="2">
-              高校2年
-            </option>
-
-            <option value="3">
-              高校3年
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label>教科</label>
-
-          <select id="studySubject">
-
-            <option value="">
-              教科を選択してください
-            </option>
-
-            <option value="数学">数学</option>
-            <option value="英語">英語</option>
-            <option value="国語">国語</option>
-            <option value="物理">物理</option>
-            <option value="化学">化学</option>
-            <option value="生物">生物</option>
-            <option value="地理">地理</option>
-            <option value="日本史">日本史</option>
-            <option value="世界史">世界史</option>
-            <option value="情報">情報</option>
-            <option value="その他">その他</option>
-
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            今勉強している単元
-          </label>
-
-          <input
-            id="studyUnit"
-            type="text"
-            maxlength="100"
-            placeholder="例：二次関数の最大・最小"
-          >
-
-        </div>
-
-        <button
-          class="primaryButton"
-          style="width:100%;height:42px;"
-          onclick="setStudyContent()"
-        >
-          この内容でSCを設定
-        </button>
-
-        <div
-          class="studyStatus"
-          id="studyContentStatus"
-        >
-          教科と単元を設定すると、
-          SCがその内容を前提に回答します。
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- RIGHT SIDE -->
-    <aside>
-
-      <!-- TIMER -->
-      <div class="card">
-
-        <div class="cardTitle">
-          学習タイマー
-        </div>
-
-        <div class="timerSettings">
-
-          <input
-            id="timerMinutes"
-            type="number"
-            min="1"
-            max="600"
-            placeholder="勉強時間（分）"
-          >
-
-        </div>
-
-        <div
-          class="timerDisplay"
-          id="timerDisplay"
-        >
-          00:00:00
-        </div>
-
-        <div class="timerGauge">
-
-          <div
-            class="timerGaugeBar"
-            id="timerGaugeBar"
-          ></div>
-
-        </div>
-
-        <div class="timerButtons">
-
-          <button
-            class="primaryButton"
-            id="timerStart"
-            onclick="startTimer()"
-          >
-            START
-          </button>
-
-          <button
-            class="primaryButton"
-            onclick="pauseTimer()"
-          >
-            PAUSE
-          </button>
-
-          <button
-            class="primaryButton"
-            onclick="resetTimer()"
-          >
-            RESET
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- DATA -->
-      <div
-        class="card"
-        style="margin-top:18px;"
-      >
-
-        <div class="cardTitle">
-          今日の学習データ
-        </div>
-
-        <div class="stat">
-
-          <div class="statLabel">
-            学習時間
-          </div>
-
-          <div
-            class="statValue"
-            id="todayTime"
-          >
-            0分
-          </div>
-
-        </div>
-
-        <div class="stat">
-
-          <div class="statLabel">
-            現在の学習内容
-          </div>
-
-          <div
-            class="statValue"
-            id="currentSubject"
-          >
-            未設定
-          </div>
-
-        </div>
-
-        <div class="stat">
-
-          <div class="statLabel">
-            完了セッション
-          </div>
-
-          <div
-            class="statValue"
-            id="sessionCount"
-          >
-            0
-          </div>
-
-        </div>
-
-      </div>
-
-    </aside>
-
-  </div>
-
-</main>
-
-
 <script>
-
-/* =====================================
-   CLOUDFLARE WORKER
-===================================== */
 
 const WORKER_URL =
   "https://study-coach-ai.6y7ps8znts.workers.dev";
 
 
-/* =====================================
+/* =========================
    STUDY CONTENT
-===================================== */
+========================= */
 
 let studyContent = {
   grade: "1",
@@ -687,28 +15,449 @@ let studyContent = {
 };
 
 
-/* =====================================
-   STUDY CONTENT SET
-===================================== */
+/* =========================
+   AUTH
+========================= */
 
-function setStudyContent() {
+function showLogin(){
+
+  document
+    .getElementById("registerForm")
+    .classList.add("hidden");
+
+  document
+    .getElementById("verifyForm")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginForm")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("authTitle")
+    .textContent = "ログイン";
+
+}
+
+
+function showRegister(){
+
+  document
+    .getElementById("loginForm")
+    .classList.add("hidden");
+
+  document
+    .getElementById("verifyForm")
+    .classList.add("hidden");
+
+  document
+    .getElementById("registerForm")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("authTitle")
+    .textContent =
+    "Study Coachへようこそ";
+
+}
+
+
+function guestLogin(){
+
+  localStorage.setItem(
+    "studyCoachLoggedIn",
+    "guest"
+  );
+
+  localStorage.setItem(
+    "studyCoachName",
+    "ゲスト"
+  );
+
+  document
+    .getElementById("authScreen")
+    .classList.add("hidden");
+
+  loadUser();
+
+}
+
+
+async function register(){
+
+  const name =
+    document
+      .getElementById("registerName")
+      .value
+      .trim();
+
+  const email =
+    document
+      .getElementById("registerEmail")
+      .value
+      .trim();
+
+  const age =
+    Number(
+      document
+        .getElementById("registerAge")
+        .value
+    );
 
   const grade =
-    document.getElementById("studyGrade").value;
+    document
+      .getElementById("registerGrade")
+      .value;
 
-  const subject =
-    document.getElementById("studySubject").value;
+  if(!name || !email || !age){
 
-  const unit =
-    document.getElementById("studyUnit").value.trim();
+    alert(
+      "名前・メールアドレス・年齢を入力してください。"
+    );
 
-  if (!subject) {
-    alert("教科を選択してください。");
     return;
   }
 
-  if (!unit) {
-    alert("単元を入力してください。");
+  const checks = [
+    "termsCheck",
+    "privacyCheck",
+    "aiDataCheck"
+  ];
+
+  if(
+    !checks.every(
+      id =>
+      document
+        .getElementById(id)
+        .checked
+    )
+  ){
+
+    alert(
+      "3つすべての同意が必要です。"
+    );
+
+    return;
+  }
+
+  try{
+
+    const response =
+      await fetch(
+        `${WORKER_URL}/api/register`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              name,
+              email,
+              age,
+              grade
+            })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(!response.ok){
+
+      alert(
+        data.error ||
+        "アカウント作成に失敗しました。"
+      );
+
+      return;
+    }
+
+    localStorage.setItem(
+      "pendingEmail",
+      email
+    );
+
+    localStorage.setItem(
+      "studyCoachName",
+      name
+    );
+
+    document
+      .getElementById("registerForm")
+      .classList.add("hidden");
+
+    document
+      .getElementById("verifyForm")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("authTitle")
+      .textContent =
+      "メール認証";
+
+    alert(
+      "認証コードを送信しました。"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "サーバーに接続できませんでした。"
+    );
+
+  }
+
+}
+
+
+async function login(){
+
+  const email =
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
+
+  if(!email){
+
+    alert(
+      "メールアドレスを入力してください。"
+    );
+
+    return;
+  }
+
+  try{
+
+    const response =
+      await fetch(
+        `${WORKER_URL}/api/login`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              email
+            })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(!response.ok){
+
+      alert(
+        data.error ||
+        "ログインコードを送信できませんでした。"
+      );
+
+      return;
+    }
+
+    localStorage.setItem(
+      "pendingEmail",
+      email
+    );
+
+    document
+      .getElementById("loginForm")
+      .classList.add("hidden");
+
+    document
+      .getElementById("verifyForm")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("authTitle")
+      .textContent =
+      "ログイン認証";
+
+    alert(
+      "ログインコードを送信しました。"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "サーバーに接続できませんでした。"
+    );
+
+  }
+
+}
+
+
+async function verifyLoginCode(){
+
+  const email =
+    localStorage.getItem(
+      "pendingEmail"
+    );
+
+  const code =
+    document
+      .getElementById("verifyCodeInput")
+      .value
+      .trim();
+
+  if(!email || !code){
+
+    alert(
+      "認証コードを入力してください。"
+    );
+
+    return;
+  }
+
+  try{
+
+    const response =
+      await fetch(
+        `${WORKER_URL}/api/verify`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              email,
+              code
+            })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(!response.ok){
+
+      alert(
+        data.error ||
+        "認証に失敗しました。"
+      );
+
+      return;
+    }
+
+    localStorage.setItem(
+      "studyCoachLoggedIn",
+      "true"
+    );
+
+    localStorage.removeItem(
+      "pendingEmail"
+    );
+
+    document
+      .getElementById("authScreen")
+      .classList.add("hidden");
+
+    loadUser();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "認証サーバーに接続できませんでした。"
+    );
+
+  }
+
+}
+
+
+function logout(){
+
+  localStorage.removeItem(
+    "studyCoachLoggedIn"
+  );
+
+  location.reload();
+
+}
+
+
+/* =========================
+   USER
+========================= */
+
+function loadUser(){
+
+  const name =
+    localStorage.getItem(
+      "studyCoachName"
+    ) ||
+    "ゲスト";
+
+  document
+    .getElementById("headerUserName")
+    .textContent =
+    name;
+
+  document
+    .getElementById("welcomeText")
+    .textContent =
+    `${name}さん、今日の学習を始めましょう。`;
+
+}
+
+
+/* =========================
+   STUDY CONTENT
+========================= */
+
+function setStudyContent(){
+
+  const grade =
+    document
+      .getElementById("studyGrade")
+      .value;
+
+  const subject =
+    document
+      .getElementById("studySubject")
+      .value;
+
+  const unit =
+    document
+      .getElementById("studyUnit")
+      .value
+      .trim();
+
+  if(!subject){
+
+    alert(
+      "教科を選択してください。"
+    );
+
+    return;
+  }
+
+  if(!unit){
+
+    alert(
+      "今勉強している単元を入力してください。"
+    );
+
     return;
   }
 
@@ -720,96 +469,116 @@ function setStudyContent() {
 
   localStorage.setItem(
     "studyCoachContent",
-    JSON.stringify(studyContent)
+    JSON.stringify(
+      studyContent
+    )
   );
 
-  document.getElementById("currentMode")
-    .textContent = subject + "モード";
-
-  document.getElementById("currentSubject")
-    .textContent = subject + " / " + unit;
-
-  document.getElementById("studyContentStatus")
+  document
+    .getElementById("currentMode")
     .textContent =
-      "SC設定済み：高校" +
-      grade +
-      "・" +
-      subject +
-      "・" +
-      unit;
+    `${subject}モード`;
+
+  document
+    .getElementById("currentSubject")
+    .textContent =
+    `${subject} / ${unit}`;
+
+  document
+    .getElementById("studyContentStatus")
+    .textContent =
+    `SC設定済み：高校${grade}・${subject}・${unit}`;
 
   addAIMessage(
-    "学習内容を設定しました。\n\n" +
-    "学年：高校" + grade + "\n" +
-    "教科：" + subject + "\n" +
-    "単元：" + unit + "\n\n" +
-    "この内容を前提にサポートします。"
+    `学習内容を設定しました。\n\n` +
+    `学年：高校${grade}\n` +
+    `教科：${subject}\n` +
+    `単元：${unit}\n\n` +
+    `これからこの内容を前提にサポートします。`
   );
+
 }
 
 
-/* =====================================
+/* =========================
    CHAT
-===================================== */
+========================= */
 
-function handleEnter(event) {
+function handleEnter(event){
 
-  if (event.key === "Enter") {
+  if(event.key === "Enter"){
+
     sendMessage();
+
   }
 
 }
 
 
-function addUserMessage(text) {
+function addUserMessage(text){
 
   const chat =
-    document.getElementById("chatMessages");
+    document.getElementById(
+      "chatMessages"
+    );
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
-  div.className = "bubble user";
-  div.textContent = text;
+  div.className =
+    "bubble user";
+
+  div.textContent =
+    text;
 
   chat.appendChild(div);
 
-  chat.scrollTop = chat.scrollHeight;
+  chat.scrollTop =
+    chat.scrollHeight;
+
 }
 
 
-function addAIMessage(text) {
+function addAIMessage(text){
 
   const chat =
-    document.getElementById("chatMessages");
+    document.getElementById(
+      "chatMessages"
+    );
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
-  div.className = "bubble ai";
-  div.textContent = text;
+  div.className =
+    "bubble ai";
+
+  div.textContent =
+    text;
 
   chat.appendChild(div);
 
-  chat.scrollTop = chat.scrollHeight;
+  chat.scrollTop =
+    chat.scrollHeight;
+
 }
 
 
-async function sendMessage() {
+async function sendMessage(){
 
   const input =
-    document.getElementById("messageInput");
-
-  const button =
-    document.getElementById("sendButton");
-
-  const status =
-    document.getElementById("chatStatus");
+    document.getElementById(
+      "messageInput"
+    );
 
   const text =
     input.value.trim();
 
-  if (!text) {
+  if(!text){
+
     return;
   }
 
@@ -817,83 +586,246 @@ async function sendMessage() {
 
   input.value = "";
 
-  button.disabled = true;
+  addAIMessage(
+    "SCが考えています..."
+  );
 
-  status.textContent =
-    "SCが考えています...";
+  try{
 
-  try {
+    console.log(
+      "SC API:",
+      `${WORKER_URL}/api/chat`
+    );
 
     const response =
       await fetch(
-        WORKER_URL,
+        `${WORKER_URL}/api/chat`,
         {
           method: "POST",
 
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type":
+              "application/json"
           },
 
-          body: JSON.stringify({
-            message:
-              "学年：高校" +
-              studyContent.grade +
-              "年\n" +
-              "教科：" +
-              (studyContent.subject || "未設定") +
-              "\n" +
-              "単元：" +
-              (studyContent.unit || "未設定") +
-              "\n\n" +
-              "質問：" +
-              text
-          })
+          body:
+            JSON.stringify({
+              message: text,
+
+              studyContent: {
+                grade:
+                  studyContent.grade,
+
+                subject:
+                  studyContent.subject,
+
+                unit:
+                  studyContent.unit
+              }
+            })
         }
       );
 
     const data =
       await response.json();
 
-    if (!response.ok) {
-
-      throw new Error(
-        data.error || "Worker error"
+    const messages =
+      document.querySelectorAll(
+        ".bubble.ai"
       );
 
+    const last =
+      messages[
+        messages.length - 1
+      ];
+
+    if(last){
+
+      last.remove();
+
+    }
+
+    if(!response.ok){
+
+      console.error(
+        "Worker error:",
+        data
+      );
+
+      addAIMessage(
+        data.error ||
+        "SCとの接続でエラーが起きました。"
+      );
+
+      return;
     }
 
     addAIMessage(
       data.answer ||
-      "SCから回答を受け取れませんでした。"
+      "回答を受け取れませんでした。"
     );
 
-    status.textContent =
-      "SCオンライン";
+  }catch(error){
 
-  } catch (error) {
+    console.error(
+      "SC CONNECTION ERROR:",
+      error
+    );
 
-    console.error(error);
+    const messages =
+      document.querySelectorAll(
+        ".bubble.ai"
+      );
+
+    const last =
+      messages[
+        messages.length - 1
+      ];
+
+    if(last){
+
+      last.remove();
+
+    }
 
     addAIMessage(
-      "SCとの接続に失敗しました。\n\n" +
-      "Cloudflare Workerの状態を確認してください。"
+      "SCとの接続に失敗しました。WorkerのURLまたはCORS設定を確認してください。"
     );
-
-    status.textContent =
-      "接続エラー";
-
-  } finally {
-
-    button.disabled = false;
 
   }
 
 }
 
 
-/* =====================================
+/* =========================
+   IMAGE
+========================= */
+
+async function analyzeImage(event){
+
+  const file =
+    event.target.files[0];
+
+  if(!file){
+
+    return;
+  }
+
+  addUserMessage(
+    "📷 問題の写真を送信しました。"
+  );
+
+  addAIMessage(
+    "SCが問題を分析しています..."
+  );
+
+  try{
+
+    const base64 =
+      await fileToBase64(file);
+
+    const response =
+      await fetch(
+        `${WORKER_URL}/api/analyze`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              image: base64,
+
+              studyContent: {
+                grade:
+                  studyContent.grade,
+
+                subject:
+                  studyContent.subject,
+
+                unit:
+                  studyContent.unit
+              }
+            })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    const messages =
+      document.querySelectorAll(
+        ".bubble.ai"
+      );
+
+    const last =
+      messages[
+        messages.length - 1
+      ];
+
+    if(last){
+
+      last.remove();
+
+    }
+
+    addAIMessage(
+      data.answer ||
+      data.error ||
+      "画像を分析できませんでした。"
+    );
+
+  }catch(error){
+
+    console.error(
+      "IMAGE ERROR:",
+      error
+    );
+
+    addAIMessage(
+      "画像分析でエラーが発生しました。"
+    );
+
+  }
+
+  event.target.value = "";
+
+}
+
+
+function fileToBase64(file){
+
+  return new Promise(
+    (resolve, reject) => {
+
+      const reader =
+        new FileReader();
+
+      reader.onload =
+        () =>
+        resolve(
+          reader.result
+        );
+
+      reader.onerror =
+        reject;
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
    TIMER
-===================================== */
+========================= */
 
 let timerSeconds = 0;
 let timerTotal = 0;
@@ -901,13 +833,17 @@ let timerInterval = null;
 let timerRunning = false;
 
 
-function formatTime(seconds) {
+function formatTime(seconds){
 
   const h =
-    Math.floor(seconds / 3600);
+    Math.floor(
+      seconds / 3600
+    );
 
   const m =
-    Math.floor((seconds % 3600) / 60);
+    Math.floor(
+      (seconds % 3600) / 60
+    );
 
   const s =
     seconds % 60;
@@ -917,66 +853,83 @@ function formatTime(seconds) {
     m,
     s
   ]
-  .map(function(value) {
-    return String(value).padStart(2, "0");
-  })
+  .map(
+    value =>
+    String(value)
+      .padStart(2, "0")
+  )
   .join(":");
 
 }
 
 
-function updateTimer() {
+function updateTimer(){
 
-  document.getElementById(
-    "timerDisplay"
-  ).textContent =
-    formatTime(timerTotal - timerSeconds);
+  document
+    .getElementById("timerDisplay")
+    .textContent =
+    formatTime(
+      timerSeconds
+    );
 
   let progress = 0;
 
-  if (timerTotal > 0) {
+  if(timerTotal > 0){
 
     progress =
-      ((timerTotal - timerSeconds)
-      / timerTotal) * 100;
+      (
+        (timerTotal -
+        timerSeconds)
+        /
+        timerTotal
+      ) * 100;
 
   }
 
-  document.getElementById(
-    "timerGaugeBar"
-  ).style.width =
-    progress + "%";
+  document
+    .getElementById("timerGaugeBar")
+    .style.width =
+    `${progress}%`;
 
   const studied =
     Math.max(
-      timerTotal - timerSeconds,
+      timerTotal -
+      timerSeconds,
       0
     );
 
-  document.getElementById(
-    "todayTime"
-  ).textContent =
-    Math.floor(studied / 60) + "分";
+  document
+    .getElementById("todayTime")
+    .textContent =
+    `${Math.floor(
+      studied / 60
+    )}分`;
 
 }
 
 
-function startTimer() {
+function startTimer(){
 
-  if (timerRunning) {
+  if(timerRunning){
+
     return;
   }
 
-  if (timerSeconds <= 0) {
+  if(timerSeconds <= 0){
 
     const minutes =
       Number(
-        document.getElementById(
-          "timerMinutes"
-        ).value
+        document
+          .getElementById(
+            "timerMinutes"
+          )
+          .value
       );
 
-    if (!minutes || minutes <= 0) {
+    if(
+      !minutes ||
+      minutes <= 0
+    ){
 
       alert(
         "勉強したい時間を入力してください。"
@@ -985,7 +938,7 @@ function startTimer() {
       return;
     }
 
-    if (minutes > 600) {
+    if(minutes > 600){
 
       alert(
         "最大600分まで設定できます。"
@@ -1004,82 +957,109 @@ function startTimer() {
 
   timerRunning = true;
 
-  document.getElementById(
-    "timerStart"
-  ).textContent = "RUNNING";
+  document
+    .getElementById("timerStart")
+    .textContent =
+    "RUNNING";
 
   timerInterval =
-    setInterval(function() {
+    setInterval(
+      () => {
 
-      timerSeconds--;
+        timerSeconds--;
 
-      updateTimer();
+        updateTimer();
 
-      if (timerSeconds <= 0) {
-        finishTimer();
-      }
+        if(
+          timerSeconds <= 0
+        ){
 
-    }, 1000);
+          finishTimer();
+
+        }
+
+      },
+      1000
+    );
 
 }
 
 
-function pauseTimer() {
+function pauseTimer(){
 
-  if (!timerRunning) {
+  if(!timerRunning){
+
     return;
   }
 
-  clearInterval(timerInterval);
+  clearInterval(
+    timerInterval
+  );
 
   timerRunning = false;
 
-  document.getElementById(
-    "timerStart"
-  ).textContent = "START";
+  document
+    .getElementById("timerStart")
+    .textContent =
+    "START";
 
 }
 
 
-function resetTimer() {
+function resetTimer(){
 
-  clearInterval(timerInterval);
+  clearInterval(
+    timerInterval
+  );
 
   timerRunning = false;
 
   timerSeconds = 0;
   timerTotal = 0;
 
-  document.getElementById(
-    "timerStart"
-  ).textContent = "START";
+  document
+    .getElementById("timerStart")
+    .textContent =
+    "START";
+
+  document
+    .getElementById("timerGaugeBar")
+    .style.width =
+    "0%";
 
   updateTimer();
 
 }
 
 
-function finishTimer() {
+function finishTimer(){
 
-  clearInterval(timerInterval);
+  clearInterval(
+    timerInterval
+  );
 
   timerRunning = false;
 
-  document.getElementById(
-    "timerStart"
-  ).textContent = "START";
+  document
+    .getElementById("timerStart")
+    .textContent =
+    "START";
 
-  const count =
+  const sessions =
     Number(
-      document.getElementById(
-        "sessionCount"
-      ).textContent
+      document
+        .getElementById(
+          "sessionCount"
+        )
+        .textContent
     );
 
-  document.getElementById(
-    "sessionCount"
-  ).textContent =
-    count + 1;
+  document
+    .getElementById(
+      "sessionCount"
+    )
+    .textContent =
+    sessions + 1;
 
   alert(
     "設定した学習時間が終了しました！"
@@ -1088,74 +1068,117 @@ function finishTimer() {
 }
 
 
-/* =====================================
-   LOAD
-===================================== */
+/* =========================
+   START
+========================= */
 
-function loadSavedContent() {
+function startApp(){
 
-  const saved =
+  updateTimer();
+
+  const savedContent =
     localStorage.getItem(
       "studyCoachContent"
     );
 
-  if (!saved) {
-    return;
-  }
+  if(savedContent){
 
-  try {
+    try{
 
-    studyContent =
-      JSON.parse(saved);
+      studyContent =
+        JSON.parse(
+          savedContent
+        );
 
-    document.getElementById(
-      "studyGrade"
-    ).value =
-      studyContent.grade;
+      document
+        .getElementById(
+          "studyGrade"
+        )
+        .value =
+        studyContent.grade;
 
-    document.getElementById(
-      "studySubject"
-    ).value =
-      studyContent.subject;
+      document
+        .getElementById(
+          "studySubject"
+        )
+        .value =
+        studyContent.subject;
 
-    document.getElementById(
-      "studyUnit"
-    ).value =
-      studyContent.unit;
-
-    if (
-      studyContent.subject &&
-      studyContent.unit
-    ) {
-
-      document.getElementById(
-        "currentMode"
-      ).textContent =
-        studyContent.subject +
-        "モード";
-
-      document.getElementById(
-        "currentSubject"
-      ).textContent =
-        studyContent.subject +
-        " / " +
+      document
+        .getElementById(
+          "studyUnit"
+        )
+        .value =
         studyContent.unit;
 
-      document.getElementById(
-        "studyContentStatus"
-      ).textContent =
-        "SC設定済み：高校" +
-        studyContent.grade +
-        "・" +
-        studyContent.subject +
-        "・" +
-        studyContent.unit;
+      if(
+        studyContent.subject &&
+        studyContent.unit
+      ){
+
+        document
+          .getElementById(
+            "currentMode"
+          )
+          .textContent =
+          `${studyContent.subject}モード`;
+
+        document
+          .getElementById(
+            "currentSubject"
+          )
+          .textContent =
+          `${studyContent.subject} / ${studyContent.unit}`;
+
+        document
+          .getElementById(
+            "studyContentStatus"
+          )
+          .textContent =
+          `SC設定済み：高校${studyContent.grade}・${studyContent.subject}・${studyContent.unit}`;
+
+      }
+
+    }catch(error){
+
+      console.error(
+        "Study content error:",
+        error
+      );
 
     }
 
-  } catch (error) {
+  }
 
-    console.error(error);
+  const loggedIn =
+    localStorage.getItem(
+      "studyCoachLoggedIn"
+    );
+
+  if(
+    loggedIn === "true" ||
+    loggedIn === "guest"
+  ){
+
+    document
+      .getElementById(
+        "authScreen"
+      )
+      .classList.add(
+        "hidden"
+      );
+
+    loadUser();
+
+  }else{
+
+    document
+      .getElementById(
+        "authScreen"
+      )
+      .classList.remove(
+        "hidden"
+      );
 
   }
 
@@ -1164,16 +1187,7 @@ function loadSavedContent() {
 
 document.addEventListener(
   "DOMContentLoaded",
-  function() {
-
-    loadSavedContent();
-
-    updateTimer();
-
-  }
+  startApp
 );
 
 </script>
-
-</body>
-</html>
