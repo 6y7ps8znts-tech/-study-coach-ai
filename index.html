@@ -1,19 +1,34 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>SC | Study Coach</title>
 
+
 <style>
+
+/* =========================
+   RESET
+========================= */
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
 }
 
+
 body{
+
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -21,632 +36,908 @@ body{
     sans-serif;
 
   background:#f7f8fa;
+
   color:#202124;
+
   min-height:100vh;
+
 }
+
 
 button,
 input,
 select{
+
   font:inherit;
+
 }
+
 
 button{
+
   cursor:pointer;
+
 }
 
+
 .hidden{
+
   display:none !important;
+
 }
+
 
 /* =========================
    HEADER
 ========================= */
 
 header{
+
   height:64px;
-  background:#fff;
-  border-bottom:1px solid #e5e7eb;
+
+  background:#ffffff;
+
+  border-bottom:
+    1px solid #e5e7eb;
 
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
-  padding:0 28px;
+  padding:
+    0 28px;
 
   position:sticky;
+
   top:0;
+
   z-index:50;
+
 }
+
 
 .logo{
+
   font-size:21px;
+
   font-weight:800;
-  letter-spacing:-.5px;
+
 }
+
 
 .logo span{
+
   color:#5875e8;
+
 }
+
 
 .headerRight{
+
   display:flex;
+
   align-items:center;
+
   gap:10px;
+
 }
+
 
 .userName{
+
   font-size:13px;
-  color:#6b7280;
+
+  color:#737a86;
+
 }
 
+
 .logoutButton{
-  border:1px solid #e1e4e8;
+
+  border:
+    1px solid #e1e4e8;
+
   background:#fff;
+
   color:#555;
 
-  padding:7px 11px;
+  padding:
+    7px 11px;
+
   border-radius:8px;
 
   font-size:12px;
+
 }
 
-.logoutButton:hover{
-  background:#f5f6f8;
-}
 
 /* =========================
-   LAYOUT
+   MAIN
 ========================= */
 
 .app{
+
   max-width:1400px;
+
   margin:auto;
+
   padding:30px;
+
 }
+
 
 .pageTitle{
+
   margin-bottom:24px;
+
 }
+
 
 .pageTitle h1{
+
   font-size:28px;
+
   font-weight:750;
+
   margin-bottom:6px;
+
 }
+
 
 .pageTitle p{
+
   color:#7b8190;
+
   font-size:14px;
+
 }
+
 
 .layout{
+
   display:grid;
-  grid-template-columns:minmax(0,1fr) 330px;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    330px;
+
   gap:20px;
+
 }
+
 
 .card{
+
   background:#fff;
-  border:1px solid #e5e7eb;
+
+  border:
+    1px solid #e5e7eb;
+
   border-radius:14px;
+
   padding:20px;
-  box-shadow:0 2px 8px rgba(0,0,0,.03);
+
+  box-shadow:
+    0 2px 8px
+    rgba(0,0,0,.03);
+
 }
+
 
 .cardTitle{
+
   font-size:15px;
+
   font-weight:750;
+
   margin-bottom:16px;
+
 }
 
+
 /* =========================
-   SC CHAT
+   SC
 ========================= */
 
 .scTop{
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
   padding-bottom:16px;
-  border-bottom:1px solid #edf0f3;
+
+  border-bottom:
+    1px solid #edf0f3;
+
 }
+
 
 .scTitle{
+
   display:flex;
+
   align-items:center;
+
   gap:11px;
+
 }
 
+
 .scIcon{
+
   width:40px;
+
   height:40px;
 
   border-radius:10px;
 
   background:#eef2ff;
+
   color:#5875e8;
 
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
   font-weight:900;
-  font-size:15px;
+
 }
+
 
 .scName{
+
   font-size:15px;
+
   font-weight:800;
+
 }
+
 
 .scStatus{
+
   color:#8a909d;
+
   font-size:11px;
+
   margin-top:2px;
+
 }
+
 
 .mode{
+
   font-size:11px;
+
   color:#5875e8;
+
   background:#eef2ff;
+
   padding:6px 9px;
+
   border-radius:7px;
+
 }
+
+
+/* =========================
+   CHAT
+========================= */
 
 .chat{
+
   height:390px;
+
   overflow-y:auto;
+
   padding:18px 2px;
+
 }
 
+
 .bubble{
+
   max-width:78%;
-  padding:11px 14px;
+
+  padding:
+    11px 14px;
 
   border-radius:12px;
 
   margin-bottom:10px;
 
   line-height:1.6;
+
   font-size:14px;
 
   white-space:pre-wrap;
+
 }
+
 
 .bubble.ai{
+
   background:#f3f4f6;
+
   color:#30343b;
+
 }
+
 
 .bubble.user{
+
   margin-left:auto;
+
   background:#5875e8;
+
   color:white;
+
 }
+
 
 .chatInput{
+
   display:flex;
+
   gap:8px;
+
 }
 
+
 .chatInput input{
+
   flex:1;
 
   min-width:0;
 
-  border:1px solid #dfe3e8;
+  border:
+    1px solid #dfe3e8;
+
   border-radius:9px;
 
-  padding:12px 13px;
+  padding:
+    12px 13px;
 
   outline:none;
-  background:#fff;
+
 }
 
-.chatInput input:focus{
-  border-color:#5875e8;
-}
 
 .primaryButton{
+
   border:0;
+
   background:#5875e8;
+
   color:#fff;
 
   border-radius:9px;
-  padding:0 18px;
+
+  padding:
+    0 18px;
 
   font-weight:700;
+
 }
 
-.primaryButton:hover{
-  background:#4e6bd7;
-}
-
-.toolRow{
-  display:flex;
-  gap:8px;
-  margin-top:10px;
-}
 
 .secondaryButton{
-  border:1px solid #dfe3e8;
+
+  border:
+    1px solid #dfe3e8;
+
   background:#fff;
+
   color:#50555e;
 
   border-radius:8px;
-  padding:9px 12px;
+
+  padding:
+    9px 12px;
 
   font-size:12px;
+
 }
 
-.secondaryButton:hover{
-  background:#f7f8fa;
+
+.toolRow{
+
+  display:flex;
+
+  gap:8px;
+
+  margin-top:10px;
+
 }
+
 
 .upload{
+
   position:relative;
+
   overflow:hidden;
+
 }
+
 
 .upload input{
+
   position:absolute;
+
   inset:0;
+
   opacity:0;
+
   cursor:pointer;
+
 }
+
 
 /* =========================
-   GRADE
+   STUDY CONTENT
 ========================= */
 
-.gradeButtons{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-bottom:18px;
+.field{
+
+  margin-bottom:14px;
+
 }
 
-.gradeButton{
-  border:1px solid #dfe3e8;
+
+.field label{
+
+  display:block;
+
+  font-size:12px;
+
+  color:#5f6671;
+
+  margin-bottom:6px;
+
+}
+
+
+.field input,
+.field select{
+
+  width:100%;
+
+  border:
+    1px solid #dfe3e8;
+
   background:#fff;
-  color:#5c626c;
 
   border-radius:9px;
+
+  padding:
+    11px 12px;
+
+  outline:none;
+
+}
+
+
+.field input:focus,
+.field select:focus{
+
+  border-color:#5875e8;
+
+}
+
+
+.studyStatus{
+
+  margin-top:12px;
+
   padding:10px;
+
+  border-radius:8px;
+
+  background:#f6f7f9;
+
+  color:#68707c;
+
+  font-size:12px;
+
+  line-height:1.6;
+
 }
 
-.gradeButton.active{
-  background:#5875e8;
-  border-color:#5875e8;
-  color:#fff;
-}
-
-.subjectGrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-}
-
-.subjectButton{
-  text-align:left;
-
-  border:1px solid #e4e7eb;
-  background:#fff;
-
-  border-radius:9px;
-  padding:12px;
-
-  color:#424750;
-}
-
-.subjectButton:hover{
-  border-color:#5875e8;
-  background:#fafbff;
-}
-
-.subjectName{
-  font-weight:700;
-  font-size:13px;
-}
-
-.unitName{
-  color:#8a909b;
-  font-size:11px;
-  margin-top:4px;
-}
 
 /* =========================
    TIMER
 ========================= */
 
-.timerDisplay{
+.timerQuestion{
+
   text-align:center;
 
-  font-size:40px;
+  font-size:13px;
+
+  color:#68707c;
+
+  margin-bottom:10px;
+
+}
+
+
+.timerSettings{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
+
+  margin-bottom:16px;
+
+}
+
+
+.timerSettings input{
+
+  width:120px;
+
+  border:
+    1px solid #dfe3e8;
+
+  border-radius:9px;
+
+  padding:11px;
+
+  text-align:center;
+
+  font-size:16px;
+
+  outline:none;
+
+}
+
+
+.timerSettings span{
+
+  color:#666;
+
+  font-size:13px;
+
+}
+
+
+.timerDisplay{
+
+  text-align:center;
+
+  font-size:38px;
+
   font-weight:800;
 
   letter-spacing:2px;
 
-  margin:12px 0 18px;
+  margin:
+    10px 0 18px;
+
 }
 
-.timerSettings{
-  display:flex;
-  gap:7px;
-  margin-bottom:12px;
-}
-
-.timerSettings input{
-  flex:1;
-
-  border:1px solid #dfe3e8;
-  border-radius:8px;
-
-  padding:10px;
-
-  text-align:center;
-}
-
-.timerSettings span{
-  display:flex;
-  align-items:center;
-  color:#777;
-  font-size:12px;
-}
-
-.timerActions{
-  display:flex;
-  gap:7px;
-}
-
-.timerActions button{
-  flex:1;
-  padding:10px;
-}
 
 .timerGauge{
+
   height:8px;
+
   background:#edf0f3;
+
   border-radius:20px;
+
   overflow:hidden;
+
   margin-bottom:15px;
+
 }
 
+
 .timerGaugeBar{
+
   height:100%;
+
   width:0%;
 
   background:#5875e8;
 
-  transition:width .4s;
+  transition:
+    width .4s;
+
 }
+
+
+.timerActions{
+
+  display:flex;
+
+  gap:7px;
+
+}
+
+
+.timerActions button{
+
+  flex:1;
+
+  height:40px;
+
+}
+
 
 /* =========================
    STATS
 ========================= */
 
 .stat{
+
   padding:13px 0;
-  border-bottom:1px solid #edf0f3;
+
+  border-bottom:
+    1px solid #edf0f3;
+
 }
+
 
 .stat:last-child{
+
   border-bottom:0;
+
 }
+
 
 .statLabel{
+
   font-size:11px;
+
   color:#858b96;
+
 }
+
 
 .statValue{
+
   font-size:20px;
+
   font-weight:800;
+
   margin-top:3px;
+
 }
 
+
 /* =========================
-   MODAL
+   AUTH
 ========================= */
 
 .overlay{
+
   position:fixed;
+
   inset:0;
 
-  background:rgba(20,24,31,.45);
+  background:
+    rgba(20,24,31,.45);
 
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
   padding:20px;
 
   z-index:100;
+
 }
 
+
 .modal{
-  width:min(470px,100%);
+
+  width:
+    min(470px,100%);
 
   max-height:90vh;
+
   overflow-y:auto;
 
   background:#fff;
 
   border-radius:16px;
+
   padding:26px;
 
-  box-shadow:0 20px 70px rgba(0,0,0,.2);
+  box-shadow:
+    0 20px 70px
+    rgba(0,0,0,.2);
+
 }
+
 
 .modal h2{
+
   font-size:22px;
+
   margin-bottom:7px;
+
 }
+
 
 .modalDescription{
+
   color:#777f8c;
+
   font-size:13px;
+
   line-height:1.6;
+
   margin-bottom:20px;
+
 }
 
-.field{
-  margin-bottom:14px;
-}
-
-.field label{
-  display:block;
-
-  font-size:12px;
-  color:#5f6671;
-
-  margin-bottom:6px;
-}
-
-.field input,
-.field select{
-  width:100%;
-
-  border:1px solid #dfe3e8;
-  background:#fff;
-
-  border-radius:9px;
-
-  padding:11px 12px;
-
-  outline:none;
-}
-
-.field input:focus,
-.field select:focus{
-  border-color:#5875e8;
-}
 
 .check{
+
   display:flex;
+
   align-items:flex-start;
+
   gap:8px;
 
   color:#626975;
 
   font-size:11px;
+
   line-height:1.55;
 
   margin:11px 0;
+
 }
+
 
 .check input{
+
   margin-top:3px;
+
 }
+
 
 .modalActions{
+
   display:flex;
+
   gap:8px;
+
   margin-top:18px;
+
 }
+
 
 .modalActions button{
+
   flex:1;
+
   height:42px;
+
 }
 
-.textButton{
-  display:block;
-
-  margin:15px auto 0;
-
-  border:0;
-  background:none;
-
-  color:#5875e8;
-
-  font-size:12px;
-}
-
-/* =========================
-   GUEST
-========================= */
 
 .guestButton{
+
   width:100%;
+
   margin-top:8px;
 
   height:42px;
 
-  border:1px solid #dfe3e8;
+  border:
+    1px solid #dfe3e8;
+
   background:#fff;
 
   color:#555;
 
   border-radius:9px;
+
 }
 
-/* =========================
-   MOBILE
-========================= */
 
 @media(max-width:900px){
 
   .app{
+
     padding:18px;
+
   }
 
   .layout{
+
     grid-template-columns:1fr;
+
   }
 
 }
+
 
 @media(max-width:600px){
 
   header{
-    padding:0 15px;
+
+    padding:
+      0 15px;
+
   }
 
   .userName{
+
     display:none;
+
   }
 
   .app{
+
     padding:14px;
+
   }
 
   .pageTitle h1{
+
     font-size:23px;
+
   }
 
   .chat{
+
     height:340px;
+
   }
 
   .bubble{
+
     max-width:90%;
+
   }
 
   .chatInput{
+
     flex-direction:column;
+
   }
 
   .primaryButton{
-    height:42px;
-  }
 
-  .subjectGrid{
-    grid-template-columns:1fr;
+    height:42px;
+
   }
 
   .timerDisplay{
-    font-size:34px;
+
+    font-size:32px;
+
   }
+
 }
+
 </style>
+
 </head>
 
 
 <body>
 
+
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
@@ -654,12 +945,14 @@ header{
     SC <span>/ Study Coach</span>
   </div>
 
+
   <div class="headerRight">
 
     <div
       class="userName"
       id="headerUserName"
     ></div>
+
 
     <button
       class="logoutButton"
@@ -673,12 +966,18 @@ header{
 </header>
 
 
+<!-- =========================
+     APP
+========================= -->
+
 <main class="app">
 
 
   <div class="pageTitle">
 
-    <h1>学習ダッシュボード</h1>
+    <h1>
+      学習ダッシュボード
+    </h1>
 
     <p id="welcomeText">
       SCと一緒に今日の学習を進めましょう。
@@ -697,15 +996,20 @@ header{
     <section>
 
 
+      <!-- SC -->
+
       <div class="card">
 
         <div class="scTop">
 
+
           <div class="scTitle">
+
 
             <div class="scIcon">
               SC
             </div>
+
 
             <div>
 
@@ -719,6 +1023,7 @@ header{
 
             </div>
 
+
           </div>
 
 
@@ -728,6 +1033,7 @@ header{
           >
             通常モード
           </div>
+
 
         </div>
 
@@ -739,13 +1045,15 @@ header{
 
           <div class="bubble ai">
 
-            こんにちは。SCです。
+こんにちは。SCです。
 
-            分からない問題を文章で質問したり、
-            問題の写真を送って質問できます。
+勉強について分からないことがあれば
+いつでも質問してください。
 
-            教科や単元を選ぶと、
-            その内容に合わせてサポートします。
+教科と今勉強している単元を設定すると、
+その内容を前提に回答します。
+
+問題の写真を送って質問することもできます。
 
           </div>
 
@@ -760,6 +1068,7 @@ header{
             onkeydown="handleEnter(event)"
           >
 
+
           <button
             class="primaryButton"
             onclick="sendMessage()"
@@ -772,7 +1081,10 @@ header{
 
         <div class="toolRow">
 
-          <label class="secondaryButton upload">
+
+          <label
+            class="secondaryButton upload"
+          >
 
             📷 問題写真を送る
 
@@ -785,12 +1097,14 @@ header{
 
           </label>
 
+
         </div>
+
 
       </div>
 
 
-      <!-- 学年・単元 -->
+      <!-- 学習内容 -->
 
       <div
         class="card"
@@ -798,40 +1112,143 @@ header{
       >
 
         <div class="cardTitle">
-          学年・学習単元
+          学習内容
         </div>
 
 
-        <div class="gradeButtons">
+        <div class="field">
 
-          <button
-            class="gradeButton active"
-            onclick="selectGrade(1,this)"
-          >
-            高1
-          </button>
+          <label>
+            学年
+          </label>
 
-          <button
-            class="gradeButton"
-            onclick="selectGrade(2,this)"
-          >
-            高2
-          </button>
 
-          <button
-            class="gradeButton"
-            onclick="selectGrade(3,this)"
+          <select
+            id="studyGrade"
           >
-            高3
-          </button>
+
+            <option value="1">
+              高校1年
+            </option>
+
+            <option value="2">
+              高校2年
+            </option>
+
+            <option value="3">
+              高校3年
+            </option>
+
+          </select>
 
         </div>
+
+
+        <div class="field">
+
+          <label>
+            教科
+          </label>
+
+
+          <select
+            id="studySubject"
+          >
+
+            <option value="">
+              教科を選択してください
+            </option>
+
+            <option value="数学">
+              数学
+            </option>
+
+            <option value="英語">
+              英語
+            </option>
+
+            <option value="国語">
+              国語
+            </option>
+
+            <option value="物理">
+              物理
+            </option>
+
+            <option value="化学">
+              化学
+            </option>
+
+            <option value="生物">
+              生物
+            </option>
+
+            <option value="地理">
+              地理
+            </option>
+
+            <option value="日本史">
+              日本史
+            </option>
+
+            <option value="世界史">
+              世界史
+            </option>
+
+            <option value="情報">
+              情報
+            </option>
+
+            <option value="その他">
+              その他
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            今勉強している単元
+          </label>
+
+
+          <input
+            id="studyUnit"
+            type="text"
+            maxlength="100"
+            placeholder="例：二次関数の最大・最小"
+          >
+
+        </div>
+
+
+        <button
+          class="primaryButton"
+          style="
+            width:100%;
+            height:42px;
+          "
+          onclick="setStudyContent()"
+        >
+
+          この内容でSCを設定
+
+        </button>
 
 
         <div
-          class="subjectGrid"
-          id="subjects"
-        ></div>
+          class="studyStatus"
+          id="studyContentStatus"
+        >
+
+          教科と単元を設定すると、
+          SCがその内容を前提に回答します。
+
+        </div>
+
 
       </div>
 
@@ -855,11 +1272,10 @@ header{
         </div>
 
 
-        <div
-          class="timerDisplay"
-          id="timerDisplay"
-        >
-          00:00:00
+        <div class="timerQuestion">
+
+          何分勉強する？
+
         </div>
 
 
@@ -870,11 +1286,22 @@ header{
             type="number"
             min="1"
             max="600"
-            placeholder="時間"
+            placeholder="例：45"
           >
 
-          <span>分</span>
 
+          <span>
+            分
+          </span>
+
+        </div>
+
+
+        <div
+          class="timerDisplay"
+          id="timerDisplay"
+        >
+          00:00:00
         </div>
 
 
@@ -898,12 +1325,14 @@ header{
             START
           </button>
 
+
           <button
             class="secondaryButton"
             onclick="pauseTimer()"
           >
             PAUSE
           </button>
+
 
           <button
             class="secondaryButton"
@@ -935,6 +1364,7 @@ header{
             学習時間
           </div>
 
+
           <div
             class="statValue"
             id="todayTime"
@@ -948,15 +1378,16 @@ header{
         <div class="stat">
 
           <div class="statLabel">
-            現在の単元
+            現在の学習内容
           </div>
+
 
           <div
             class="statValue"
             id="currentSubject"
-            style="font-size:15px;"
+            style="font-size:14px;"
           >
-            未選択
+            未設定
           </div>
 
         </div>
@@ -965,8 +1396,9 @@ header{
         <div class="stat">
 
           <div class="statLabel">
-            学習セッション
+            完了セッション
           </div>
+
 
           <div
             class="statValue"
@@ -988,14 +1420,15 @@ header{
 </main>
 
 
-<!-- =====================
-     AUTH
-====================== -->
+<!-- =========================
+     LOGIN / REGISTER
+========================= -->
 
 <div
   class="overlay"
   id="authScreen"
 >
+
 
   <div class="modal">
 
@@ -1009,7 +1442,10 @@ header{
       class="modalDescription"
       id="authDescription"
     >
-      アカウントを作成すると学習データを保存できます。
+
+      アカウントを作成すると
+      学習データを保存できます。
+
     </div>
 
 
@@ -1023,6 +1459,7 @@ header{
         <label>
           ニックネーム
         </label>
+
 
         <input
           id="registerName"
@@ -1040,6 +1477,7 @@ header{
           メールアドレス
         </label>
 
+
         <input
           id="registerEmail"
           type="email"
@@ -1054,6 +1492,7 @@ header{
         <label>
           年齢
         </label>
+
 
         <input
           id="registerAge"
@@ -1071,6 +1510,7 @@ header{
         <label>
           学年
         </label>
+
 
         <select id="registerGrade">
 
@@ -1099,7 +1539,8 @@ header{
         >
 
         <span>
-          利用規約を確認し、サービスの利用条件に同意します。
+          利用規約を確認し、
+          サービスの利用条件に同意します。
         </span>
 
       </label>
@@ -1113,7 +1554,8 @@ header{
         >
 
         <span>
-          個人情報の利用目的・取り扱いについて確認しました。
+          個人情報の利用目的・
+          取り扱いについて確認しました。
         </span>
 
       </label>
@@ -1127,7 +1569,7 @@ header{
         >
 
         <span>
-          年齢・学年・質問内容などを、
+          年齢・学年・質問内容などを
           学習傾向の分析やサービス改善に
           利用することに同意します。
         </span>
@@ -1137,6 +1579,7 @@ header{
 
       <div class="modalActions">
 
+
         <button
           class="primaryButton"
           onclick="register()"
@@ -1144,12 +1587,14 @@ header{
           アカウント作成
         </button>
 
+
         <button
           class="secondaryButton"
           onclick="showLogin()"
         >
           ログイン
         </button>
+
 
       </div>
 
@@ -1172,11 +1617,13 @@ header{
       class="hidden"
     >
 
+
       <div class="field">
 
         <label>
           メールアドレス
         </label>
+
 
         <input
           id="loginEmail"
@@ -1196,6 +1643,7 @@ header{
           ログインコードを送信
         </button>
 
+
         <button
           class="secondaryButton"
           onclick="showRegister()"
@@ -1213,6 +1661,7 @@ header{
         ゲストとして使用
       </button>
 
+
     </div>
 
 
@@ -1223,11 +1672,13 @@ header{
       class="hidden"
     >
 
+
       <div class="field">
 
         <label>
           認証コード
         </label>
+
 
         <input
           id="verifyCodeInput"
@@ -1251,6 +1702,7 @@ header{
 
       </div>
 
+
     </div>
 
 
@@ -1262,52 +1714,18 @@ header{
 <script>
 
 /* =========================
-   DATA
+   STUDY CONTENT
 ========================= */
 
-const subjects = {
+let studyContent = {
 
-  1:[
-    ["数学","数と式"],
-    ["数学","二次関数"],
-    ["英語","英文法"],
-    ["英語","長文読解"],
-    ["国語","現代文"],
-    ["国語","古文"],
-    ["物理","力学"],
-    ["化学","物質量"],
-    ["地理","地図と統計"]
-  ],
+  grade:"1",
 
-  2:[
-    ["数学","微分積分"],
-    ["数学","数列"],
-    ["英語","英文解釈"],
-    ["英語","長文読解"],
-    ["国語","古文"],
-    ["物理","電磁気"],
-    ["化学","化学平衡"],
-    ["日本史","近世史"],
-    ["世界史","近代史"]
-  ],
+  subject:"",
 
-  3:[
-    ["数学","数学III"],
-    ["数学","複素数平面"],
-    ["英語","入試長文"],
-    ["英語","英作文"],
-    ["国語","入試現代文"],
-    ["物理","入試物理"],
-    ["化学","入試化学"],
-    ["日本史","テーマ史"],
-    ["世界史","テーマ史"]
-  ]
+  unit:""
 
 };
-
-
-let currentGrade = 1;
-let currentMode = "通常モード";
 
 
 /* =========================
@@ -1383,25 +1801,30 @@ async function register(){
 
   const name =
     document
-    .getElementById("registerName")
-    .value.trim();
+      .getElementById("registerName")
+      .value
+      .trim();
+
 
   const email =
     document
-    .getElementById("registerEmail")
-    .value.trim();
+      .getElementById("registerEmail")
+      .value
+      .trim();
+
 
   const age =
     Number(
       document
-      .getElementById("registerAge")
-      .value
+        .getElementById("registerAge")
+        .value
     );
+
 
   const grade =
     document
-    .getElementById("registerGrade")
-    .value;
+      .getElementById("registerGrade")
+      .value;
 
 
   if(!name || !email || !age){
@@ -1416,16 +1839,22 @@ async function register(){
 
 
   const checks = [
+
     "termsCheck",
+
     "privacyCheck",
+
     "aiDataCheck"
+
   ];
 
 
   if(
     !checks.every(
       id =>
-      document.getElementById(id).checked
+      document
+        .getElementById(id)
+        .checked
     )
   ){
 
@@ -1438,12 +1867,18 @@ async function register(){
   }
 
 
+  /*
+    Worker側の認証APIが
+    用意されている場合に使用
+  */
+
   try{
 
     const response =
       await fetch(
         "/api/register",
         {
+
           method:"POST",
 
           headers:{
@@ -1451,12 +1886,19 @@ async function register(){
               "application/json"
           },
 
-          body:JSON.stringify({
-            name,
-            email,
-            age,
-            grade
-          })
+          body:
+            JSON.stringify({
+
+              name,
+
+              email,
+
+              age,
+
+              grade
+
+            })
+
         }
       );
 
@@ -1482,6 +1924,7 @@ async function register(){
       email
     );
 
+
     localStorage.setItem(
       "studyCoachName",
       name
@@ -1492,9 +1935,11 @@ async function register(){
       .getElementById("registerForm")
       .classList.add("hidden");
 
+
     document
       .getElementById("verifyForm")
       .classList.remove("hidden");
+
 
     document
       .getElementById("authTitle")
@@ -1511,6 +1956,7 @@ async function register(){
 
     console.error(error);
 
+
     alert(
       "サーバーに接続できませんでした。"
     );
@@ -1524,8 +1970,9 @@ async function login(){
 
   const email =
     document
-    .getElementById("loginEmail")
-    .value.trim();
+      .getElementById("loginEmail")
+      .value
+      .trim();
 
 
   if(!email){
@@ -1545,6 +1992,7 @@ async function login(){
       await fetch(
         "/api/login",
         {
+
           method:"POST",
 
           headers:{
@@ -1552,9 +2000,11 @@ async function login(){
               "application/json"
           },
 
-          body:JSON.stringify({
-            email
-          })
+          body:
+            JSON.stringify({
+              email
+            })
+
         }
       );
 
@@ -1585,9 +2035,11 @@ async function login(){
       .getElementById("loginForm")
       .classList.add("hidden");
 
+
     document
       .getElementById("verifyForm")
       .classList.remove("hidden");
+
 
     document
       .getElementById("authTitle")
@@ -1603,6 +2055,7 @@ async function login(){
   }catch(error){
 
     console.error(error);
+
 
     alert(
       "サーバーに接続できませんでした。"
@@ -1620,10 +2073,12 @@ async function verifyLoginCode(){
       "pendingEmail"
     );
 
+
   const code =
     document
-    .getElementById("verifyCodeInput")
-    .value.trim();
+      .getElementById("verifyCodeInput")
+      .value
+      .trim();
 
 
   if(!email || !code){
@@ -1643,6 +2098,7 @@ async function verifyLoginCode(){
       await fetch(
         "/api/verify",
         {
+
           method:"POST",
 
           headers:{
@@ -1650,10 +2106,15 @@ async function verifyLoginCode(){
               "application/json"
           },
 
-          body:JSON.stringify({
-            email,
-            code
-          })
+          body:
+            JSON.stringify({
+
+              email,
+
+              code
+
+            })
+
         }
       );
 
@@ -1697,6 +2158,7 @@ async function verifyLoginCode(){
 
     console.error(error);
 
+
     alert(
       "認証サーバーに接続できませんでした。"
     );
@@ -1711,6 +2173,7 @@ function logout(){
   localStorage.removeItem(
     "studyCoachLoggedIn"
   );
+
 
   location.reload();
 
@@ -1731,13 +2194,17 @@ function loadUser(){
 
 
   document
-    .getElementById("headerUserName")
+    .getElementById(
+      "headerUserName"
+    )
     .textContent =
     name;
 
 
   document
-    .getElementById("welcomeText")
+    .getElementById(
+      "welcomeText"
+    )
     .textContent =
     `${name}さん、今日の学習を始めましょう。`;
 
@@ -1745,94 +2212,78 @@ function loadUser(){
 
 
 /* =========================
-   GRADE
+   STUDY CONTENT
 ========================= */
 
-function selectGrade(
-  grade,
-  button
-){
+function setStudyContent(){
 
-  currentGrade = grade;
+  const grade =
+    document
+      .getElementById(
+        "studyGrade"
+      )
+      .value;
 
 
-  document
-    .querySelectorAll(".gradeButton")
-    .forEach(
-      element =>
-      element.classList.remove("active")
+  const subject =
+    document
+      .getElementById(
+        "studySubject"
+      )
+      .value;
+
+
+  const unit =
+    document
+      .getElementById(
+        "studyUnit"
+      )
+      .value
+      .trim();
+
+
+  if(!subject){
+
+    alert(
+      "教科を選択してください。"
     );
 
+    return;
 
-  button.classList.add("active");
-
-
-  renderSubjects();
-
-}
+  }
 
 
-function renderSubjects(){
+  if(!unit){
 
-  const container =
-    document.getElementById(
-      "subjects"
+    alert(
+      "今勉強している単元を入力してください。"
     );
 
+    return;
 
-  container.innerHTML = "";
-
-
-  subjects[currentGrade]
-    .forEach(
-      ([subject,unit]) => {
-
-        const button =
-          document.createElement(
-            "button"
-          );
+  }
 
 
-        button.className =
-          "subjectButton";
+  studyContent = {
+
+    grade,
+
+    subject,
+
+    unit
+
+  };
 
 
-        button.innerHTML = `
-          <div class="subjectName">
-            ${subject}
-          </div>
+  localStorage.setItem(
 
-          <div class="unitName">
-            ${unit}
-          </div>
-        `;
+    "studyCoachContent",
 
+    JSON.stringify(
+      studyContent
+    )
 
-        button.onclick =
-          () =>
-          selectUnit(
-            subject,
-            unit
-          );
-
-
-        container.appendChild(
-          button
-        );
-
-      }
-    );
-
-}
-
-
-function selectUnit(
-  subject,
-  unit
-){
-
-  currentMode =
-    `${subject}・${unit}モード`;
+  );
 
 
   document
@@ -1840,7 +2291,7 @@ function selectUnit(
       "currentMode"
     )
     .textContent =
-    currentMode;
+    `${subject}モード`;
 
 
   document
@@ -1851,8 +2302,26 @@ function selectUnit(
     `${subject} / ${unit}`;
 
 
+  document
+    .getElementById(
+      "studyContentStatus"
+    )
+    .textContent =
+    `SC設定済み：高校${grade}・${subject}・${unit}`;
+
+
   addAIMessage(
-    `SCの${subject}「${unit}」モードに切り替えました。\nこの単元について質問してください。`
+
+    `学習内容を設定しました。\n\n` +
+
+    `学年：高校${grade}\n` +
+
+    `教科：${subject}\n` +
+
+    `単元：${unit}\n\n` +
+
+    `これからこの内容を前提にサポートします。`
+
   );
 
 }
@@ -1971,6 +2440,7 @@ async function sendMessage(){
       await fetch(
         "/api/chat",
         {
+
           method:"POST",
 
           headers:{
@@ -1978,11 +2448,26 @@ async function sendMessage(){
               "application/json"
           },
 
-          body:JSON.stringify({
-            message:text,
-            grade:currentGrade,
-            mode:currentMode
-          })
+          body:
+            JSON.stringify({
+
+              message:text,
+
+              studyContent:{
+
+                grade:
+                  studyContent.grade,
+
+                subject:
+                  studyContent.subject,
+
+                unit:
+                  studyContent.unit
+
+              }
+
+            })
+
         }
       );
 
@@ -2077,21 +2562,6 @@ async function analyzeImage(event){
   }
 
 
-  if(
-    !file.type.startsWith(
-      "image/"
-    )
-  ){
-
-    alert(
-      "画像ファイルを選択してください。"
-    );
-
-    return;
-
-  }
-
-
   addUserMessage(
     "📷 問題の写真を送信しました。"
   );
@@ -2114,6 +2584,7 @@ async function analyzeImage(event){
       await fetch(
         "/api/analyze",
         {
+
           method:"POST",
 
           headers:{
@@ -2121,15 +2592,26 @@ async function analyzeImage(event){
               "application/json"
           },
 
-          body:JSON.stringify({
+          body:
+            JSON.stringify({
 
-            image:base64,
+              image:base64,
 
-            grade:currentGrade,
+              studyContent:{
 
-            mode:currentMode
+                grade:
+                  studyContent.grade,
 
-          })
+                subject:
+                  studyContent.subject,
+
+                unit:
+                  studyContent.unit
+
+              }
+
+            })
+
         }
       );
 
@@ -2211,46 +2693,49 @@ function fileToBase64(file){
 
 
 /* =========================
-   COUNTDOWN TIMER
+   TIMER
 ========================= */
 
 let timerSeconds = 0;
+
 let timerTotal = 0;
+
 let timerInterval = null;
+
 let timerRunning = false;
 
 
-function formatTime(
-  totalSeconds
-){
+function formatTime(seconds){
 
-  const hours =
+  const h =
     Math.floor(
-      totalSeconds / 3600
+      seconds / 3600
     );
 
 
-  const minutes =
+  const m =
     Math.floor(
-      (totalSeconds % 3600) / 60
+      (seconds % 3600) / 60
     );
 
 
-  const seconds =
-    totalSeconds % 60;
+  const s =
+    seconds % 60;
 
 
   return [
-    hours,
-    minutes,
-    seconds
+
+    h,
+
+    m,
+
+    s
+
   ]
   .map(
     value =>
-    String(value).padStart(
-      2,
-      "0"
-    )
+    String(value)
+      .padStart(2,"0")
   )
   .join(":");
 
@@ -2275,8 +2760,12 @@ function updateTimer(){
   if(timerTotal > 0){
 
     progress =
-      ((timerTotal - timerSeconds)
-      / timerTotal) * 100;
+      (
+        (timerTotal -
+        timerSeconds)
+        /
+        timerTotal
+      ) * 100;
 
   }
 
@@ -2286,15 +2775,15 @@ function updateTimer(){
       "timerGaugeBar"
     )
     .style.width =
-    Math.min(
-      Math.max(progress,0),
-      100
-    ) + "%";
+    `${progress}%`;
 
 
   const studied =
-    timerTotal -
-    timerSeconds;
+    Math.max(
+      timerTotal -
+      timerSeconds,
+      0
+    );
 
 
   document
@@ -2302,9 +2791,9 @@ function updateTimer(){
       "todayTime"
     )
     .textContent =
-    Math.floor(
-      Math.max(studied,0) / 60
-    ) + "分";
+    `${Math.floor(
+      studied / 60
+    )}分`;
 
 }
 
@@ -2323,10 +2812,10 @@ function startTimer(){
     const minutes =
       Number(
         document
-        .getElementById(
-          "timerMinutes"
-        )
-        .value
+          .getElementById(
+            "timerMinutes"
+          )
+          .value
       );
 
 
@@ -2336,7 +2825,18 @@ function startTimer(){
     ){
 
       alert(
-        "まず設定時間を入力してください。"
+        "勉強したい時間を入力してください。"
+      );
+
+      return;
+
+    }
+
+
+    if(minutes > 600){
+
+      alert(
+        "最大600分まで設定できます。"
       );
 
       return;
@@ -2346,6 +2846,7 @@ function startTimer(){
 
     timerTotal =
       minutes * 60;
+
 
     timerSeconds =
       timerTotal;
@@ -2373,7 +2874,9 @@ function startTimer(){
         updateTimer();
 
 
-        if(timerSeconds <= 0){
+        if(
+          timerSeconds <= 0
+        ){
 
           finishTimer();
 
@@ -2424,6 +2927,7 @@ function resetTimer(){
 
 
   timerSeconds = 0;
+
   timerTotal = 0;
 
 
@@ -2466,18 +2970,22 @@ function finishTimer(){
     "START";
 
 
+  const sessions =
+    Number(
+      document
+        .getElementById(
+          "sessionCount"
+        )
+        .textContent
+    );
+
+
   document
     .getElementById(
       "sessionCount"
     )
     .textContent =
-    Number(
-      document
-      .getElementById(
-        "sessionCount"
-      )
-      .textContent
-    ) + 1;
+    sessions + 1;
 
 
   alert(
@@ -2493,20 +3001,100 @@ function finishTimer(){
 
 function startApp(){
 
-  renderSubjects();
-
   updateTimer();
 
 
-  const loginState =
+  const savedContent =
+    localStorage.getItem(
+      "studyCoachContent"
+    );
+
+
+  if(savedContent){
+
+    try{
+
+      studyContent =
+        JSON.parse(
+          savedContent
+        );
+
+
+      document
+        .getElementById(
+          "studyGrade"
+        )
+        .value =
+        studyContent.grade;
+
+
+      document
+        .getElementById(
+          "studySubject"
+        )
+        .value =
+        studyContent.subject;
+
+
+      document
+        .getElementById(
+          "studyUnit"
+        )
+        .value =
+        studyContent.unit;
+
+
+      if(
+        studyContent.subject &&
+        studyContent.unit
+      ){
+
+        document
+          .getElementById(
+            "currentMode"
+          )
+          .textContent =
+          `${studyContent.subject}モード`;
+
+
+        document
+          .getElementById(
+            "currentSubject"
+          )
+          .textContent =
+          `${studyContent.subject} / ${studyContent.unit}`;
+
+
+        document
+          .getElementById(
+            "studyContentStatus"
+          )
+          .textContent =
+          `SC設定済み：高校${studyContent.grade}・${studyContent.subject}・${studyContent.unit}`;
+
+      }
+
+    }catch(error){
+
+      console.error(
+        "Study content error:",
+        error
+      );
+
+    }
+
+  }
+
+
+  const loggedIn =
     localStorage.getItem(
       "studyCoachLoggedIn"
     );
 
 
   if(
-    loginState === "true" ||
-    loginState === "guest"
+    loggedIn === "true" ||
+    loggedIn === "guest"
   ){
 
     document
@@ -2543,4 +3131,6 @@ document.addEventListener(
 </script>
 
 </body>
+
 </html>
+```
