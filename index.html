@@ -14,24 +14,31 @@
 
 :root{
   --bg:#f5f7fb;
-  --surface:#ffffff;
-  --line:#e6eaf2;
-  --text:#182033;
+  --card:#ffffff;
+  --text:#172033;
   --muted:#6d7890;
+  --line:#e5e9f1;
   --primary:#315efb;
-  --primary2:#2449d8;
-  --danger:#e5484d;
+  --primary-dark:#2449d8;
   --success:#16a36a;
+  --danger:#df4b55;
 }
 
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans JP",
+    sans-serif;
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
 }
 
-button,input,select{
+button,
+input,
+select{
   font:inherit;
 }
 
@@ -43,9 +50,11 @@ button{
   display:none!important;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
-header{
+.header{
   height:68px;
   background:#fff;
   border-bottom:1px solid var(--line);
@@ -55,9 +64,9 @@ header{
 }
 
 .headerInner{
-  width:min(1180px,94%);
-  margin:auto;
+  width:min(1200px,94%);
   height:100%;
+  margin:auto;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -75,7 +84,7 @@ header{
 .headerRight{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:8px;
 }
 
 .online{
@@ -84,19 +93,28 @@ header{
 }
 
 .dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:var(--success);
   display:inline-block;
+  width:7px;
+  height:7px;
+  background:var(--success);
+  border-radius:50%;
   margin-right:5px;
 }
+
+/* =========================
+   BUTTON
+========================= */
 
 .btn{
   border:0;
   border-radius:10px;
-  padding:10px 16px;
+  padding:10px 15px;
   font-weight:700;
+  transition:.18s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
 }
 
 .btnPrimary{
@@ -105,12 +123,13 @@ header{
 }
 
 .btnPrimary:hover{
-  background:var(--primary2);
+  background:var(--primary-dark);
 }
 
 .btnWhite{
   background:#fff;
   border:1px solid var(--line);
+  color:var(--text);
 }
 
 .btnDanger{
@@ -118,15 +137,31 @@ header{
   color:var(--danger);
 }
 
-/* MAIN */
+.btnSmall{
+  padding:8px 11px;
+  font-size:12px;
+}
+
+/* =========================
+   LAYOUT
+========================= */
 
 .container{
-  width:min(1180px,94%);
+  width:min(1200px,94%);
   margin:auto;
   padding:30px 0 70px;
 }
 
-/* WELCOME */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:0 8px 30px rgba(20,30,60,.04);
+}
+
+/* =========================
+   HERO
+========================= */
 
 .hero{
   display:grid;
@@ -134,38 +169,38 @@ header{
   gap:20px;
 }
 
-.card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:24px;
-  box-shadow:0 8px 30px rgba(20,30,60,.04);
+.heroMain{
+  padding:30px;
 }
 
 .eyebrow{
-  font-size:12px;
+  font-size:11px;
   font-weight:800;
+  letter-spacing:.08em;
   color:var(--primary);
   margin-bottom:10px;
 }
 
-.hero h1{
+.heroTitle{
   font-size:30px;
+  line-height:1.35;
   margin-bottom:10px;
 }
 
-.hero p{
+.heroText{
   color:var(--muted);
-  line-height:1.7;
+  line-height:1.8;
+  font-size:14px;
 }
 
 .heroButtons{
   display:flex;
   gap:10px;
-  margin-top:20px;
+  margin-top:22px;
 }
 
-.aiBox{
+.aiCard{
+  padding:25px;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -178,34 +213,36 @@ header{
 }
 
 .aiAvatar{
-  width:46px;
-  height:46px;
-  border-radius:12px;
+  width:48px;
+  height:48px;
+  border-radius:13px;
   background:#edf2ff;
   color:var(--primary);
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   font-weight:900;
 }
 
 .aiStatus{
-  font-size:12px;
   color:var(--success);
+  font-size:11px;
   margin-top:3px;
 }
 
 .aiMessage{
-  margin-top:16px;
-  padding:13px;
+  margin-top:17px;
+  padding:14px;
   background:#f7f9fc;
-  border-radius:10px;
+  border-radius:11px;
   color:var(--muted);
   font-size:13px;
   line-height:1.7;
 }
 
-/* FEATURES */
+/* =========================
+   FEATURE
+========================= */
 
 .features{
   display:grid;
@@ -215,49 +252,66 @@ header{
 }
 
 .feature{
-  padding:18px;
+  padding:19px;
+  cursor:pointer;
+  transition:.18s;
 }
 
 .feature:hover{
-  border-color:#ccd6f7;
+  border-color:#cbd5f6;
+  transform:translateY(-2px);
 }
 
-.icon{
-  width:42px;
-  height:42px;
+.featureIcon{
+  width:40px;
+  height:40px;
   border-radius:10px;
   background:#eef2ff;
   color:var(--primary);
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
+  font-size:11px;
   font-weight:800;
   margin-bottom:12px;
 }
 
 .feature h3{
-  font-size:15px;
+  font-size:14px;
   margin-bottom:5px;
 }
 
 .feature p{
-  font-size:12px;
   color:var(--muted);
+  font-size:11px;
   line-height:1.6;
 }
 
-/* DASHBOARD */
+/* =========================
+   MAIN GRID
+========================= */
 
-.dashboard{
+.mainGrid{
   display:grid;
-  grid-template-columns:1fr 300px;
+  grid-template-columns:minmax(0,1fr) 320px;
   gap:20px;
 }
 
-.chat{
-  min-height:620px;
+/* =========================
+   CHAT
+========================= */
+
+.chatCard{
+  padding:23px;
+  min-height:640px;
   display:flex;
   flex-direction:column;
+}
+
+.sectionHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .sectionTitle{
@@ -266,21 +320,22 @@ header{
 }
 
 .sectionSub{
-  font-size:12px;
   color:var(--muted);
+  font-size:11px;
   margin-top:3px;
 }
 
 .messages{
   flex:1;
+  min-height:440px;
   max-height:480px;
-  overflow:auto;
-  margin-top:18px;
+  overflow-y:auto;
+  padding:20px 2px;
 }
 
 .message{
   display:flex;
-  gap:8px;
+  gap:9px;
   margin-bottom:14px;
 }
 
@@ -295,9 +350,9 @@ header{
   background:#eef2ff;
   color:var(--primary);
   display:flex;
-  align-items:center;
   justify-content:center;
-  font-size:11px;
+  align-items:center;
+  font-size:10px;
   font-weight:800;
   flex-shrink:0;
 }
@@ -308,12 +363,13 @@ header{
 }
 
 .bubble{
-  max-width:75%;
+  max-width:78%;
   padding:11px 14px;
   border-radius:12px;
   line-height:1.7;
-  font-size:14px;
+  font-size:13px;
   white-space:pre-wrap;
+  overflow-wrap:anywhere;
 }
 
 .ai .bubble{
@@ -334,10 +390,12 @@ header{
 .inputRow{
   display:grid;
   grid-template-columns:auto auto 1fr auto;
-  gap:8px;
+  gap:7px;
 }
 
 .input{
+  width:100%;
+  min-width:0;
   border:1px solid var(--line);
   border-radius:10px;
   padding:12px;
@@ -345,30 +403,65 @@ header{
 }
 
 .input:focus{
-  border-color:#9eb1ff;
+  border-color:#9db0ff;
 }
 
-/* SIDE */
+/* =========================
+   RIGHT SIDEBAR
+========================= */
 
 .sideCard{
+  padding:20px;
   margin-bottom:14px;
 }
 
-.quick{
-  width:100%;
-  text-align:left;
-  margin-top:8px;
+.sideTitle{
+  font-size:15px;
+  font-weight:800;
+  margin-bottom:14px;
 }
 
-.progressItem{
+/* STATS */
+
+.statsGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.stat{
+  background:#f7f9fc;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:12px;
+}
+
+.statLabel{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.statValue{
+  font-size:20px;
+  font-weight:800;
+  margin-top:4px;
+}
+
+/* SUBJECT */
+
+.subject{
   margin-top:15px;
 }
 
-.progressTop{
+.subjectTop{
   display:flex;
   justify-content:space-between;
-  font-size:12px;
+  font-size:11px;
   margin-bottom:6px;
+}
+
+.subjectTop span{
+  color:var(--muted);
 }
 
 .progress{
@@ -378,31 +471,114 @@ header{
   overflow:hidden;
 }
 
-.progress div{
+.progressBar{
   height:100%;
   background:var(--primary);
+  border-radius:10px;
 }
 
-/* MODAL */
+/* TIMER */
+
+.timer{
+  text-align:center;
+}
+
+.timerDisplay{
+  font-size:42px;
+  font-weight:800;
+  letter-spacing:1px;
+  margin:12px 0;
+}
+
+.timerStatus{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.timerButtons{
+  display:flex;
+  justify-content:center;
+  gap:7px;
+  margin-top:12px;
+}
+
+/* GRADE */
+
+.gradeButtons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+}
+
+.gradeButton{
+  padding:10px 5px;
+  border-radius:9px;
+  border:1px solid var(--line);
+  background:#fff;
+  font-weight:700;
+  font-size:12px;
+}
+
+.gradeButton.active{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+
+.units{
+  margin-top:14px;
+}
+
+.unitGroup{
+  margin-bottom:13px;
+}
+
+.unitSubject{
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:5px;
+}
+
+.unit{
+  font-size:11px;
+  color:var(--muted);
+  padding:4px 0;
+}
+
+/* =========================
+   MODAL
+========================= */
 
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(20,30,50,.45);
+  z-index:500;
+  background:rgba(15,24,43,.48);
+  backdrop-filter:blur(5px);
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:500;
   padding:15px;
 }
 
 .modalContent{
-  width:min(500px,100%);
+  width:min(540px,100%);
   max-height:90vh;
   overflow:auto;
   background:#fff;
   border-radius:18px;
-  padding:24px;
+  padding:25px;
+}
+
+.modalLarge{
+  width:min(760px,100%);
+}
+
+.modalTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:5px;
 }
 
 .modalTitle{
@@ -410,11 +586,18 @@ header{
   font-weight:800;
 }
 
+.close{
+  width:33px;
+  height:33px;
+  border:0;
+  background:#f1f3f7;
+  border-radius:8px;
+}
+
 .modalText{
   color:var(--muted);
-  font-size:13px;
+  font-size:12px;
   line-height:1.7;
-  margin-top:8px;
 }
 
 .field{
@@ -423,53 +606,74 @@ header{
 
 .field label{
   display:block;
-  font-size:12px;
-  font-weight:700;
+  font-size:11px;
+  font-weight:800;
   margin-bottom:6px;
 }
 
-.field input,.field select{
+.field input,
+.field select{
   width:100%;
   border:1px solid var(--line);
   border-radius:9px;
   padding:11px;
+  outline:none;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:#9db0ff;
 }
 
 .check{
   display:flex;
   gap:9px;
-  margin-top:12px;
   align-items:flex-start;
-  font-size:12px;
-  line-height:1.6;
+  margin-top:12px;
+  font-size:11px;
+  line-height:1.7;
 }
 
 .check input{
-  margin-top:3px;
+  margin-top:4px;
 }
 
-.createButton{
+.full{
   width:100%;
   margin-top:18px;
 }
 
-.closeBtn{
-  float:right;
-  border:0;
-  background:#f1f3f8;
-  width:32px;
-  height:32px;
-  border-radius:8px;
+/* =========================
+   LOGIN
+========================= */
+
+.authSwitch{
+  display:flex;
+  gap:7px;
+  margin-top:18px;
 }
 
-/* PHOTO */
+.authSwitch button{
+  flex:1;
+}
+
+.codeBox{
+  font-size:26px!important;
+  text-align:center;
+  letter-spacing:8px;
+}
+
+/* =========================
+   PHOTO
+========================= */
 
 .upload{
-  border:1.5px dashed #c9d2e3;
-  border-radius:12px;
-  padding:28px;
-  text-align:center;
   margin-top:15px;
+  border:1.5px dashed #c9d3e4;
+  border-radius:12px;
+  padding:30px;
+  text-align:center;
+  cursor:pointer;
 }
 
 .upload input{
@@ -479,44 +683,53 @@ header{
 .preview{
   display:none;
   width:100%;
-  max-height:250px;
+  max-height:300px;
   object-fit:contain;
-  margin-top:12px;
   border-radius:10px;
+  margin-top:15px;
 }
 
-/* MUSIC */
+/* =========================
+   MUSIC
+========================= */
 
 .musicPanel{
   display:none;
   position:fixed;
   right:18px;
   bottom:18px;
-  width:270px;
+  width:280px;
   background:#fff;
   border:1px solid var(--line);
   border-radius:14px;
-  padding:16px;
-  box-shadow:0 10px 30px rgba(20,30,60,.1);
+  padding:17px;
   z-index:300;
+  box-shadow:0 12px 40px rgba(20,30,60,.12);
 }
 
 .musicPanel input{
   width:100%;
 }
 
-/* ADMIN */
+/* =========================
+   ADMIN
+========================= */
+
+.tableWrap{
+  overflow:auto;
+}
 
 .adminTable{
   width:100%;
   border-collapse:collapse;
   margin-top:15px;
-  font-size:12px;
+  font-size:11px;
 }
 
-.adminTable th,.adminTable td{
+.adminTable th,
+.adminTable td{
+  padding:10px;
   border-bottom:1px solid var(--line);
-  padding:9px;
   text-align:left;
 }
 
@@ -524,91 +737,117 @@ header{
   color:var(--muted);
 }
 
+/* =========================
+   FOOTER
+========================= */
+
 .footer{
   text-align:center;
-  color:#98a1b2;
-  font-size:11px;
+  color:#9aa3b3;
+  font-size:10px;
   margin-top:35px;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
-@media(max-width:900px){
+@media(max-width:950px){
 
-.hero{
-grid-template-columns:1fr;
-}
+  .hero{
+    grid-template-columns:1fr;
+  }
 
-.features{
-grid-template-columns:repeat(2,1fr);
-}
+  .features{
+    grid-template-columns:repeat(2,1fr);
+  }
 
-.dashboard{
-grid-template-columns:1fr;
-}
+  .mainGrid{
+    grid-template-columns:1fr;
+  }
 
 }
 
 @media(max-width:600px){
 
-.headerInner{
-width:94%;
-}
+  .header{
+    height:60px;
+  }
 
-.online{
-display:none;
-}
+  .headerInner{
+    width:94%;
+  }
 
-.container{
-width:94%;
-padding-top:20px;
-}
+  .online{
+    display:none;
+  }
 
-.hero h1{
-font-size:23px;
-}
+  .logo{
+    font-size:16px;
+  }
 
-.heroButtons{
-flex-direction:column;
-}
+  .container{
+    width:94%;
+    padding-top:20px;
+  }
 
-.heroButtons button{
-width:100%;
-}
+  .heroMain{
+    padding:21px;
+  }
 
-.features{
-gap:8px;
-}
+  .heroTitle{
+    font-size:23px;
+  }
 
-.feature{
-padding:14px;
-}
+  .heroButtons{
+    flex-direction:column;
+  }
 
-.feature h3{
-font-size:13px;
-}
+  .heroButtons button{
+    width:100%;
+  }
 
-.feature p{
-font-size:11px;
-}
+  .features{
+    gap:7px;
+  }
 
-.card{
-padding:17px;
-}
+  .feature{
+    padding:14px;
+  }
 
-.inputRow{
-grid-template-columns:42px 42px 1fr;
-}
+  .feature h3{
+    font-size:12px;
+  }
 
-.inputRow .btnPrimary{
-grid-column:1/-1;
-}
+  .feature p{
+    font-size:10px;
+  }
 
-.musicPanel{
-left:15px;
-right:15px;
-width:auto;
-}
+  .chatCard{
+    padding:17px;
+  }
+
+  .inputRow{
+    grid-template-columns:42px 42px 1fr;
+  }
+
+  .inputRow .sendButton{
+    grid-column:1/-1;
+  }
+
+  .bubble{
+    max-width:85%;
+  }
+
+  .timerDisplay{
+    font-size:35px;
+  }
+
+  .musicPanel{
+    left:15px;
+    right:15px;
+    width:auto;
+  }
 
 }
 </style>
@@ -616,7 +855,8 @@ width:auto;
 
 <body>
 
-<header>
+<header class="header">
+
 <div class="headerInner">
 
 <div class="logo">
@@ -630,37 +870,48 @@ Study <span>Coach AI</span>
 ALI ONLINE
 </div>
 
-<button class="btn btnWhite" onclick="toggleMusicPanel()">
+<button class="btn btnWhite btnSmall" onclick="toggleMusicPanel()">
 BGM
 </button>
 
-<button class="btn btnWhite" onclick="openAdmin()">
+<button class="btn btnWhite btnSmall" onclick="openAdmin()">
 管理
+</button>
+
+<button
+  id="headerAuthButton"
+  class="btn btnPrimary btnSmall"
+  onclick="openLogin()"
+>
+ログイン
 </button>
 
 </div>
 
 </div>
+
 </header>
 
-<div class="container">
+<main class="container">
+
+<!-- HERO -->
 
 <section class="hero">
 
-<div class="card">
+<div class="card heroMain">
 
 <div class="eyebrow">
 AI LEARNING PLATFORM
 </div>
 
-<h1>
-こんにちは、
-<span id="displayName">太郎</span>さん
+<h1 class="heroTitle">
+こんにちは、<span id="displayName">ゲスト</span>さん
 </h1>
 
-<p>
-Study Coach AIは、AIを使って学習をサポートする教育プラットフォームです。
-問題の質問、画像分析、学習計画などを一つの画面で利用できます。
+<p class="heroText">
+Study Coach AIは、AIを使って毎日の学習をサポートする
+学習プラットフォームです。
+質問、問題画像、学習計画、学習時間の記録まで一つの画面で管理できます。
 </p>
 
 <div class="heroButtons">
@@ -677,7 +928,7 @@ AIに質問する
 
 </div>
 
-<div class="card aiBox">
+<div class="card aiCard">
 
 <div class="aiTop">
 
@@ -686,73 +937,79 @@ ALI
 </div>
 
 <div>
-
 <b>ALI Assistant</b>
 
 <div class="aiStatus">
 ● Online
 </div>
-
 </div>
 
 </div>
 
 <div class="aiMessage">
 分からない問題を送ってください。
-あなたの学年や年齢を参考に、できるだけ分かりやすく説明します。
+選択した学年に合わせて、できるだけ分かりやすく説明します。
 </div>
 
 </div>
 
 </section>
+
+<!-- FEATURES -->
 
 <section class="features">
 
 <div class="card feature" onclick="openPhoto()">
 
-<div class="icon">IMG</div>
+<div class="featureIcon">IMG</div>
 
 <h3>問題画像分析</h3>
 
-<p>画像から問題を読み取り解説</p>
+<p>問題の写真をAIに送って分析</p>
 
 </div>
 
-<div class="card feature" onclick="quick('数学を教えて')">
+<div class="card feature" onclick="quickQuestion('数学の問題を出して')">
 
-<div class="icon">MAT</div>
+<div class="featureIcon">MAT</div>
 
-<h3>数学</h3>
+<h3>数学サポート</h3>
 
-<p>公式や考え方を質問</p>
-
-</div>
-
-<div class="card feature" onclick="quick('英語を教えて')">
-
-<div class="icon">ENG</div>
-
-<h3>英語</h3>
-
-<p>文法・英単語をサポート</p>
+<p>公式・計算・考え方を質問</p>
 
 </div>
 
-<div class="card feature" onclick="quick('今日の勉強計画を作って')">
+<div class="card feature" onclick="quickQuestion('英語の問題を出して')">
 
-<div class="icon">PLAN</div>
+<div class="featureIcon">ENG</div>
+
+<h3>英語サポート</h3>
+
+<p>英単語・英文法を練習</p>
+
+</div>
+
+<div class="card feature" onclick="quickQuestion('今日の学習計画を作って')">
+
+<div class="featureIcon">PLAN</div>
 
 <h3>学習計画</h3>
 
-<p>AIが今日の勉強を提案</p>
+<p>今日やる勉強をAIと整理</p>
 
 </div>
 
 </section>
 
-<div class="dashboard">
+<!-- MAIN -->
 
-<div class="card chat">
+<section class="mainGrid">
+
+<!-- CHAT -->
+
+<div class="card chatCard">
+
+<div class="sectionHeader">
 
 <div>
 
@@ -766,6 +1023,12 @@ AI Learning Assistant
 
 </div>
 
+<button class="btn btnWhite btnSmall" onclick="clearChat()">
+履歴を消去
+</button>
+
+</div>
+
 <div id="messages" class="messages">
 
 <div class="message ai">
@@ -775,10 +1038,10 @@ AI
 </div>
 
 <div class="bubble">
-こんにちは！
-Study Coach AIのALIです。
+こんにちは。ALIです。
 
-分からない問題やテスト勉強など何でも質問してください。
+分からない問題やテスト勉強など、
+気軽に質問してください。
 </div>
 
 </div>
@@ -793,13 +1056,21 @@ Study Coach AIのALIです。
 IMG
 </button>
 
-<button class="btn btnWhite" onclick="voice()">
+<button class="btn btnWhite" onclick="startVoice()">
 MIC
 </button>
 
-<input id="chatInput" class="input" placeholder="質問を入力してください">
+<input
+  id="chatInput"
+  class="input"
+  placeholder="質問を入力してください"
+  onkeydown="handleEnter(event)"
+>
 
-<button class="btn btnPrimary" onclick="send()">
+<button
+  class="btn btnPrimary sendButton"
+  onclick="sendMessage()"
+>
 送信
 </button>
 
@@ -809,141 +1080,283 @@ MIC
 
 </div>
 
-<div>
+<!-- SIDEBAR -->
+
+<aside>
+
+<!-- STATS -->
 
 <div class="card sideCard">
 
-<b>クイック学習</b>
+<div class="sideTitle">
+学習データ
+</div>
 
-<button class="btn btnWhite quick" onclick="quick('数学の問題を5問出して')">
-数学問題
+<div class="statsGrid">
+
+<div class="stat">
+<div class="statLabel">
+今日の学習
+</div>
+<div class="statValue" id="todayStudy">
+0分
+</div>
+</div>
+
+<div class="stat">
+<div class="statLabel">
+今週
+</div>
+<div class="statValue" id="weekStudy">
+0分
+</div>
+</div>
+
+<div class="stat">
+<div class="statLabel">
+セッション
+</div>
+<div class="statValue" id="sessionCount">
+0
+</div>
+</div>
+
+<div class="stat">
+<div class="statLabel">
+質問数
+</div>
+<div class="statValue" id="questionCount">
+0
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- TIMER -->
+
+<div class="card sideCard timer">
+
+<div class="sideTitle">
+学習タイマー
+</div>
+
+<div id="timerDisplay" class="timerDisplay">
+25:00
+</div>
+
+<div id="timerStatus" class="timerStatus">
+学習準備中
+</div>
+
+<div class="timerButtons">
+
+<button class="btn btnPrimary btnSmall" onclick="startTimer()">
+開始
 </button>
 
-<button class="btn btnWhite quick" onclick="quick('英単語を10問出して')">
-英単語
+<button class="btn btnWhite btnSmall" onclick="pauseTimer()">
+停止
 </button>
 
-<button class="btn btnWhite quick" onclick="quick('テスト対策を作って')">
-テスト対策
+<button class="btn btnWhite btnSmall" onclick="resetTimer()">
+リセット
 </button>
 
 </div>
+
+</div>
+
+<!-- GRADE -->
 
 <div class="card sideCard">
 
-<b>学習進捗</b>
-
-<div class="progressItem">
-
-<div class="progressTop">
-<span>数学</span>
-<b>72%</b>
+<div class="sideTitle">
+学年を選択
 </div>
 
-<div class="progress">
-<div style="width:72%"></div>
-</div>
+<div class="gradeButtons">
 
-</div>
+<button
+  id="grade1"
+  class="gradeButton"
+  onclick="selectGrade(1)"
+>
+高1
+</button>
 
-<div class="progressItem">
+<button
+  id="grade2"
+  class="gradeButton"
+  onclick="selectGrade(2)"
+>
+高2
+</button>
 
-<div class="progressTop">
-<span>英語</span>
-<b>58%</b>
-</div>
-
-<div class="progress">
-<div style="width:58%"></div>
-</div>
-
-</div>
-
-<div class="progressItem">
-
-<div class="progressTop">
-<span>国語</span>
-<b>81%</b>
-</div>
-
-<div class="progress">
-<div style="width:81%"></div>
-</div>
+<button
+  id="grade3"
+  class="gradeButton"
+  onclick="selectGrade(3)"
+>
+高3
+</button>
 
 </div>
 
+<div id="units" class="units">
+
+<div style="font-size:11px;color:var(--muted)">
+学年を選択すると教科・単元が表示されます。
 </div>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
 
 <div class="card sideCard">
 
-<b>プロフィール</b>
+<div class="sideTitle">
+プロフィール
+</div>
 
-<p style="font-size:12px;color:var(--muted);margin-top:10px">
+<div style="font-size:11px;color:var(--muted);line-height:1.9">
+
 名前：
-<span id="sideName">太郎</span>
-</p>
+<strong id="profileName">未設定</strong>
 
-<p style="font-size:12px;color:var(--muted);margin-top:6px">
+<br>
+
 年齢：
-<span id="sideAge">未設定</span>
-</p>
+<strong id="profileAge">未設定</strong>
 
-<button class="btn btnWhite quick" onclick="editProfile()">
-プロフィール変更
+<br>
+
+学年：
+<strong id="profileGrade">未設定</strong>
+
+</div>
+
+<button
+  class="btn btnWhite"
+  style="width:100%;margin-top:12px"
+  onclick="openAccount()"
+>
+プロフィール
 </button>
 
 </div>
 
-</div>
+</aside>
 
-</div>
+</section>
 
 <div class="footer">
-© Study Coach AI
+Study Coach AI
 </div>
 
-</div>
+</main>
 
-<!-- ACCOUNT -->
+<!-- =========================
+     AUTH MODAL
+========================= -->
 
-<div id="accountModal" class="modal">
+<div id="authModal" class="modal">
 
 <div class="modalContent">
 
+<div class="modalTop">
+
 <div class="modalTitle">
-アカウント作成
+アカウント
+</div>
+
+<button class="close" onclick="closeAuth()">
+×
+</button>
+
 </div>
 
 <p class="modalText">
-Study Coach AIを利用するためにプロフィールを作成してください。
+Study Coach AIを利用するにはアカウントが必要です。
 </p>
 
+<div class="authSwitch">
+
+<button
+  id="createTab"
+  class="btn btnPrimary"
+  onclick="showCreateForm()"
+>
+アカウント作成
+</button>
+
+<button
+  id="loginTab"
+  class="btn btnWhite"
+  onclick="showLoginForm()"
+>
+ログイン
+</button>
+
+</div>
+
+<div id="createForm">
+
 <div class="field">
 
-<label>名前</label>
+<label>
+名前
+</label>
 
-<input id="nameInput" placeholder="例：太郎">
+<input
+  id="nameInput"
+  placeholder="例：太郎"
+>
 
 </div>
 
 <div class="field">
 
-<label>年齢</label>
+<label>
+年齢
+</label>
 
-<input id="ageInput" type="number" min="1" max="120" placeholder="例：16">
+<input
+  id="ageInput"
+  type="number"
+  min="1"
+  max="120"
+  placeholder="例：16"
+>
 
 </div>
 
 <div class="field">
 
-<label>性別（任意）</label>
+<label>
+学年
+</label>
 
-<select id="genderInput">
+<select id="gradeInput">
 
-<option value="">回答しない</option>
-<option>男性</option>
-<option>女性</option>
-<option>その他</option>
+<option value="">
+選択してください
+</option>
+
+<option value="1">
+高校1年
+</option>
+
+<option value="2">
+高校2年
+</option>
+
+<option value="3">
+高校3年
+</option>
 
 </select>
 
@@ -951,23 +1364,63 @@ Study Coach AIを利用するためにプロフィールを作成してくださ
 
 <div class="field">
 
-<label>メールアドレス</label>
+<label>
+性別（任意）
+</label>
 
-<input id="emailInput" type="email" placeholder="example@email.com">
+<select id="genderInput">
+
+<option value="">
+回答しない
+</option>
+
+<option>
+男性
+</option>
+
+<option>
+女性
+</option>
+
+<option>
+その他
+</option>
+
+</select>
 
 </div>
 
 <div class="field">
 
-<label>パスワード</label>
+<label>
+メールアドレス
+</label>
 
-<input id="passwordInput" type="password" placeholder="6文字以上">
+<input
+  id="emailInput"
+  type="email"
+  placeholder="example@email.com"
+>
+
+</div>
+
+<div class="field">
+
+<label>
+パスワード
+</label>
+
+<input
+  id="passwordInput"
+  type="password"
+  placeholder="6文字以上"
+>
 
 </div>
 
 <label class="check">
 
-<input id="terms" type="checkbox">
+<input id="termsCheck" type="checkbox">
 
 <span>
 利用規約を確認し、サービス利用条件に同意します。
@@ -977,29 +1430,116 @@ Study Coach AIを利用するためにプロフィールを作成してくださ
 
 <label class="check">
 
-<input id="privacy" type="checkbox">
+<input id="privacyCheck" type="checkbox">
 
 <span>
-個人情報の取り扱いについて確認し同意します。
+個人情報の取り扱いについて確認しました。
 </span>
 
 </label>
 
 <label class="check">
 
-<input id="analysis" type="checkbox">
+<input id="analysisCheck" type="checkbox">
 
 <span>
-年齢や学習した教科、質問内容などを、
-個人が特定されない形で学習傾向の分析・サービス改善に利用することに同意します。
+年齢・学年・学習教科・質問傾向などを、
+個人が特定されない形で学習傾向の分析やサービス改善に利用することに同意します。
 この同意は任意です。
 </span>
 
 </label>
 
-<button class="btn btnPrimary createButton" onclick="createAccount()">
-アカウントを作成
+<button
+  class="btn btnPrimary full"
+  onclick="requestVerification()"
+>
+アカウント作成
 </button>
+
+</div>
+
+<!-- VERIFY -->
+
+<div id="verifyForm" class="hidden">
+
+<div class="field">
+
+<label>
+認証コード
+</label>
+
+<input
+  id="verificationCode"
+  class="codeBox"
+  maxlength="6"
+  inputmode="numeric"
+  placeholder="000000"
+>
+
+</div>
+
+<p class="modalText" style="margin-top:12px">
+入力されたメールアドレスに認証コードを送信します。
+実際のメール送信はサーバー側の認証機能と接続して利用します。
+</p>
+
+<button
+  class="btn btnPrimary full"
+  onclick="verifyAccount()"
+>
+認証してアカウントを作成
+</button>
+
+<button
+  class="btn btnWhite full"
+  onclick="showCreateForm()"
+>
+戻る
+</button>
+
+</div>
+
+<!-- LOGIN -->
+
+<div id="loginForm" class="hidden">
+
+<div class="field">
+
+<label>
+メールアドレス
+</label>
+
+<input
+  id="loginEmail"
+  type="email"
+  placeholder="example@email.com"
+>
+
+</div>
+
+<div class="field">
+
+<label>
+パスワード
+</label>
+
+<input
+  id="loginPassword"
+  type="password"
+  placeholder="パスワード"
+>
+
+</div>
+
+<button
+  class="btn btnPrimary full"
+  onclick="login()"
+>
+ログイン
+</button>
+
+</div>
 
 </div>
 
@@ -1011,31 +1551,52 @@ Study Coach AIを利用するためにプロフィールを作成してくださ
 
 <div class="modalContent">
 
-<button class="closeBtn" onclick="closePhoto()">×</button>
+<div class="modalTop">
 
 <div class="modalTitle">
 問題画像分析
 </div>
 
+<button class="close" onclick="closePhoto()">
+×
+</button>
+
+</div>
+
 <p class="modalText">
-問題の写真を選択してください。
+数学・英語などの問題画像を選択してください。
 </p>
 
 <label class="upload">
 
-<b>画像を選択</b>
+<strong>
+画像を選択
+</strong>
 
-<span style="font-size:12px;color:var(--muted)">
-JPG・PNG対応
+<br>
+
+<span style="font-size:11px;color:var(--muted)">
+JPG / PNG
 </span>
 
-<input id="photoInput" type="file" accept="image/*" onchange="preview(event)">
+<input
+  id="photoInput"
+  type="file"
+  accept="image/*"
+  onchange="previewPhoto(event)"
+>
 
-<img id="previewImage" class="preview">
+<img
+  id="previewImage"
+  class="preview"
+>
 
 </label>
 
-<button class="btn btnPrimary createButton" onclick="analyzePhoto()">
+<button
+  class="btn btnPrimary full"
+  onclick="analyzePhoto()"
+>
 AIで分析
 </button>
 
@@ -1047,19 +1608,34 @@ AIで分析
 
 <div id="musicPanel" class="musicPanel">
 
-<b>Ambient BGM</b>
+<b>
+Ambient BGM
+</b>
 
-<p style="font-size:11px;color:var(--muted);margin-top:6px">
-ボタンを押すと宇宙風アンビエントBGMが流れます。
+<p style="font-size:11px;color:var(--muted);margin-top:5px">
+ブラウザの自動再生制限により、
+最初だけ再生ボタンを押してください。
 </p>
 
 <div style="display:flex;gap:8px;margin-top:12px">
 
-<button id="musicBtn" class="btn btnPrimary" onclick="toggleMusic()">
+<button
+  id="musicButton"
+  class="btn btnPrimary btnSmall"
+  onclick="toggleMusic()"
+>
 再生
 </button>
 
-<input id="volume" type="range" min="0" max="1" step=".01" value=".2" oninput="changeVolume()">
+<input
+  id="volume"
+  type="range"
+  min="0"
+  max="1"
+  step=".01"
+  value=".2"
+  oninput="changeVolume()"
+>
 
 </div>
 
@@ -1069,35 +1645,54 @@ AIで分析
 
 <div id="adminModal" class="modal">
 
-<div class="modalContent">
+<div class="modalContent modalLarge">
 
-<button class="closeBtn" onclick="closeAdmin()">×</button>
+<div class="modalTop">
 
 <div class="modalTitle">
 管理画面
 </div>
 
+<button class="close" onclick="closeAdmin()">
+×
+</button>
+
+</div>
+
 <p class="modalText">
-この端末で保存されたアカウント情報を確認できます。
+現在はこのブラウザに保存されたデータのみ表示しています。
+本番環境ではWorker・データベースと接続して管理する必要があります。
 </p>
+
+<div class="tableWrap">
 
 <table class="adminTable">
 
 <thead>
 
 <tr>
+
 <th>名前</th>
 <th>年齢</th>
+<th>学年</th>
 <th>分析同意</th>
+<th>作成日時</th>
+
 </tr>
 
 </thead>
 
-<tbody id="adminBody"></tbody>
+<tbody id="adminBody">
+</tbody>
 
 </table>
 
-<button class="btn btnDanger createButton" onclick="deleteAccount()">
+</div>
+
+<button
+  class="btn btnDanger full"
+  onclick="deleteLocalAccount()"
+>
 この端末のアカウントを削除
 </button>
 
@@ -1107,425 +1702,502 @@ AIで分析
 
 <script>
 
-const API_URL="https://study-coach-ai.6y7ps8znts.workers.dev/";
+/* =========================
+   CONFIG
+========================= */
+
+const API_URL =
+"https://study-coach-ai.6y7ps8znts.workers.dev/";
+
+/* =========================
+   DATA
+========================= */
+
+const curriculum={
+
+1:{
+"数学":[
+"数と式",
+"集合と命題",
+"1次不等式",
+"2次関数",
+"図形と計量",
+"データの分析",
+"場合の数と確率"
+],
+"英語":[
+"英文法",
+"文型",
+"時制",
+"助動詞",
+"受動態",
+"不定詞",
+"動名詞",
+"関係詞"
+],
+"国語":[
+"現代文",
+"言語文化",
+"古文",
+"漢文",
+"評論",
+"小説"
+],
+"理科":[
+"物理基礎",
+"化学基礎",
+"生物基礎",
+"地学基礎"
+],
+"地歴公民":[
+"地理総合",
+"歴史総合",
+"公共"
+]
+},
+
+2:{
+"数学":[
+"図形と方程式",
+"三角関数",
+"指数関数・対数関数",
+"微分法",
+"積分法",
+"数列",
+"統計的な推測"
+],
+"英語":[
+"論理・表現",
+"英文解釈",
+"長文読解",
+"英作文",
+"語彙・熟語",
+"リスニング"
+],
+"国語":[
+"現代文読解",
+"古文読解",
+"漢文",
+"文学史",
+"評論",
+"小説"
+],
+"理科":[
+"物理",
+"化学",
+"生物",
+"地学"
+],
+"地歴公民":[
+"日本史",
+"世界史",
+"地理",
+"政治・経済"
+]
+},
+
+3:{
+"数学":[
+"数学III",
+"極限",
+"微分法",
+"積分法",
+"複素数平面",
+"平面上の曲線",
+"数学C"
+],
+"英語":[
+"長文読解",
+"英文解釈",
+"英作文",
+"文法総合",
+"語彙・熟語",
+"リスニング"
+],
+"国語":[
+"現代文",
+"古文",
+"漢文",
+"評論",
+"小説",
+"入試演習"
+],
+"理科":[
+"物理演習",
+"化学演習",
+"生物演習",
+"地学演習"
+],
+"地歴公民":[
+"日本史演習",
+"世界史演習",
+"地理演習",
+"政治・経済"
+]
+}
+
+};
+
+/* =========================
+   STATE
+========================= */
+
+let selectedGrade=0;
+
+let timerSeconds=25*60;
+let timerRunning=false;
+let timerInterval=null;
+
+let totalStudySeconds=
+Number(localStorage.getItem("studySeconds")||0);
+
+let sessions=
+Number(localStorage.getItem("studySessions")||0);
+
+let questions=
+Number(localStorage.getItem("studyQuestions")||0);
 
 let audioContext=null;
 let masterGain=null;
-let playing=false;
-let timer=null;
+let musicPlaying=false;
+let musicTimer=null;
 
-/* START */
+/* =========================
+   STARTUP
+========================= */
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
-const account=localStorage.getItem("studyCoachAccount");
+loadAccount();
 
-if(!account){
+updateStats();
 
-document.getElementById("accountModal").style.display="flex";
+updateTimerDisplay();
 
-}else{
+const savedGrade=
+Number(localStorage.getItem("selectedGrade")||0);
 
-loadProfile();
+if(savedGrade){
 
-}
-
-});
-
-/* PROFILE */
-
-function loadProfile(){
-
-const user=JSON.parse(localStorage.getItem("studyCoachAccount"));
-
-displayName.textContent=user.name;
-sideName.textContent=user.name;
-sideAge.textContent=user.age;
+selectGrade(savedGrade);
 
 }
 
-function editProfile(){
+}
+);
 
-const user=JSON.parse(localStorage.getItem("studyCoachAccount"));
+/* =========================
+   AUTH
+========================= */
 
-nameInput.value=user.name;
-ageInput.value=user.age;
-genderInput.value=user.gender;
-emailInput.value=user.email;
-passwordInput.value="";
+function openLogin(){
 
-terms.checked=true;
-privacy.checked=true;
-analysis.checked=user.analysis;
+document.getElementById("authModal").style.display="flex";
 
-accountModal.style.display="flex";
+showLoginForm();
 
 }
 
-function createAccount(){
+function openAccount(){
 
-const name=nameInput.value.trim();
-const age=ageInput.value;
-const gender=genderInput.value;
-const email=emailInput.value.trim();
-const password=passwordInput.value;
+document.getElementById("authModal").style.display="flex";
 
-if(!name||!age||!email||password.length<6){
+showCreateForm();
 
-alert("名前・年齢・メール・6文字以上のパスワードを入力してください");
+}
+
+function closeAuth(){
+
+document.getElementById("authModal").style.display="none";
+
+}
+
+function showCreateForm(){
+
+document.getElementById("createForm")
+.classList.remove("hidden");
+
+document.getElementById("loginForm")
+.classList.add("hidden");
+
+document.getElementById("verifyForm")
+.classList.add("hidden");
+
+}
+
+function showLoginForm(){
+
+document.getElementById("createForm")
+.classList.add("hidden");
+
+document.getElementById("verifyForm")
+.classList.add("hidden");
+
+document.getElementById("loginForm")
+.classList.remove("hidden");
+
+}
+
+/*
+  本番ではここでWorkerへ送信して
+  メール認証コードを発行する。
+*/
+
+function requestVerification(){
+
+const name=
+document.getElementById("nameInput").value.trim();
+
+const age=
+document.getElementById("ageInput").value;
+
+const grade=
+document.getElementById("gradeInput").value;
+
+const email=
+document.getElementById("emailInput").value.trim();
+
+const password=
+document.getElementById("passwordInput").value;
+
+if(!name){
+
+alert("名前を入力してください。");
+return;
+
+}
+
+if(!age){
+
+alert("年齢を入力してください。");
+return;
+
+}
+
+if(!grade){
+
+alert("高校1〜3年を選択してください。");
+return;
+
+}
+
+if(!email){
+
+alert("メールアドレスを入力してください。");
+return;
+
+}
+
+if(password.length<6){
+
+alert("パスワードは6文字以上にしてください。");
+return;
+
+}
+
+if(
+!document.getElementById("termsCheck").checked ||
+!document.getElementById("privacyCheck").checked
+){
+
+alert(
+"利用規約と個人情報の取り扱いへの同意が必要です。"
+);
 
 return;
 
 }
 
-if(!terms.checked||!privacy.checked){
+/*
+  認証コード送信APIは次のWorker実装で接続する。
+*/
 
-alert("利用規約と個人情報への同意が必要です");
+localStorage.setItem(
+"pendingAccount",
+JSON.stringify({
 
-return;
+name:name,
+age:age,
+grade:Number(grade),
+gender:
+document.getElementById("genderInput").value,
+email:email,
+password:password,
+analysis:
+document.getElementById("analysisCheck").checked
 
-}
-
-const account={
-name,
-age,
-gender,
-email,
-password,
-analysis:analysis.checked,
-created:new Date().toLocaleString()
-};
-
-localStorage.setItem("studyCoachAccount",JSON.stringify(account));
-
-accountModal.style.display="none";
-
-loadProfile();
-
-}
-
-/* CHAT */
-
-function focusChat(){
-chatInput.focus();
-}
-
-function quick(text){
-chatInput.value=text;
-send();
-}
-
-function addMessage(text,type){
-
-const row=document.createElement("div");
-row.className="message "+type;
-
-const av=document.createElement("div");
-av.className="avatar";
-av.textContent=type==="ai"?"AI":"YOU";
-
-const bubble=document.createElement("div");
-bubble.className="bubble";
-bubble.textContent=text;
-
-row.appendChild(av);
-row.appendChild(bubble);
-
-messages.appendChild(row);
-
-messages.scrollTop=messages.scrollHeight;
-
-}
-
-async function send(){
-
-const text=chatInput.value.trim();
-
-if(!text)return;
-
-addMessage(text,"user");
-
-chatInput.value="";
-
-const thinking=addMessage("ALIが回答を準備しています...","ai");
-
-try{
-
-const response=await fetch(API_URL,{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-message:text,
-name:JSON.parse(localStorage.getItem("studyCoachAccount")).name,
-age:JSON.parse(localStorage.getItem("studyCoachAccount")).age
 })
-});
+);
 
-const data=await response.json();
+document.getElementById("createForm")
+.classList.add("hidden");
 
-thinking.remove();
+document.getElementById("verifyForm")
+.classList.remove("hidden");
 
-if(!response.ok){
+alert(
+"認証コード入力画面を開きました。\n\n本番環境では、このタイミングで入力されたメールアドレスへ認証コードを送信します。"
+);
 
-addMessage("AIサーバーでエラーが発生しました。","ai");
+}
 
+function verifyAccount(){
+
+const code=
+document.getElementById("verificationCode")
+.value.trim();
+
+if(!/^[0-9]{6}$/.test(code)){
+
+alert("6桁の認証コードを入力してください。");
 return;
 
 }
 
-addMessage(data.answer||"回答がありませんでした。","ai");
+const pending=
+JSON.parse(
+localStorage.getItem("pendingAccount")
+);
 
-}catch(e){
+if(!pending){
 
-thinking.remove();
-
-addMessage("接続に失敗しました。","ai");
-
-}
-
-}
-
-/* PHOTO */
-
-function openPhoto(){
-photoModal.style.display="flex";
-}
-
-function closePhoto(){
-photoModal.style.display="none";
-}
-
-function preview(event){
-
-const file=event.target.files[0];
-
-if(!file)return;
-
-previewImage.src=URL.createObjectURL(file);
-previewImage.style.display="block";
-
-}
-
-function toBase64(file){
-
-return new Promise(resolve=>{
-
-const r=new FileReader();
-
-r.onload=()=>resolve(r.result);
-
-r.readAsDataURL(file);
-
-});
-
-}
-
-async function analyzePhoto(){
-
-const file=photoInput.files[0];
-
-if(!file){
-
-alert("画像を選択してください");
-
+alert("アカウント情報が見つかりません。");
 return;
 
 }
 
-closePhoto();
+/*
+  本番ではWorker側でコードを検証する。
+  現段階ではサイトUI確認用。
+*/
 
-addMessage("問題画像を送信しました。","user");
+localStorage.setItem(
+"studyCoachAccount",
+JSON.stringify({
 
-const thinking=addMessage("画像を分析しています...","ai");
+...pending,
 
-try{
+verified:true,
 
-const image=await toBase64(file);
+createdAt:
+new Date().toISOString()
 
-const response=await fetch(API_URL,{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-message:"この画像の問題を高校生向けに分かりやすく解説してください。",
-image:image
 })
-});
+);
 
-const data=await response.json();
+localStorage.removeItem("pendingAccount");
 
-thinking.remove();
+closeAuth();
 
-addMessage(data.answer||"読み取れませんでした。","ai");
+loadAccount();
 
-}catch{
+selectGrade(pending.grade);
 
-thinking.remove();
-
-addMessage("画像分析に失敗しました。","ai");
+alert("アカウントを作成しました。");
 
 }
 
-}
+function login(){
 
-/* VOICE */
+const email=
+document.getElementById("loginEmail")
+.value.trim();
 
-function voice(){
+const password=
+document.getElementById("loginPassword")
+.value;
 
-const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const saved=
+localStorage.getItem("studyCoachAccount");
 
-if(!SR){
+if(!saved){
 
-alert("このブラウザでは音声入力は利用できません");
+alert(
+"このブラウザにはアカウント情報がありません。"
+);
 
 return;
 
 }
 
-const r=new SR();
+const account=
+JSON.parse(saved);
 
-r.lang="ja-JP";
+if(
+email!==account.email ||
+password!==account.password
+){
 
-r.onresult=e=>{
-chatInput.value=e.results[0][0].transcript;
-};
-
-r.start();
-
-}
-
-/* MUSIC */
-
-function toggleMusicPanel(){
-
-musicPanel.style.display=
-musicPanel.style.display==="block"?"none":"block";
-
-}
-
-function setup(){
-
-if(audioContext)return;
-
-audioContext=new (window.AudioContext||window.webkitAudioContext)();
-
-masterGain=audioContext.createGain();
-
-masterGain.gain.value=0.2;
-
-masterGain.connect(audioContext.destination);
-
-}
-
-function tone(freq,time){
-
-const o=audioContext.createOscillator();
-const g=audioContext.createGain();
-
-o.frequency.value=freq;
-o.type="sine";
-
-g.gain.setValueAtTime(0,audioContext.currentTime);
-g.gain.linearRampToValueAtTime(.05,audioContext.currentTime+.8);
-g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+time);
-
-o.connect(g);
-g.connect(masterGain);
-
-o.start();
-o.stop(audioContext.currentTime+time);
-
-}
-
-async function toggleMusic(){
-
-setup();
-
-await audioContext.resume();
-
-if(!playing){
-
-playing=true;
-
-musicBtn.textContent="停止";
-
-loop();
-
-}else{
-
-playing=false;
-
-clearTimeout(timer);
-
-musicBtn.textContent="再生";
-
-}
-
-}
-
-function loop(){
-
-if(!playing)return;
-
-tone(130,5);
-
-setTimeout(()=>playing&&tone(164,5),1200);
-
-setTimeout(()=>playing&&tone(196,5),2400);
-
-timer=setTimeout(loop,5200);
-
-}
-
-function changeVolume(){
-
-if(masterGain){
-
-masterGain.gain.value=Number(volume.value);
-
-}
-
-}
-
-/* ADMIN */
-
-function openAdmin(){
-
-const pin=prompt("管理者PINを入力してください");
-
-if(pin!=="1234"){
-
-alert("PINが違います");
+alert(
+"メールアドレスまたはパスワードが違います。"
+);
 
 return;
 
 }
 
-const user=JSON.parse(localStorage.getItem("studyCoachAccount"));
+closeAuth();
 
-adminBody.innerHTML="";
+loadAccount();
 
-if(user){
-
-adminBody.innerHTML=
-`<tr>
-<td>${user.name}</td>
-<td>${user.age}</td>
-<td>${user.analysis?"同意":"未同意"}</td>
-</tr>`;
+alert("ログインしました。");
 
 }
 
-adminModal.style.display="flex";
+/* =========================
+   ACCOUNT
+========================= */
+
+function loadAccount(){
+
+const saved=
+localStorage.getItem("studyCoachAccount");
+
+if(!saved){
+
+document.getElementById("displayName")
+.textContent="ゲスト";
+
+document.getElementById("profileName")
+.textContent="未設定";
+
+document.getElementById("profileAge")
+.textContent="未設定";
+
+document.getElementById("profileGrade")
+.textContent="未設定";
+
+document.getElementById("headerAuthButton")
+.textContent="ログイン";
+
+return;
 
 }
 
-function closeAdmin(){
-adminModal.style.display="none";
+const account=
+JSON.parse(saved);
+
+document.getElementById("displayName")
+.textContent=account.name;
+
+document.getElementById("profileName")
+.textContent=account.name;
+
+document.getElementById("profileAge")
+.textContent=account.age;
+
+document.getElementById("profileGrade")
+.textContent=
+"高"+account.grade;
+
+document.getElementById("headerAuthButton")
+.textContent="ログアウト";
+
 }
 
-function deleteAccount(){
-
-if(confirm("この端末のアカウントを削除しますか？")){
+function logout(){
 
 localStorage.removeItem("studyCoachAccount");
 
@@ -1533,7 +2205,1015 @@ location.reload();
 
 }
 
+/* =========================
+   GRADE
+========================= */
+
+function selectGrade(grade){
+
+selectedGrade=grade;
+
+localStorage.setItem(
+"selectedGrade",
+grade
+);
+
+document
+.querySelectorAll(".gradeButton")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+document.getElementById(
+"grade"+grade
+).classList.add("active");
+
+const data=
+curriculum[grade];
+
+const units=
+document.getElementById("units");
+
+units.innerHTML="";
+
+Object.entries(data).forEach(
+([subject,items])=>{
+
+const group=
+document.createElement("div");
+
+group.className="unitGroup";
+
+const title=
+document.createElement("div");
+
+title.className="unitSubject";
+
+title.textContent=subject;
+
+group.appendChild(title);
+
+items.forEach(unit=>{
+
+const row=
+document.createElement("div");
+
+row.className="unit";
+
+row.textContent="・"+unit;
+
+group.appendChild(row);
+
+});
+
+units.appendChild(group);
+
+});
+
 }
+
+/* =========================
+   CHAT
+========================= */
+
+function focusChat(){
+
+document
+.getElementById("chatInput")
+.focus();
+
+}
+
+function handleEnter(event){
+
+if(
+event.key==="Enter" &&
+!event.shiftKey
+){
+
+event.preventDefault();
+
+sendMessage();
+
+}
+
+}
+
+function quickQuestion(text){
+
+document.getElementById(
+"chatInput"
+).value=text;
+
+sendMessage();
+
+}
+
+function addMessage(text,type){
+
+const row=
+document.createElement("div");
+
+row.className=
+"message "+type;
+
+const avatar=
+document.createElement("div");
+
+avatar.className="avatar";
+
+avatar.textContent=
+type==="ai"?"AI":"YOU";
+
+const bubble=
+document.createElement("div");
+
+bubble.className="bubble";
+
+bubble.textContent=text;
+
+row.appendChild(avatar);
+row.appendChild(bubble);
+
+document.getElementById(
+"messages"
+).appendChild(row);
+
+const messages=
+document.getElementById("messages");
+
+messages.scrollTop=
+messages.scrollHeight;
+
+return row;
+
+}
+
+async function sendMessage(){
+
+const input=
+document.getElementById("chatInput");
+
+const text=
+input.value.trim();
+
+if(!text)
+return;
+
+addMessage(text,"user");
+
+input.value="";
+
+questions++;
+
+localStorage.setItem(
+"studyQuestions",
+questions
+);
+
+updateStats();
+
+const thinking=
+addMessage(
+"ALIが回答を準備しています...",
+"ai"
+);
+
+try{
+
+const account=
+JSON.parse(
+localStorage.getItem("studyCoachAccount")||"{}"
+);
+
+const response=
+await fetch(
+API_URL,
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:JSON.stringify({
+
+message:text,
+
+name:
+account.name||"ゲスト",
+
+age:
+account.age||null,
+
+grade:
+account.grade||selectedGrade||null,
+
+analysisConsent:
+account.analysis||false
+
+})
+
+});
+
+let data={};
+
+try{
+
+data=await response.json();
+
+}catch{}
+
+thinking.remove();
+
+if(!response.ok){
+
+addMessage(
+"AIサーバーでエラーが発生しました。\n"+
+"エラーコード: "+
+response.status,
+"ai"
+);
+
+return;
+
+}
+
+addMessage(
+data.answer||
+"AIから回答を受け取れませんでした。",
+"ai"
+);
+
+}catch(error){
+
+console.error(error);
+
+thinking.remove();
+
+addMessage(
+"AIサーバーに接続できませんでした。",
+"ai"
+);
+
+}
+
+}
+
+function clearChat(){
+
+if(
+confirm(
+"チャット履歴を消去しますか？"
+)
+){
+
+document.getElementById(
+"messages"
+).innerHTML="";
+
+addMessage(
+"チャット履歴を消去しました。",
+"ai"
+);
+
+}
+
+}
+
+/* =========================
+   PHOTO
+========================= */
+
+function openPhoto(){
+
+document.getElementById(
+"photoModal"
+).style.display="flex";
+
+}
+
+function closePhoto(){
+
+document.getElementById(
+"photoModal"
+).style.display="none";
+
+}
+
+function previewPhoto(event){
+
+const file=
+event.target.files[0];
+
+if(!file)
+return;
+
+const img=
+document.getElementById(
+"previewImage"
+);
+
+img.src=
+URL.createObjectURL(file);
+
+img.style.display="block";
+
+}
+
+function fileToBase64(file){
+
+return new Promise(
+(resolve,reject)=>{
+
+const reader=
+new FileReader();
+
+reader.onload=
+()=>resolve(reader.result);
+
+reader.onerror=
+reject;
+
+reader.readAsDataURL(file);
+
+});
+
+}
+
+async function analyzePhoto(){
+
+const file=
+document.getElementById(
+"photoInput"
+).files[0];
+
+if(!file){
+
+alert(
+"先に画像を選択してください。"
+);
+
+return;
+
+}
+
+closePhoto();
+
+addMessage(
+"問題画像を送信しました。",
+"user"
+);
+
+const thinking=
+addMessage(
+"画像を分析しています...",
+"ai"
+);
+
+try{
+
+const image=
+await fileToBase64(file);
+
+const account=
+JSON.parse(
+localStorage.getItem(
+"studyCoachAccount"
+)||"{}"
+);
+
+const response=
+await fetch(
+API_URL,
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:JSON.stringify({
+
+message:
+"この画像に写っている問題を読み取り、高校生にも分かりやすく解説してください。",
+
+image:image,
+
+name:
+account.name||"ゲスト",
+
+age:
+account.age||null,
+
+grade:
+account.grade||selectedGrade||null,
+
+analysisConsent:
+account.analysis||false
+
+})
+
+});
+
+let data={};
+
+try{
+data=await response.json();
+}catch{}
+
+thinking.remove();
+
+if(!response.ok){
+
+addMessage(
+"画像分析でエラーが発生しました。\n"+
+"エラーコード: "+
+response.status,
+"ai"
+);
+
+return;
+
+}
+
+addMessage(
+data.answer||
+"画像を読み取れませんでした。",
+"ai"
+);
+
+}catch(error){
+
+thinking.remove();
+
+addMessage(
+"画像分析に失敗しました。",
+"ai"
+);
+
+}
+
+}
+
+/* =========================
+   VOICE
+========================= */
+
+function startVoice(){
+
+const Recognition=
+window.SpeechRecognition||
+window.webkitSpeechRecognition;
+
+if(!Recognition){
+
+alert(
+"このブラウザでは音声入力を利用できません。"
+);
+
+return;
+
+}
+
+const recognition=
+new Recognition();
+
+recognition.lang="ja-JP";
+
+recognition.interimResults=false;
+
+recognition.onresult=
+event=>{
+
+document.getElementById(
+"chatInput"
+).value=
+event.results[0][0].transcript;
+
+focusChat();
+
+};
+
+recognition.start();
+
+}
+
+/* =========================
+   TIMER
+========================= */
+
+function updateTimerDisplay(){
+
+const min=
+Math.floor(timerSeconds/60);
+
+const sec=
+timerSeconds%60;
+
+document.getElementById(
+"timerDisplay"
+).textContent=
+String(min).padStart(2,"0")+
+":"+
+String(sec).padStart(2,"0");
+
+}
+
+function startTimer(){
+
+if(timerRunning)
+return;
+
+timerRunning=true;
+
+document.getElementById(
+"timerStatus"
+).textContent=
+"学習中";
+
+timerInterval=
+setInterval(()=>{
+
+timerSeconds--;
+
+totalStudySeconds++;
+
+localStorage.setItem(
+"studySeconds",
+totalStudySeconds
+);
+
+updateTimerDisplay();
+updateStats();
+
+if(timerSeconds<=0){
+
+clearInterval(timerInterval);
+
+timerRunning=false;
+
+sessions++;
+
+localStorage.setItem(
+"studySessions",
+sessions
+);
+
+timerSeconds=25*60;
+
+updateTimerDisplay();
+
+document.getElementById(
+"timerStatus"
+).textContent=
+"セッション完了";
+
+alert(
+"25分の学習セッションが完了しました！"
+);
+
+}
+
+},1000);
+
+}
+
+function pauseTimer(){
+
+if(!timerRunning)
+return;
+
+clearInterval(timerInterval);
+
+timerRunning=false;
+
+document.getElementById(
+"timerStatus"
+).textContent=
+"一時停止";
+
+}
+
+function resetTimer(){
+
+clearInterval(timerInterval);
+
+timerRunning=false;
+
+timerSeconds=25*60;
+
+updateTimerDisplay();
+
+document.getElementById(
+"timerStatus"
+).textContent=
+"学習準備中";
+
+}
+
+/* =========================
+   STATS
+========================= */
+
+function updateStats(){
+
+const minutes=
+Math.floor(
+totalStudySeconds/60
+);
+
+document.getElementById(
+"todayStudy"
+).textContent=
+minutes+"分";
+
+document.getElementById(
+"weekStudy"
+).textContent=
+minutes+"分";
+
+document.getElementById(
+"sessionCount"
+).textContent=
+sessions;
+
+document.getElementById(
+"questionCount"
+).textContent=
+questions;
+
+}
+
+/* =========================
+   MUSIC
+========================= */
+
+function toggleMusicPanel(){
+
+const panel=
+document.getElementById(
+"musicPanel"
+);
+
+panel.style.display=
+panel.style.display==="block"
+?"none"
+:"block";
+
+}
+
+function setupAudio(){
+
+if(audioContext)
+return;
+
+audioContext=
+new(
+window.AudioContext||
+window.webkitAudioContext
+)();
+
+masterGain=
+audioContext.createGain();
+
+masterGain.gain.value=
+Number(
+document.getElementById(
+"volume"
+).value
+);
+
+masterGain.connect(
+audioContext.destination
+);
+
+}
+
+function playTone(freq,duration){
+
+if(!audioContext)
+return;
+
+const oscillator=
+audioContext.createOscillator();
+
+const gain=
+audioContext.createGain();
+
+oscillator.type="sine";
+
+oscillator.frequency.value=freq;
+
+gain.gain.setValueAtTime(
+0,
+audioContext.currentTime
+);
+
+gain.gain.linearRampToValueAtTime(
+.04,
+audioContext.currentTime+1
+);
+
+gain.gain.exponentialRampToValueAtTime(
+.001,
+audioContext.currentTime+duration
+);
+
+oscillator.connect(gain);
+
+gain.connect(masterGain);
+
+oscillator.start();
+
+oscillator.stop(
+audioContext.currentTime+
+duration
+);
+
+}
+
+function musicLoop(){
+
+if(!musicPlaying)
+return;
+
+playTone(130.81,5);
+
+setTimeout(
+()=>{
+if(musicPlaying)
+playTone(164.81,5);
+},
+1200
+);
+
+setTimeout(
+()=>{
+if(musicPlaying)
+playTone(196,5);
+},
+2500
+);
+
+musicTimer=
+setTimeout(
+musicLoop,
+5200
+);
+
+}
+
+async function toggleMusic(){
+
+setupAudio();
+
+if(
+audioContext.state==="suspended"
+){
+
+await audioContext.resume();
+
+}
+
+const button=
+document.getElementById(
+"musicButton"
+);
+
+if(!musicPlaying){
+
+musicPlaying=true;
+
+button.textContent="停止";
+
+musicLoop();
+
+}else{
+
+musicPlaying=false;
+
+clearTimeout(musicTimer);
+
+button.textContent="再生";
+
+}
+
+}
+
+function changeVolume(){
+
+if(!masterGain)
+return;
+
+masterGain.gain.value=
+Number(
+document.getElementById(
+"volume"
+).value
+);
+
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+function openAdmin(){
+
+const account=
+localStorage.getItem(
+"studyCoachAccount"
+);
+
+if(!account){
+
+alert(
+"まずアカウントを作成してください。"
+);
+
+return;
+
+}
+
+/*
+  ここは試作版。
+  本番では管理者認証をWorker側で行う。
+*/
+
+const pin=
+prompt(
+"管理者認証が必要です。"
+);
+
+if(pin!=="1234"){
+
+alert(
+"管理者認証に失敗しました。"
+);
+
+return;
+
+}
+
+const user=
+JSON.parse(account);
+
+const body=
+document.getElementById(
+"adminBody"
+);
+
+body.innerHTML="";
+
+const row=
+document.createElement("tr");
+
+row.innerHTML=`
+<td>${escapeHTML(user.name)}</td>
+<td>${escapeHTML(String(user.age))}</td>
+<td>高${escapeHTML(String(user.grade))}</td>
+<td>${user.analysis?"同意":"未同意"}</td>
+<td>${escapeHTML(user.createdAt||"")}</td>
+`;
+
+body.appendChild(row);
+
+document.getElementById(
+"adminModal"
+).style.display="flex";
+
+}
+
+function closeAdmin(){
+
+document.getElementById(
+"adminModal"
+).style.display="none";
+
+}
+
+function deleteLocalAccount(){
+
+if(
+confirm(
+"この端末に保存されているアカウント情報を削除しますか？"
+)
+){
+
+localStorage.removeItem(
+"studyCoachAccount"
+);
+
+location.reload();
+
+}
+
+}
+
+function escapeHTML(value){
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+function openAccount(){
+
+const saved=
+localStorage.getItem(
+"studyCoachAccount"
+);
+
+if(saved){
+
+const user=
+JSON.parse(saved);
+
+document.getElementById(
+"nameInput"
+).value=user.name;
+
+document.getElementById(
+"ageInput"
+).value=user.age;
+
+document.getElementById(
+"gradeInput"
+).value=user.grade;
+
+document.getElementById(
+"genderInput"
+).value=user.gender||"";
+
+document.getElementById(
+"emailInput"
+).value=user.email;
+
+document.getElementById(
+"termsCheck"
+).checked=true;
+
+document.getElementById(
+"privacyCheck"
+).checked=true;
+
+document.getElementById(
+"analysisCheck"
+).checked=
+user.analysis||false;
+
+}
+
+document.getElementById(
+"authModal"
+).style.display="flex";
+
+showCreateForm();
+
+}
+
+/* =========================
+   AUTH HEADER
+========================= */
+
+document.getElementById(
+"headerAuthButton"
+).addEventListener(
+"click",
+function(){
+
+if(
+localStorage.getItem(
+"studyCoachAccount"
+)
+){
+
+logout();
+
+}else{
+
+openLogin();
+
+}
+
+});
+
+/* =========================
+   END
+========================= */
 
 </script>
 
