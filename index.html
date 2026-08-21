@@ -865,6 +865,51 @@ function formatTime(seconds){
 
 function updateTimer(){
 
+  const timerDisplay =
+    document.getElementById("timerDisplay");
+
+  const timerGaugeBar =
+    document.getElementById("timerGaugeBar");
+
+  const todayTime =
+    document.getElementById("todayTime");
+
+  if(timerDisplay){
+    timerDisplay.textContent =
+      formatTime(timerSeconds);
+  }
+
+  let progress = 0;
+
+  if(timerTotal > 0){
+
+    progress =
+      (
+        (timerTotal - timerSeconds)
+        /
+        timerTotal
+      ) * 100;
+
+  }
+
+  if(timerGaugeBar){
+    timerGaugeBar.style.width =
+      `${progress}%`;
+  }
+
+  const studied =
+    Math.max(
+      timerTotal - timerSeconds,
+      0
+    );
+
+  if(todayTime){
+    todayTime.textContent =
+      `${Math.floor(studied / 60)}分`;
+  }
+
+}
+
   document
     .getElementById("timerDisplay")
     .textContent =
